@@ -385,6 +385,9 @@
     </header>
 
     <!-- Section 1: System Architecture Map -->
+    </header>
+
+    <!-- Section 1: System Architecture Map -->
     <section id="architecture-map" class="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="mb-8">
             <div class="flex items-center justify-between">
@@ -437,6 +440,7 @@
                 </div>
             </div>
         </div>
+    </section>
     </section>
 
     <!-- Section 2: Inter-Service Communication -->
@@ -547,6 +551,7 @@
             </div>
         </div>
     </section>
+    </section>
 
     <!-- Section 3: Service Data Ownership -->
     <section id="data-ownership" class="py-12 bg-gray-50 border-t border-gray-200">
@@ -643,74 +648,9 @@
             </div>
         </div>
     </section>
-
-    <!-- Section 4: Request Flow Simulation -->
-    <section id="request-flow" class="py-12 bg-white border-t border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="mb-8">
-                <div class="flex items-center justify-between">
-                    <h2 class="text-3xl font-bold text-gray-900">Request Flow Simulation</h2>
-                    <button class="glossary-btn" onclick="openGlossary('request-flow')" title="View glossary for this section">?</button>
-                </div>
-                <p class="mt-4 text-gray-600 max-w-3xl">
-                    Step through a real-world scenario: "Parent Viewing Attendance" showing tenant context propagation.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                <div class="lg:col-span-1 space-y-4">
-                    <div id="step-1" class="flow-step border rounded-lg p-4 bg-white shadow-sm border-gray-200">
-                        <div class="flex items-center">
-                            <div class="flex-shrink-0 h-8 w-8 flex items-center justify-center rounded-full bg-blue-100 text-blue-600 font-bold">1</div>
-                            <div class="ml-3 font-medium">Parent App Request</div>
-                        </div>
-                    </div>
-                    <div class="h-4 border-l-2 border-gray-200 ml-4"></div>
-                    <div id="step-2" class="flow-step border rounded-lg p-4 bg-white shadow-sm border-gray-200">
-                        <div class="flex items-center">
-                            <div class="flex-shrink-0 h-8 w-8 flex items-center justify-center rounded-full bg-gray-100 text-gray-500 font-bold">2</div>
-                            <div class="ml-3 font-medium">BFF Aggregation</div>
-                        </div>
-                    </div>
-                    <div class="h-4 border-l-2 border-gray-200 ml-4"></div>
-                    <div id="step-3" class="flow-step border rounded-lg p-4 bg-white shadow-sm border-gray-200">
-                        <div class="flex items-center">
-                            <div class="flex-shrink-0 h-8 w-8 flex items-center justify-center rounded-full bg-gray-100 text-gray-500 font-bold">3</div>
-                            <div class="ml-3 font-medium">Gateway & Auth</div>
-                        </div>
-                    </div>
-                    <div class="h-4 border-l-2 border-gray-200 ml-4"></div>
-                    <div id="step-4" class="flow-step border rounded-lg p-4 bg-white shadow-sm border-gray-200">
-                        <div class="flex items-center">
-                            <div class="flex-shrink-0 h-8 w-8 flex items-center justify-center rounded-full bg-gray-100 text-gray-500 font-bold">4</div>
-                            <div class="ml-3 font-medium">Service & Database</div>
-                        </div>
-                    </div>
-                    <div class="mt-6">
-                        <button id="next-step-btn" onclick="nextFlowStep()" class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition">Start Simulation</button>
-                        <button onclick="resetFlow()" class="w-full mt-2 text-sm text-gray-500 hover:text-gray-700">Reset</button>
-                    </div>
-                </div>
-
-                <div class="lg:col-span-2 bg-gray-900 rounded-xl p-6 text-white font-mono text-sm shadow-xl flex flex-col justify-between min-h-[400px]">
-                    <div>
-                        <div class="border-b border-gray-700 pb-2 mb-4 flex justify-between">
-                            <span class="text-green-400">System Trace Logs</span>
-                            <span id="trace-status" class="text-gray-400">Waiting to start...</span>
-                        </div>
-                        <div id="code-display" class="space-y-4">
-                            <div class="text-gray-500 italic">// Click 'Start Simulation' to trace the request.</div>
-                        </div>
-                    </div>
-                    <div class="mt-4 pt-4 border-t border-gray-700 text-xs text-gray-400">
-                        Tenant Isolation Check: <span id="mt-check" class="text-gray-500">Pending</span>
-                    </div>
-                </div>
-            </div>
-        </div>
     </section>
 
-    <!-- Section 5: Data Flow Diagram by Role -->
+    <!-- Section 4: Data Flow Diagram by Role -->
     <section id="data-flow" class="py-12 bg-gray-50 border-t border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="mb-8">
@@ -1022,628 +962,284 @@
             </div>
         </div>
     </section>
+    </section>
 
-    <!-- Section 6: Circuit Breaker & Resilience -->
-    <section id="resilience" class="py-12 bg-gray-50 border-t border-gray-200">
+    <!-- Section 5: Request Flow Simulation -->
+    <section id="request-flow" class="py-12 bg-white border-t border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="mb-8">
                 <div class="flex items-center justify-between">
-                    <h2 class="text-3xl font-bold text-gray-900">Circuit Breaker & Resilience Patterns</h2>
-                    <button class="glossary-btn" onclick="openGlossary('resilience')" title="View glossary for this section">?</button>
+                    <h2 class="text-3xl font-bold text-gray-900">Request Flow Simulation</h2>
+                    <button class="glossary-btn" onclick="openGlossary('request-flow')" title="View glossary for this section">?</button>
                 </div>
                 <p class="mt-4 text-gray-600 max-w-3xl">
-                    Prevent cascading failures when a service is down. The circuit breaker pattern protects your system.
+                    Step through a real-world scenario: "Parent Viewing Attendance" showing tenant context propagation.
                 </p>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
-                <!-- Without Circuit Breaker -->
-                <div class="bg-red-50 border-2 border-red-200 rounded-xl p-6">
-                    <h4 class="text-xl font-bold text-red-900 mb-4">❌ Without Circuit Breaker</h4>
-                    <div class="bg-white p-4 rounded-lg border border-red-300 mb-4">
-                        <p class="text-sm text-gray-700 mb-3">Academic Service is down. Billing tries to call it:</p>
-                        <div class="font-mono text-xs text-red-700 space-y-1">
-                            <div>Request 1: FAIL (timeout 30s)</div>
-                            <div>Request 2: FAIL (timeout 30s)</div>
-                            <div>Request 3: FAIL (timeout 30s) ← Wasted resources</div>
-                            <div>Request 4-100: All FAIL, all timeout</div>
-                            <div class="text-red-600 font-bold mt-2">Result: Billing Service overloaded, cascading failure</div>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-1 space-y-4">
+                    <div id="step-1" class="flow-step border rounded-lg p-4 bg-white shadow-sm border-gray-200">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 h-8 w-8 flex items-center justify-center rounded-full bg-blue-100 text-blue-600 font-bold">1</div>
+                            <div class="ml-3 font-medium">Parent App Request</div>
                         </div>
                     </div>
-                </div>
-
-                <!-- With Circuit Breaker -->
-                <div class="bg-green-50 border-2 border-green-200 rounded-xl p-6">
-                    <h4 class="text-xl font-bold text-green-900 mb-4">✅ With Circuit Breaker</h4>
-                    <div class="bg-white p-4 rounded-lg border border-green-300 mb-4">
-                        <p class="text-sm text-gray-700 mb-3">Academic Service is down. Circuit breaker activates:</p>
-                        <div class="font-mono text-xs text-green-700 space-y-1">
-                            <div>Requests 1-3: FAIL, retrying</div>
-                            <div class="text-yellow-600">Circuit opens (fail threshold hit)</div>
-                            <div>Requests 4-100: FAIL fast (1ms, no retry)</div>
-                            <div class="text-blue-600">Return cached data OR default response</div>
-                            <div class="text-green-600 font-bold mt-2">✓ System stays responsive, no cascade</div>
+                    <div class="h-4 border-l-2 border-gray-200 ml-4"></div>
+                    <div id="step-2" class="flow-step border rounded-lg p-4 bg-white shadow-sm border-gray-200">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 h-8 w-8 flex items-center justify-center rounded-full bg-gray-100 text-gray-500 font-bold">2</div>
+                            <div class="ml-3 font-medium">BFF Aggregation</div>
                         </div>
                     </div>
-                </div>
-            </div>
-
-            <!-- Circuit Breaker States -->
-            <div class="bg-white rounded-xl border border-gray-200 p-8 mb-8">
-                <h4 class="text-xl font-bold text-gray-900 mb-6">Circuit Breaker State Machine</h4>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <!-- CLOSED -->
-                    <div class="bg-green-50 border-2 border-green-500 rounded-lg p-6 text-center">
-                        <div class="text-3xl font-bold text-green-600 mb-2">✓</div>
-                        <h5 class="font-bold text-green-900 mb-3">CLOSED (Normal)</h5>
-                        <p class="text-sm text-green-800 mb-4">Service is healthy, all requests pass through.</p>
-                        <div class="bg-white p-3 rounded text-xs font-mono text-gray-700">
-                            <div>→ OPEN: After N failures</div>
+                    <div class="h-4 border-l-2 border-gray-200 ml-4"></div>
+                    <div id="step-3" class="flow-step border rounded-lg p-4 bg-white shadow-sm border-gray-200">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 h-8 w-8 flex items-center justify-center rounded-full bg-gray-100 text-gray-500 font-bold">3</div>
+                            <div class="ml-3 font-medium">Gateway & Auth</div>
                         </div>
                     </div>
-
-                    <!-- OPEN -->
-                    <div class="bg-red-50 border-2 border-red-500 rounded-lg p-6 text-center">
-                        <div class="text-3xl font-bold text-red-600 mb-2">⊘</div>
-                        <h5 class="font-bold text-red-900 mb-3">OPEN (Failing)</h5>
-                        <p class="text-sm text-red-800 mb-4">Service detected down, fail fast immediately.</p>
-                        <div class="bg-white p-3 rounded text-xs font-mono text-gray-700">
-                            <div>→ HALF_OPEN: After timeout (60s)</div>
+                    <div class="h-4 border-l-2 border-gray-200 ml-4"></div>
+                    <div id="step-4" class="flow-step border rounded-lg p-4 bg-white shadow-sm border-gray-200">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 h-8 w-8 flex items-center justify-center rounded-full bg-gray-100 text-gray-500 font-bold">4</div>
+                            <div class="ml-3 font-medium">Service & Database</div>
                         </div>
                     </div>
+                    <div class="mt-6">
+                        <button id="next-step-btn" onclick="nextFlowStep()" class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition">Start Simulation</button>
+                        <button onclick="resetFlow()" class="w-full mt-2 text-sm text-gray-500 hover:text-gray-700">Reset</button>
+                    </div>
+                </div>
 
-                    <!-- HALF_OPEN -->
-                    <div class="bg-yellow-50 border-2 border-yellow-500 rounded-lg p-6 text-center">
-                        <div class="text-3xl font-bold text-yellow-600 mb-2">⚠</div>
-                        <h5 class="font-bold text-yellow-900 mb-3">HALF_OPEN (Testing)</h5>
-                        <p class="text-sm text-yellow-800 mb-4">Allow test requests to check if service recovered.</p>
-                        <div class="bg-white p-3 rounded text-xs font-mono text-gray-700">
-                            <div>→ CLOSED if success</div>
-                            <div>→ OPEN if failure</div>
+                <div class="lg:col-span-2 bg-gray-900 rounded-xl p-6 text-white font-mono text-sm shadow-xl flex flex-col justify-between min-h-[400px]">
+                    <div>
+                        <div class="border-b border-gray-700 pb-2 mb-4 flex justify-between">
+                            <span class="text-green-400">System Trace Logs</span>
+                            <span id="trace-status" class="text-gray-400">Waiting to start...</span>
+                        </div>
+                        <div id="code-display" class="space-y-4">
+                            <div class="text-gray-500 italic">// Click 'Start Simulation' to trace the request.</div>
                         </div>
                     </div>
-                </div>
-            </div>
-
-            <!-- Resilience Patterns -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
-                    <h5 class="font-bold text-blue-900 mb-3">🔄 Retry Strategy</h5>
-                    <p class="text-sm text-blue-800 mb-3">Exponential backoff: 100ms → 500ms → 2s</p>
-                    <div class="bg-white p-3 rounded text-xs font-mono text-blue-900">
-                        Try, fail, wait, retry, fail, wait longer, retry...
-                    </div>
-                </div>
-
-                <div class="bg-purple-50 border border-purple-200 rounded-lg p-6">
-                    <h5 class="font-bold text-purple-900 mb-3">📦 Fallback / Cache</h5>
-                    <p class="text-sm text-purple-800 mb-3">Return cached/stale data instead of error</p>
-                    <div class="bg-white p-3 rounded text-xs font-mono text-purple-900">
-                        If Academic Service down: return cached student data (5 min old)
-                    </div>
-                </div>
-
-                <div class="bg-green-50 border border-green-200 rounded-lg p-6">
-                    <h5 class="font-bold text-green-900 mb-3">⏱️ Timeout</h5>
-                    <p class="text-sm text-green-800 mb-3">Never wait forever for a response (max 5s)</p>
-                    <div class="bg-white p-3 rounded text-xs font-mono text-green-900">
-                        If no response after 5s → treat as failure, don't retry
-                    </div>
-                </div>
-
-                <div class="bg-orange-50 border border-orange-200 rounded-lg p-6">
-                    <h5 class="font-bold text-orange-900 mb-3">🎯 Bulkhead</h5>
-                    <p class="text-sm text-orange-800 mb-3">Isolate resource pools per dependent service</p>
-                    <div class="bg-white p-3 rounded text-xs font-mono text-orange-900">
-                        10 threads for Academic, 10 for Billing (not shared)
+                    <div class="mt-4 pt-4 border-t border-gray-700 text-xs text-gray-400">
+                        Tenant Isolation Check: <span id="mt-check" class="text-gray-500">Pending</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+    </section>
 
-    <!-- Section 6: Observability & Monitoring -->
-    <section id="observability" class="py-12 bg-white border-t border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="mb-8">
-                <div class="flex items-center justify-between">
-                    <h2 class="text-3xl font-bold text-gray-900">Observability & Monitoring</h2>
-                    <button class="glossary-btn" onclick="openGlossary('observability')" title="View glossary for this section">?</button>
+    <!-- Section 6: API Interaction Flow -->
+    <section id="api-flow" class="py-16 bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 border-t border-gray-200">
+        <div class="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Header -->
+            <div class="mb-12">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-4xl font-bold text-white">API Interaction Flow</h2>
+                    <button class="glossary-btn text-lg" onclick="openGlossary('api-flow')" title="View API Flow glossary">?</button>
                 </div>
-                <p class="mt-4 text-gray-600 max-w-3xl">
-                    Understand system behavior through logging, metrics, and distributed tracing.
-                </p>
+                <p class="text-gray-300 text-lg">Watch how requests travel from Frontend → BFF → API Gateway → Microservices → back. Real scenarios with parallel data aggregation.</p>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <!-- Logging -->
-                <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6 border-2 border-blue-300">
-                    <div class="text-4xl mb-3">📝</div>
-                    <h4 class="text-xl font-bold text-blue-900 mb-3">Logging (ELK Stack)</h4>
-                    <p class="text-sm text-blue-800 mb-4">Centralized logs from all services with correlation IDs.</p>
-                    <div class="bg-blue-900 text-blue-100 p-3 rounded text-xs font-mono space-y-1">
-                        <div>{timestamp: 2024-02-26T10:15:32Z}</div>
-                        <div>{service: academic-service}</div>
-                        <div>{correlation_id: abc-123}</div>
-                        <div>{level: INFO}</div>
-                        <div>{message: "Student created"}</div>
+            <!-- Scenario Selector Tabs -->
+            <div class="flex flex-wrap gap-4 mb-12">
+                <button onclick="loadApiScenario('dashboard')" class="api-scenario-tab active px-7 py-3 rounded-full text-base font-bold transition-all bg-gradient-to-r from-blue-500 to-cyan-500 text-white hover:from-blue-600 hover:to-cyan-600 shadow-lg">📊 Student Dashboard</button>
+                <button onclick="loadApiScenario('attendance')" class="api-scenario-tab px-7 py-3 rounded-full text-base font-bold transition-all text-gray-300 hover:text-white bg-slate-700 hover:bg-slate-600 shadow-lg">✓ Mark Attendance</button>
+                <button onclick="loadApiScenario('payment')" class="api-scenario-tab px-7 py-3 rounded-full text-base font-bold transition-all text-gray-300 hover:text-white bg-slate-700 hover:bg-slate-600 shadow-lg">💳 Process Payment</button>
+            </div>
+
+            <!-- Main Flow Visualization -->
+            <div class="mb-10 grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
+                <!-- Left: SVG Flow Diagram -->
+                <div class="lg:col-span-3">
+                    <div class="bg-slate-800/60 rounded-2xl border-2 border-slate-600 p-8 backdrop-blur-md shadow-2xl">
+                        <h3 class="text-2xl font-bold text-white mb-6">Request Journey Architecture</h3>
+                        <div class="overflow-x-auto">
+                            <svg id="apiFlowSvg" viewBox="0 0 1100 550" class="w-full h-auto bg-slate-900/60 rounded-xl border border-slate-700" style="min-height: 550px;">
+                                <defs>
+                                    <!-- Gradients for nodes -->
+                                    <linearGradient id="gradFrontend" x1="0%" y1="0%" x2="0%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#06B6D4;stop-opacity:0.6" />
+                                        <stop offset="100%" style="stop-color:#0891B2;stop-opacity:0.3" />
+                                    </linearGradient>
+                                    <linearGradient id="gradBff" x1="0%" y1="0%" x2="0%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#3B82F6;stop-opacity:0.6" />
+                                        <stop offset="100%" style="stop-color:#2563EB;stop-opacity:0.3" />
+                                    </linearGradient>
+                                    <linearGradient id="gradGateway" x1="0%" y1="0%" x2="0%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#8B5CF6;stop-opacity:0.6" />
+                                        <stop offset="100%" style="stop-color:#7C3AED;stop-opacity:0.3" />
+                                    </linearGradient>
+                                    <linearGradient id="gradService" x1="0%" y1="0%" x2="0%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#EC4899;stop-opacity:0.6" />
+                                        <stop offset="100%" style="stop-color:#DB2777;stop-opacity:0.3" />
+                                    </linearGradient>
+                                    <linearGradient id="gradCache" x1="0%" y1="0%" x2="0%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#F59E0B;stop-opacity:0.6" />
+                                        <stop offset="100%" style="stop-color:#D97706;stop-opacity:0.3" />
+                                    </linearGradient>
+                                    <!-- Arrow markers -->
+                                    <marker id="arrowActive" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                                        <path d="M0,0 L0,6 L9,3 z" fill="#06B6D4" />
+                                    </marker>
+                                </defs>
+
+                                <!-- Column 1: Frontend -->
+                                <rect x="30" y="100" width="140" height="90" rx="12" fill="url(#gradFrontend)" stroke="#06B6D4" stroke-width="3" class="api-node" data-node="frontend"/>
+                                <text x="100" y="140" text-anchor="middle" fill="white" font-weight="bold" font-size="18">Frontend</text>
+                                <text x="100" y="162" text-anchor="middle" fill="#B0E0E6" font-size="14">(React/RN)</text>
+
+                                <!-- Arrow 1: Frontend → BFF -->
+                                <line x1="170" y1="145" x2="210" y2="145" stroke="#7B8BA8" stroke-width="3" class="api-edge" data-edge="frontend-bff"/>
+                                <polygon points="210,145 228,145 219,137" fill="#7B8BA8" class="api-edge-arrow" data-edge="frontend-bff"/>
+
+                                <!-- Column 2: BFF + Redis -->
+                                <rect x="230" y="60" width="140" height="90" rx="12" fill="url(#gradBff)" stroke="#3B82F6" stroke-width="3" class="api-node" data-node="bff"/>
+                                <text x="300" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="18">BFF</text>
+                                <text x="300" y="122" text-anchor="middle" fill="#93C5FD" font-size="14">(Aggregation)</text>
+
+                                <rect x="230" y="180" width="140" height="80" rx="12" fill="url(#gradCache)" stroke="#F59E0B" stroke-width="3" class="api-node" data-node="redis"/>
+                                <text x="300" y="220" text-anchor="middle" fill="white" font-weight="bold" font-size="16">Redis Cache</text>
+
+                                <!-- Arrow: BFF → Gateway -->
+                                <line x1="370" y1="105" x2="420" y2="105" stroke="#7B8BA8" stroke-width="3" class="api-edge" data-edge="bff-gateway"/>
+                                <polygon points="420,105 438,105 429,97" fill="#7B8BA8" class="api-edge-arrow" data-edge="bff-gateway"/>
+
+                                <!-- Column 3: API Gateway -->
+                                <rect x="440" y="60" width="140" height="90" rx="12" fill="url(#gradGateway)" stroke="#8B5CF6" stroke-width="3" class="api-node" data-node="gateway"/>
+                                <text x="510" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="18">API Gateway</text>
+                                <text x="510" y="122" text-anchor="middle" fill="#D8B4FE" font-size="14">(JWT, Rate Limit)</text>
+
+                                <!-- Arrow: Gateway → Services -->
+                                <line x1="580" y1="105" x2="630" y2="105" stroke="#7B8BA8" stroke-width="3" class="api-edge" data-edge="gateway-services"/>
+                                <polygon points="630,105 648,105 639,97" fill="#7B8BA8" class="api-edge-arrow" data-edge="gateway-services"/>
+
+                                <!-- Column 4: Microservices (Parallel) -->
+                                <g class="api-services-group">
+                                    <!-- Academic Service -->
+                                    <rect x="650" y="20" width="130" height="75" rx="12" fill="url(#gradService)" stroke="#EC4899" stroke-width="3" class="api-node" data-node="academic"/>
+                                    <text x="715" y="62" text-anchor="middle" fill="white" font-weight="bold" font-size="16">📚 Academic</text>
+
+                                    <!-- Billing Service -->
+                                    <rect x="650" y="115" width="130" height="75" rx="12" fill="url(#gradService)" stroke="#EC4899" stroke-width="3" class="api-node" data-node="billing"/>
+                                    <text x="715" y="157" text-anchor="middle" fill="white" font-weight="bold" font-size="16">💳 Billing</text>
+
+                                    <!-- Communication Service -->
+                                    <rect x="650" y="210" width="130" height="75" rx="12" fill="url(#gradService)" stroke="#EC4899" stroke-width="3" class="api-node" data-node="communication"/>
+                                    <text x="715" y="252" text-anchor="middle" fill="white" font-weight="bold" font-size="16">💬 Comm</text>
+
+                                    <!-- Auth Service (Inactive) -->
+                                    <rect x="650" y="305" width="130" height="75" rx="12" fill="url(#gradService)" stroke="#EC4899" stroke-width="3" class="api-node" data-node="auth" style="opacity:0.35;"/>
+                                    <text x="715" y="347" text-anchor="middle" fill="white" font-weight="bold" font-size="16">🔐 Auth</text>
+                                </g>
+
+                                <!-- Services back to BFF -->
+                                <line x1="650" y1="57" x2="600" y2="57" stroke="#7B8BA8" stroke-width="3" class="api-edge" data-edge="academic-bff"/>
+                                <line x1="650" y1="152" x2="600" y2="152" stroke="#7B8BA8" stroke-width="3" class="api-edge" data-edge="billing-bff"/>
+                                <line x1="650" y1="247" x2="600" y2="247" stroke="#7B8BA8" stroke-width="3" class="api-edge" data-edge="comm-bff"/>
+
+                                <!-- BFF back to Frontend -->
+                                <line x1="270" y1="60" x2="120" y2="145" stroke="#7B8BA8" stroke-width="3" class="api-edge" data-edge="bff-frontend"/>
+                                <polygon points="120,145 102,149 110,158" fill="#7B8BA8" class="api-edge-arrow" data-edge="bff-frontend"/>
+
+                                <!-- Step Labels -->
+                                <g class="api-step-labels" opacity="0.8">
+                                    <text x="100" y="25" text-anchor="middle" fill="#93C5FD" font-size="13" font-weight="bold">Step 1</text>
+                                    <text x="300" y="25" text-anchor="middle" fill="#93C5FD" font-size="13" font-weight="bold">Step 2-3</text>
+                                    <text x="510" y="25" text-anchor="middle" fill="#93C5FD" font-size="13" font-weight="bold">Step 4-5</text>
+                                    <text x="715" y="405" text-anchor="middle" fill="#93C5FD" font-size="16" font-weight="bold">⚡ Parallel Calls</text>
+                                </g>
+
+                                <!-- Legend -->
+                                <text x="30" y="475" fill="#D1D5DB" font-size="14" font-weight="bold">Legend:</text>
+                                <rect x="140" y="463" width="16" height="16" fill="#06B6D4" rx="3"/>
+                                <text x="165" y="475" fill="#D1D5DB" font-size="13">Frontend</text>
+
+                                <rect x="300" y="463" width="16" height="16" fill="#3B82F6" rx="3"/>
+                                <text x="325" y="475" fill="#D1D5DB" font-size="13">BFF</text>
+
+                                <rect x="420" y="463" width="16" height="16" fill="#8B5CF6" rx="3"/>
+                                <text x="445" y="475" fill="#D1D5DB" font-size="13">Gateway</text>
+
+                                <rect x="600" y="463" width="16" height="16" fill="#EC4899" rx="3"/>
+                                <text x="625" y="475" fill="#D1D5DB" font-size="13">Services</text>
+
+                                <rect x="800" y="463" width="16" height="16" fill="#F59E0B" rx="3"/>
+                                <text x="825" y="475" fill="#D1D5DB" font-size="13">Cache</text>
+                            </svg>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Metrics -->
-                <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-6 border-2 border-green-300">
-                    <div class="text-4xl mb-3">📊</div>
-                    <h4 class="text-xl font-bold text-green-900 mb-3">Metrics (Prometheus)</h4>
-                    <p class="text-sm text-green-800 mb-4">Real-time system performance and health indicators.</p>
-                    <div class="bg-green-900 text-green-100 p-3 rounded text-xs font-mono space-y-1">
-                        <div>Response time: 45ms (p50)</div>
-                        <div>Error rate: 0.02%</div>
-                        <div>Throughput: 1,200 req/s</div>
-                        <div>DB connections: 42/100</div>
-                    </div>
-                </div>
+                <!-- Right: Step Details Panel -->
+                <div class="lg:col-span-2">
+                    <div class="bg-slate-800/80 rounded-2xl border-2 border-slate-600 p-8 backdrop-blur-md shadow-2xl sticky top-20 max-h-fit">
+                        <div class="mb-6">
+                            <div class="flex items-center justify-between mb-4">
+                                <span class="text-sm font-bold text-gray-300 uppercase tracking-wider">📍 Step <span id="apiStepNum">1</span> of 6</span>
+                                <span class="text-sm px-3 py-1.5 rounded-full bg-gradient-to-r from-blue-700 to-blue-500 text-blue-50 font-bold" id="apiStepLayer">Client</span>
+                            </div>
+                            <h4 id="apiStepTitle" class="text-2xl font-bold text-white mb-2">Frontend Request</h4>
+                        </div>
 
-                <!-- Tracing -->
-                <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-6 border-2 border-purple-300">
-                    <div class="text-4xl mb-3">🔍</div>
-                    <h4 class="text-xl font-bold text-purple-900 mb-3">Tracing (Jaeger)</h4>
-                    <p class="text-sm text-purple-800 mb-4">Track requests across all services to find bottlenecks.</p>
-                    <div class="bg-purple-900 text-purple-100 p-3 rounded text-xs font-mono space-y-1">
-                        <div>Request: abc-123</div>
-                        <div>├─ BFF: 5ms</div>
-                        <div>├─ Gateway: 2ms</div>
-                        <div>├─ Academic Svc: 30ms 🔴</div>
-                        <div>└─ Database: 25ms</div>
+                        <div class="mb-6">
+                            <p id="apiStepDesc" class="text-base text-gray-200 leading-relaxed">Parent app sends GET /dashboard with JWT in Authorization header. BFF endpoint receives.</p>
+                        </div>
+
+                        <div class="mb-6">
+                            <div class="text-sm font-bold text-gray-300 uppercase tracking-wider mb-3">💻 Code Snippet</div>
+                            <pre id="apiStepCode" class="bg-slate-900 text-gray-100 text-sm p-4 rounded-lg border border-slate-600 overflow-x-auto font-mono leading-relaxed"><code>GET /api/v1/dashboard
+Authorization: Bearer eyJhbGc...
+X-School-ID: 101
+X-Client: parent-mobile</code></pre>
+                        </div>
+
+                        <div class="pt-4 border-t border-slate-700">
+                            <div class="text-sm text-gray-300 font-mono">
+                                <span id="apiActiveNodes" class="block text-base font-semibold text-cyan-300">🔗 Active: Frontend → BFF</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Request Journey with Observability -->
-            <div class="bg-gray-50 rounded-xl border border-gray-200 p-8">
-                <h4 class="text-xl font-bold text-gray-900 mb-6">Complete Request Journey with Observability</h4>
+            <!-- Step Controls -->
+            <div class="flex items-center justify-center gap-5 mb-14 mt-10 flex-wrap">
+                <button onclick="apiPrevStep()" class="px-6 py-3 rounded-lg bg-slate-700 hover:bg-slate-600 text-white font-bold transition text-base shadow-lg hover:shadow-xl">◀ Previous</button>
+                <button onclick="toggleApiAutoPlay()" id="apiAutoPlayBtn" class="px-8 py-3 rounded-lg bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white font-bold transition text-base shadow-lg hover:shadow-xl">▶ Auto Play</button>
+                <button onclick="apiNextStep()" class="px-6 py-3 rounded-lg bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white font-bold transition text-base shadow-lg hover:shadow-xl">Next ▶</button>
+                <button onclick="apiResetFlow()" class="px-6 py-3 rounded-lg bg-slate-700 hover:bg-slate-600 text-white font-bold transition text-base shadow-lg hover:shadow-xl">↻ Reset</button>
+            </div>
 
-                <div class="space-y-4">
-                    <div class="bg-white p-4 rounded-lg border border-gray-200">
-                        <div class="flex items-start gap-4">
-                            <div class="text-3xl">📱</div>
-                            <div class="flex-1">
-                                <h5 class="font-bold text-gray-800">1. Client Request</h5>
-                                <p class="text-sm text-gray-600 mt-1">Parent submits attendance query</p>
-                                <div class="bg-gray-100 p-2 rounded text-xs font-mono text-gray-700 mt-2">
-                                    X-Correlation-ID: req-9f8a2b ← Unique ID for tracing
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-white p-4 rounded-lg border border-gray-200">
-                        <div class="flex items-start gap-4">
-                            <div class="text-3xl">🚪</div>
-                            <div class="flex-1">
-                                <h5 class="font-bold text-gray-800">2. API Gateway (5ms)</h5>
-                                <p class="text-sm text-gray-600 mt-1">Validates JWT, extracts school_id, routes request</p>
-                                <div class="bg-gray-100 p-2 rounded text-xs font-mono text-gray-700 mt-2">
-                                    <span class="text-green-600">✓</span> JWT valid | <span class="text-blue-600">school_id: 101</span> | Rate limit: 45/100 reqs/min
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-white p-4 rounded-lg border border-gray-200">
-                        <div class="flex items-start gap-4">
-                            <div class="text-3xl">⚙️</div>
-                            <div class="flex-1">
-                                <h5 class="font-bold text-gray-800">3. BFF Layer (10ms)</h5>
-                                <p class="text-sm text-gray-600 mt-1">Aggregates data from Academic Service</p>
-                                <div class="bg-gray-100 p-2 rounded text-xs font-mono text-gray-700 mt-2">
-                                    <span class="text-orange-600">Cache hit:</span> Returns from Redis (1ms)
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-white p-4 rounded-lg border border-gray-200">
-                        <div class="flex items-start gap-4">
-                            <div class="text-3xl">📚</div>
-                            <div class="flex-1">
-                                <h5 class="font-bold text-gray-800">4. Academic Service (25ms)</h5>
-                                <p class="text-sm text-gray-600 mt-1">Queries attendance records with tenant scope</p>
-                                <div class="bg-gray-100 p-2 rounded text-xs font-mono text-gray-700 mt-2">
-                                    Query: SELECT * FROM attendance WHERE school_id=101 AND student_id=? | Rows: 45
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="bg-green-50 p-4 rounded-lg border border-green-200 font-bold text-green-900">
-                        ✓ Total: 40ms | All systems healthy | Response cached for 5min
-                    </div>
+            <!-- Key Concepts Footer -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
+                <div class="bg-slate-800/60 rounded-xl border-2 border-slate-600 p-6 backdrop-blur-md hover:border-cyan-400 transition shadow-lg">
+                    <div class="text-4xl mb-3">⚡</div>
+                    <div class="font-bold text-white text-lg mb-3">Parallel Calls</div>
+                    <p class="text-sm text-gray-300 leading-relaxed">BFF uses Promise.all to call services simultaneously — not one-by-one. Faster responses.</p>
+                </div>
+                <div class="bg-slate-800/60 rounded-xl border-2 border-slate-600 p-6 backdrop-blur-md hover:border-amber-400 transition shadow-lg">
+                    <div class="text-4xl mb-3">🔴</div>
+                    <div class="font-bold text-white text-lg mb-3">Redis Caching</div>
+                    <p class="text-sm text-gray-300 leading-relaxed">Aggregated response cached in Redis with TTL. Second request returns in &lt;5ms.</p>
+                </div>
+                <div class="bg-slate-800/60 rounded-xl border-2 border-slate-600 p-6 backdrop-blur-md hover:border-purple-400 transition shadow-lg">
+                    <div class="text-4xl mb-3">🔗</div>
+                    <div class="font-bold text-white text-lg mb-3">BFF Per Client</div>
+                    <p class="text-sm text-gray-300 leading-relaxed">Parent BFF ≠ Teacher BFF. Each formats response for its specific client type.</p>
+                </div>
+                <div class="bg-slate-800/60 rounded-xl border-2 border-slate-600 p-6 backdrop-blur-md hover:border-pink-400 transition shadow-lg">
+                    <div class="text-4xl mb-3">🛡️</div>
+                    <div class="font-bold text-white text-lg mb-3">JWT at Gateway</div>
+                    <p class="text-sm text-gray-300 leading-relaxed">Token validated once. Services trust gateway-forwarded headers securely.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Section 7: Event-Driven Workflows -->
-    <section id="events" class="py-12 bg-gray-50 border-t border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="mb-8">
-                <div class="flex items-center justify-between">
-                    <h2 class="text-3xl font-bold text-gray-900">Event-Driven Workflows</h2>
-                    <button class="glossary-btn" onclick="openGlossary('events')" title="View glossary for this section">?</button>
-                </div>
-                <p class="mt-4 text-gray-600 max-w-3xl">
-                    Asynchronous operations that scale independently and decouple services.
-                </p>
-            </div>
-
-            <!-- Student Enrollment Workflow -->
-            <div class="bg-white rounded-xl border border-gray-200 p-8">
-                <h4 class="text-xl font-bold text-gray-900 mb-6">Real-World Example: Complete Student Enrollment Flow</h4>
-
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-                    <!-- Event Definition -->
-                    <div class="lg:col-span-1 bg-blue-50 p-6 rounded-lg border border-blue-200">
-                        <h5 class="font-bold text-blue-900 mb-3">Event: StudentEnrolled</h5>
-                        <div class="bg-blue-900 text-blue-100 p-3 rounded text-xs font-mono space-y-1">
-                            <div>{</div>
-                            <div class="pl-2">event_id: "evt-001",</div>
-                            <div class="pl-2">timestamp: "2024-02-26T...",</div>
-                            <div class="pl-2">student_id: "st_123",</div>
-                            <div class="pl-2">school_id: 101,</div>
-                            <div class="pl-2">name: "Alice Johnson",</div>
-                            <div class="pl-2">grade: "5A"</div>
-                            <div>}</div>
-                        </div>
-                    </div>
-
-                    <!-- Event Processing -->
-                    <div class="lg:col-span-2">
-                        <h5 class="font-bold text-gray-800 mb-4">Multiple Services React Independently</h5>
-                        <div class="space-y-3">
-                            <div class="bg-white p-4 rounded-lg border border-gray-200">
-                                <div class="flex items-center gap-3 mb-2">
-                                    <span class="inline-block bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold">Billing Service</span>
-                                    <span class="text-sm text-gray-600">Listens to StudentEnrolled</span>
-                                </div>
-                                <div class="bg-gray-100 p-2 rounded text-xs font-mono text-gray-700">
-                                    Creates invoice for school_id=101, adds payment schedule
-                                </div>
-                            </div>
-
-                            <div class="bg-white p-4 rounded-lg border border-gray-200">
-                                <div class="flex items-center gap-3 mb-2">
-                                    <span class="inline-block bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-xs font-bold">Communication Service</span>
-                                    <span class="text-sm text-gray-600">Listens to StudentEnrolled</span>
-                                </div>
-                                <div class="bg-gray-100 p-2 rounded text-xs font-mono text-gray-700">
-                                    Sends welcome email to parent, SMS notification
-                                </div>
-                            </div>
-
-                            <div class="bg-white p-4 rounded-lg border border-gray-200">
-                                <div class="flex items-center gap-3 mb-2">
-                                    <span class="inline-block bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-xs font-bold">Transport Service</span>
-                                    <span class="text-sm text-gray-600">Listens to StudentEnrolled</span>
-                                </div>
-                                <div class="bg-gray-100 p-2 rounded text-xs font-mono text-gray-700">
-                                    Assigns to bus route, updates scheduling
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Timeline -->
-                <div class="mt-8 bg-gradient-to-r from-blue-50 to-purple-50 p-6 rounded-lg border border-gray-200">
-                    <h5 class="font-bold text-gray-800 mb-4">Timeline (Real-World Execution)</h5>
-                    <div class="space-y-3 font-mono text-xs">
-                        <div class="flex items-center gap-4">
-                            <span class="bg-blue-600 text-white px-3 py-1 rounded-full w-20 text-center">T=0ms</span>
-                            <span class="text-gray-700">Parent submits enrollment form</span>
-                        </div>
-                        <div class="flex items-center gap-4">
-                            <span class="bg-blue-600 text-white px-3 py-1 rounded-full w-20 text-center">T=50ms</span>
-                            <span class="text-gray-700">Academic Service saves student ✓</span>
-                        </div>
-                        <div class="flex items-center gap-4">
-                            <span class="bg-blue-600 text-white px-3 py-1 rounded-full w-20 text-center">T=55ms</span>
-                            <span class="text-gray-700 bg-yellow-100 px-2 py-1 rounded">PublishEvent: StudentEnrolled</span>
-                        </div>
-                        <div class="flex items-center gap-4">
-                            <span class="bg-green-600 text-white px-3 py-1 rounded-full w-20 text-center">T=60ms</span>
-                            <span class="text-gray-700">🎉 Parent sees "Success" (confirmation sent)</span>
-                        </div>
-                        <div class="border-t border-gray-300 my-2 pt-2">
-                            <div class="text-gray-600 italic">Async processing continues in background...</div>
-                        </div>
-                        <div class="flex items-center gap-4">
-                            <span class="bg-purple-600 text-white px-3 py-1 rounded-full w-20 text-center">T=200ms</span>
-                            <span class="text-gray-700">Billing Service: Invoice created ✓</span>
-                        </div>
-                        <div class="flex items-center gap-4">
-                            <span class="bg-purple-600 text-white px-3 py-1 rounded-full w-20 text-center">T=300ms</span>
-                            <span class="text-gray-700">Communication: Email/SMS sent ✓</span>
-                        </div>
-                        <div class="flex items-center gap-4">
-                            <span class="bg-orange-600 text-white px-3 py-1 rounded-full w-20 text-center">T=150ms</span>
-                            <span class="text-gray-700">Transport: Bus route assigned ✓</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Section 8: Simple vs. Production-Ready Comparison -->
-    <section id="comparison" class="py-12 bg-white border-t border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="mb-8">
-                <div class="flex items-center justify-between">
-                    <h2 class="text-3xl font-bold text-gray-900">Simple vs. Production-Ready Architecture</h2>
-                    <button class="glossary-btn" onclick="openGlossary('comparison')" title="View glossary for this section">?</button>
-                </div>
-                <p class="mt-4 text-gray-600 max-w-3xl">
-                    What you learn in tutorials vs. what production systems actually need.
-                </p>
-            </div>
-
-            <div class="overflow-x-auto bg-white rounded-xl border border-gray-200">
-                <table class="comparison-table w-full">
-                    <thead>
-                        <tr class="bg-gray-100 border-b-2 border-gray-300">
-                            <th class="font-bold text-gray-900">Aspect</th>
-                            <th class="text-center">
-                                <div class="font-bold text-blue-900">🎓 Simple</div>
-                                <div class="text-xs text-blue-700">(Tutorial)</div>
-                            </th>
-                            <th class="text-center">
-                                <div class="font-bold text-green-900">🏭 Production-Ready</div>
-                                <div class="text-xs text-green-700">(SchoolNest v2.0)</div>
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr class="border-b border-gray-200 hover:bg-gray-50">
-                            <td class="font-bold text-gray-800">Service Calls</td>
-                            <td class="text-center"><span class="check-icon">✓</span> REST only (sync)</td>
-                            <td class="text-center"><span class="check-icon">✓</span> REST (sync) + Event Bus (async)</td>
-                        </tr>
-                        <tr class="border-b border-gray-200 hover:bg-gray-50">
-                            <td class="font-bold text-gray-800">Failure Handling</td>
-                            <td class="text-center"><span class="cross-icon">✗</span> None (hope it works)</td>
-                            <td class="text-center"><span class="check-icon">✓</span> Circuit breaker, retries, fallbacks</td>
-                        </tr>
-                        <tr class="border-b border-gray-200 hover:bg-gray-50">
-                            <td class="font-bold text-gray-800">Service Discovery</td>
-                            <td class="text-center"><span class="warning-icon">⚠</span> Hardcoded URLs</td>
-                            <td class="text-center"><span class="check-icon">✓</span> Kubernetes/Consul service discovery</td>
-                        </tr>
-                        <tr class="border-b border-gray-200 hover:bg-gray-50">
-                            <td class="font-bold text-gray-800">Logging</td>
-                            <td class="text-center"><span class="warning-icon">⚠</span> Console.log()</td>
-                            <td class="text-center"><span class="check-icon">✓</span> Structured logs to ELK stack with correlation IDs</td>
-                        </tr>
-                        <tr class="border-b border-gray-200 hover:bg-gray-50">
-                            <td class="font-bold text-gray-800">Metrics</td>
-                            <td class="text-center"><span class="cross-icon">✗</span> None</td>
-                            <td class="text-center"><span class="check-icon">✓</span> Prometheus metrics, Grafana dashboards</td>
-                        </tr>
-                        <tr class="border-b border-gray-200 hover:bg-gray-50">
-                            <td class="font-bold text-gray-800">Distributed Tracing</td>
-                            <td class="text-center"><span class="cross-icon">✗</span> None</td>
-                            <td class="text-center"><span class="check-icon">✓</span> Jaeger traces request through all services</td>
-                        </tr>
-                        <tr class="border-b border-gray-200 hover:bg-gray-50">
-                            <td class="font-bold text-gray-800">Rate Limiting</td>
-                            <td class="text-center"><span class="cross-icon">✗</span> None</td>
-                            <td class="text-center"><span class="check-icon">✓</span> Per-user, per-tenant, global quotas</td>
-                        </tr>
-                        <tr class="border-b border-gray-200 hover:bg-gray-50">
-                            <td class="font-bold text-gray-800">Data Isolation</td>
-                            <td class="text-center"><span class="warning-icon">⚠</span> WHERE school_id = ? (app-level)</td>
-                            <td class="text-center"><span class="check-icon">✓</span> RLS + app-level + audit logging</td>
-                        </tr>
-                        <tr class="border-b border-gray-200 hover:bg-gray-50">
-                            <td class="font-bold text-gray-800">Schema Migrations</td>
-                            <td class="text-center"><span class="warning-icon">⚠</span> Manual, downtime required</td>
-                            <td class="text-center"><span class="check-icon">✓</span> Zero-downtime migrations with gradual rollout</td>
-                        </tr>
-                        <tr class="border-b border-gray-200 hover:bg-gray-50">
-                            <td class="font-bold text-gray-800">Deployment</td>
-                            <td class="text-center"><span class="warning-icon">⚠</span> Manual SSH or basic CI/CD</td>
-                            <td class="text-center"><span class="check-icon">✓</span> Blue-green/canary with automatic rollback</td>
-                        </tr>
-                        <tr class="border-b border-gray-200 hover:bg-gray-50">
-                            <td class="font-bold text-gray-800">Caching Strategy</td>
-                            <td class="text-center"><span class="cross-icon">✗</span> None</td>
-                            <td class="text-center"><span class="check-icon">✓</span> Redis + cache invalidation strategy</td>
-                        </tr>
-                        <tr class="hover:bg-gray-50">
-                            <td class="font-bold text-gray-800">Disaster Recovery</td>
-                            <td class="text-center"><span class="cross-icon">✗</span> Backup and hope</td>
-                            <td class="text-center"><span class="check-icon">✓</span> Point-in-time recovery, cross-region replicas</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <!-- Implementation Maturity Levels -->
-            <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="bg-blue-50 border-2 border-blue-200 rounded-xl p-6">
-                    <h4 class="text-lg font-bold text-blue-900 mb-3">Level 1: MVP</h4>
-                    <p class="text-sm text-blue-800 mb-3">Proof of concept, < 100 schools</p>
-                    <ul class="text-xs text-blue-800 space-y-1">
-                        <li>✓ Basic multi-tenancy</li>
-                        <li>✓ REST APIs</li>
-                        <li>✓ Database per service</li>
-                        <li>✗ No observability</li>
-                        <li>✗ No async processing</li>
-                    </ul>
-                </div>
-
-                <div class="bg-yellow-50 border-2 border-yellow-300 rounded-xl p-6">
-                    <h4 class="text-lg font-bold text-yellow-900 mb-3">Level 2: Growth</h4>
-                    <p class="text-sm text-yellow-800 mb-3">Early production, 100–1000 schools</p>
-                    <ul class="text-xs text-yellow-800 space-y-1">
-                        <li>✓ Circuit breakers</li>
-                        <li>✓ Basic monitoring</li>
-                        <li>✓ Event bus (Kafka)</li>
-                        <li>✓ RLS + audit logs</li>
-                        <li>⚠ Limited tracing</li>
-                    </ul>
-                </div>
-
-                <div class="bg-green-50 border-2 border-green-300 rounded-xl p-6">
-                    <h4 class="text-lg font-bold text-green-900 mb-3">Level 3: Scale</h4>
-                    <p class="text-sm text-green-800 mb-3">Mature system, 1000+ schools</p>
-                    <ul class="text-xs text-green-800 space-y-1">
-                        <li>✓ Full observability</li>
-                        <li>✓ Chaos engineering</li>
-                        <li>✓ Multi-region</li>
-                        <li>✓ Canary deployments</li>
-                        <li>✓ AI/ML anomaly detection</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Database Schema Design -->
-    <section id="db-schema" class="py-12 bg-white border-t border-gray-200">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="mb-8">
-                <div class="flex items-center justify-between">
-                    <h2 class="text-3xl font-bold text-gray-900">Database Schema Design</h2>
-                    <button class="glossary-btn" onclick="openGlossary('db-schema')" title="View glossary for this section">?</button>
-                </div>
-                <p class="mt-4 text-gray-600 max-w-3xl">
-                    Complete relational database structure for SchoolNest showing all tables, columns, constraints, and relationships across services.
-                </p>
-            </div>
-
-            <!-- Service Filter Tabs -->
-            <div class="flex flex-wrap gap-2 mb-8">
-                <button onclick="filterDBTables('all')" class="db-filter-btn active px-4 py-2 rounded-lg font-medium transition border-2" data-service="all" style="background-color: #F3F4F6; border-color: #6B7280; color: #1F2937;">All Services</button>
-                <button onclick="filterDBTables('academic')" class="db-filter-btn px-4 py-2 rounded-lg font-medium transition border-2" data-service="academic" style="border-color: #3B82F6; color: #1E40AF;">🎓 Academic</button>
-                <button onclick="filterDBTables('billing')" class="db-filter-btn px-4 py-2 rounded-lg font-medium transition border-2" data-service="billing" style="border-color: #F59E0B; color: #78350F;">💳 Billing</button>
-                <button onclick="filterDBTables('communication')" class="db-filter-btn px-4 py-2 rounded-lg font-medium transition border-2" data-service="communication" style="border-color: #059669; color: #065F46;">💬 Communication</button>
-                <button onclick="filterDBTables('user')" class="db-filter-btn px-4 py-2 rounded-lg font-medium transition border-2" data-service="user" style="border-color: #7C3AED; color: #581C87;">👤 User/Auth</button>
-                <button onclick="filterDBTables('system')" class="db-filter-btn px-4 py-2 rounded-lg font-medium transition border-2" data-service="system" style="border-color: #6B7280; color: #374151;">⚙️ System</button>
-            </div>
-
-            <!-- Tables Container -->
-            <div id="schemaContainer" class="space-y-6">
-                <!-- This will be populated by JavaScript -->
-            </div>
-
-            <!-- Master Entity Relationship Summary -->
-            <div class="mt-10 bg-gradient-to-r from-blue-50 to-purple-50 border-2 border-blue-200 rounded-lg p-8">
-                <h3 class="text-xl font-bold text-gray-900 mb-4">🔗 Master Relationships</h3>
-                <div class="space-y-3 text-sm text-gray-700">
-                    <div class="flex items-start gap-3">
-                        <span class="font-mono font-bold text-blue-600">schools</span>
-                        <span class="text-gray-600">→ Root master table. All data is scoped by school_id for multi-tenancy.</span>
-                    </div>
-                    <div class="flex items-start gap-3">
-                        <span class="font-mono font-bold text-blue-600">users</span>
-                        <span class="text-gray-600">→ Connects to schools via school_id. Roles via user_roles table (many-to-many).</span>
-                    </div>
-                    <div class="flex items-start gap-3">
-                        <span class="font-mono font-bold text-purple-600">students</span>
-                        <span class="text-gray-600">→ FK to schools & classes. Each student belongs to one school (tenant isolation via school_id).</span>
-                    </div>
-                    <div class="flex items-start gap-3">
-                        <span class="font-mono font-bold text-emerald-600">classes</span>
-                        <span class="text-gray-600">→ FK to schools & academic_years. Represents a specific grade/section in a school.</span>
-                    </div>
-                    <div class="flex items-start gap-3">
-                        <span class="font-mono font-bold text-amber-600">invoices</span>
-                        <span class="text-gray-600">→ FK to students & fee_structures. Every invoice links back to a student (which links to school).</span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- SQL Statements Section -->
-            <div class="mt-10">
-                <h3 class="text-xl font-bold text-gray-900 mb-4">📋 SQL Table Definitions</h3>
-                <div class="bg-gray-900 text-gray-100 rounded-lg p-6 overflow-x-auto font-mono text-xs">
-                    <div class="space-y-4">
-                        <div>
-                            <div class="text-blue-400 font-bold mb-2">-- Master & System Tables</div>
-                            <pre id="sqlSchools" class="text-gray-300">CREATE TABLE schools (
-  id BIGINT PRIMARY KEY,
-  name VARCHAR(255) NOT NULL,
-  code VARCHAR(50) UNIQUE NOT NULL,
-  email VARCHAR(255),
-  phone VARCHAR(20),
-  address TEXT,
-  city VARCHAR(100),
-  state VARCHAR(100),
-  country VARCHAR(100),
-  zip_code VARCHAR(10),
-  established_year INT,
-  principal_name VARCHAR(255),
-  is_active BOOLEAN DEFAULT true,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  tenant_id BIGINT UNIQUE NOT NULL,  -- For multi-tenancy
-  KEY idx_code (code),
-  KEY idx_is_active (is_active),
-  KEY idx_tenant_id (tenant_id)
-);</pre>
-                        </div>
-                        <div>
-                            <div class="text-green-400 font-bold mb-2">-- User & Auth Tables</div>
-                            <pre id="sqlUsers" class="text-gray-300">CREATE TABLE users (
-  id BIGINT PRIMARY KEY,
-  school_id BIGINT NOT NULL,
-  email VARCHAR(255) NOT NULL,
-  password_hash VARCHAR(255),
-  first_name VARCHAR(100),
-  last_name VARCHAR(100),
-  phone VARCHAR(20),
-  is_active BOOLEAN DEFAULT true,
-  email_verified BOOLEAN DEFAULT false,
-  last_login TIMESTAMP,
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  UNIQUE KEY unique_school_email (school_id, email),
-  KEY idx_school_id (school_id),
-  KEY idx_is_active (is_active),
-  FOREIGN KEY (school_id) REFERENCES schools(id)
-);
-
-CREATE TABLE roles (
-  id BIGINT PRIMARY KEY,
-  name VARCHAR(50) UNIQUE NOT NULL,
-  description TEXT,
-  permissions JSON,  -- Array of permission strings
-  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
-CREATE TABLE user_roles (
-  id BIGINT PRIMARY KEY,
-  user_id BIGINT NOT NULL,
-  role_id BIGINT NOT NULL,
-  school_id BIGINT NOT NULL,
-  assigned_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  UNIQUE KEY unique_user_role (user_id, role_id, school_id),
-  KEY idx_user_id (user_id),
-  KEY idx_role_id (role_id),
-  KEY idx_school_id (school_id),
-  FOREIGN KEY (user_id) REFERENCES users(id),
-  FOREIGN KEY (role_id) REFERENCES roles(id),
-  FOREIGN KEY (school_id) REFERENCES schools(id)
-);</pre>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Feature Licensing & Permissions System -->
+    <!-- Section 7: Feature Licensing & Permissions -->
     <section id="feature-licensing" class="py-12 bg-gradient-to-b from-white to-blue-50 border-t border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="mb-8">
@@ -1978,8 +1574,9 @@ CREATE TABLE user_roles (
             </div>
         </div>
     </section>
+    </section>
 
-    <!-- CRUD Action Permissions System -->
+    <!-- Section 8: CRUD Action Permissions -->
     <section id="crud-permissions" class="py-12 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 border-t border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="mb-10">
@@ -2318,215 +1915,141 @@ WHERE fa.school_id = ?
         </div>
     </section>
 
-    <!-- API Interaction Flow Section -->
-    <section id="api-flow" class="py-16 bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 border-t border-gray-200">
-        <div class="max-w-full mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Header -->
-            <div class="mb-12">
-                <div class="flex items-center justify-between mb-4">
-                    <h2 class="text-4xl font-bold text-white">API Interaction Flow</h2>
-                    <button class="glossary-btn text-lg" onclick="openGlossary('api-flow')" title="View API Flow glossary">?</button>
+    <!-- Section 9: Database Schema -->
+    <section id="db-schema" class="py-12 bg-white border-t border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-8">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-3xl font-bold text-gray-900">Database Schema Design</h2>
+                    <button class="glossary-btn" onclick="openGlossary('db-schema')" title="View glossary for this section">?</button>
                 </div>
-                <p class="text-gray-300 text-lg">Watch how requests travel from Frontend → BFF → API Gateway → Microservices → back. Real scenarios with parallel data aggregation.</p>
+                <p class="mt-4 text-gray-600 max-w-3xl">
+                    Complete relational database structure for SchoolNest showing all tables, columns, constraints, and relationships across services.
+                </p>
             </div>
 
-            <!-- Scenario Selector Tabs -->
-            <div class="flex flex-wrap gap-4 mb-12">
-                <button onclick="loadApiScenario('dashboard')" class="api-scenario-tab active px-7 py-3 rounded-full text-base font-bold transition-all bg-gradient-to-r from-blue-500 to-cyan-500 text-white hover:from-blue-600 hover:to-cyan-600 shadow-lg">📊 Student Dashboard</button>
-                <button onclick="loadApiScenario('attendance')" class="api-scenario-tab px-7 py-3 rounded-full text-base font-bold transition-all text-gray-300 hover:text-white bg-slate-700 hover:bg-slate-600 shadow-lg">✓ Mark Attendance</button>
-                <button onclick="loadApiScenario('payment')" class="api-scenario-tab px-7 py-3 rounded-full text-base font-bold transition-all text-gray-300 hover:text-white bg-slate-700 hover:bg-slate-600 shadow-lg">💳 Process Payment</button>
+            <!-- Service Filter Tabs -->
+            <div class="flex flex-wrap gap-2 mb-8">
+                <button onclick="filterDBTables('all')" class="db-filter-btn active px-4 py-2 rounded-lg font-medium transition border-2" data-service="all" style="background-color: #F3F4F6; border-color: #6B7280; color: #1F2937;">All Services</button>
+                <button onclick="filterDBTables('academic')" class="db-filter-btn px-4 py-2 rounded-lg font-medium transition border-2" data-service="academic" style="border-color: #3B82F6; color: #1E40AF;">🎓 Academic</button>
+                <button onclick="filterDBTables('billing')" class="db-filter-btn px-4 py-2 rounded-lg font-medium transition border-2" data-service="billing" style="border-color: #F59E0B; color: #78350F;">💳 Billing</button>
+                <button onclick="filterDBTables('communication')" class="db-filter-btn px-4 py-2 rounded-lg font-medium transition border-2" data-service="communication" style="border-color: #059669; color: #065F46;">💬 Communication</button>
+                <button onclick="filterDBTables('user')" class="db-filter-btn px-4 py-2 rounded-lg font-medium transition border-2" data-service="user" style="border-color: #7C3AED; color: #581C87;">👤 User/Auth</button>
+                <button onclick="filterDBTables('system')" class="db-filter-btn px-4 py-2 rounded-lg font-medium transition border-2" data-service="system" style="border-color: #6B7280; color: #374151;">⚙️ System</button>
             </div>
 
-            <!-- Main Flow Visualization -->
-            <div class="mb-10 grid grid-cols-1 lg:grid-cols-5 gap-8 items-start">
-                <!-- Left: SVG Flow Diagram -->
-                <div class="lg:col-span-3">
-                    <div class="bg-slate-800/60 rounded-2xl border-2 border-slate-600 p-8 backdrop-blur-md shadow-2xl">
-                        <h3 class="text-2xl font-bold text-white mb-6">Request Journey Architecture</h3>
-                        <div class="overflow-x-auto">
-                            <svg id="apiFlowSvg" viewBox="0 0 1100 550" class="w-full h-auto bg-slate-900/60 rounded-xl border border-slate-700" style="min-height: 550px;">
-                                <defs>
-                                    <!-- Gradients for nodes -->
-                                    <linearGradient id="gradFrontend" x1="0%" y1="0%" x2="0%" y2="100%">
-                                        <stop offset="0%" style="stop-color:#06B6D4;stop-opacity:0.6" />
-                                        <stop offset="100%" style="stop-color:#0891B2;stop-opacity:0.3" />
-                                    </linearGradient>
-                                    <linearGradient id="gradBff" x1="0%" y1="0%" x2="0%" y2="100%">
-                                        <stop offset="0%" style="stop-color:#3B82F6;stop-opacity:0.6" />
-                                        <stop offset="100%" style="stop-color:#2563EB;stop-opacity:0.3" />
-                                    </linearGradient>
-                                    <linearGradient id="gradGateway" x1="0%" y1="0%" x2="0%" y2="100%">
-                                        <stop offset="0%" style="stop-color:#8B5CF6;stop-opacity:0.6" />
-                                        <stop offset="100%" style="stop-color:#7C3AED;stop-opacity:0.3" />
-                                    </linearGradient>
-                                    <linearGradient id="gradService" x1="0%" y1="0%" x2="0%" y2="100%">
-                                        <stop offset="0%" style="stop-color:#EC4899;stop-opacity:0.6" />
-                                        <stop offset="100%" style="stop-color:#DB2777;stop-opacity:0.3" />
-                                    </linearGradient>
-                                    <linearGradient id="gradCache" x1="0%" y1="0%" x2="0%" y2="100%">
-                                        <stop offset="0%" style="stop-color:#F59E0B;stop-opacity:0.6" />
-                                        <stop offset="100%" style="stop-color:#D97706;stop-opacity:0.3" />
-                                    </linearGradient>
-                                    <!-- Arrow markers -->
-                                    <marker id="arrowActive" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
-                                        <path d="M0,0 L0,6 L9,3 z" fill="#06B6D4" />
-                                    </marker>
-                                </defs>
+            <!-- Tables Container -->
+            <div id="schemaContainer" class="space-y-6">
+                <!-- This will be populated by JavaScript -->
+            </div>
 
-                                <!-- Column 1: Frontend -->
-                                <rect x="30" y="100" width="140" height="90" rx="12" fill="url(#gradFrontend)" stroke="#06B6D4" stroke-width="3" class="api-node" data-node="frontend"/>
-                                <text x="100" y="140" text-anchor="middle" fill="white" font-weight="bold" font-size="18">Frontend</text>
-                                <text x="100" y="162" text-anchor="middle" fill="#B0E0E6" font-size="14">(React/RN)</text>
-
-                                <!-- Arrow 1: Frontend → BFF -->
-                                <line x1="170" y1="145" x2="210" y2="145" stroke="#7B8BA8" stroke-width="3" class="api-edge" data-edge="frontend-bff"/>
-                                <polygon points="210,145 228,145 219,137" fill="#7B8BA8" class="api-edge-arrow" data-edge="frontend-bff"/>
-
-                                <!-- Column 2: BFF + Redis -->
-                                <rect x="230" y="60" width="140" height="90" rx="12" fill="url(#gradBff)" stroke="#3B82F6" stroke-width="3" class="api-node" data-node="bff"/>
-                                <text x="300" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="18">BFF</text>
-                                <text x="300" y="122" text-anchor="middle" fill="#93C5FD" font-size="14">(Aggregation)</text>
-
-                                <rect x="230" y="180" width="140" height="80" rx="12" fill="url(#gradCache)" stroke="#F59E0B" stroke-width="3" class="api-node" data-node="redis"/>
-                                <text x="300" y="220" text-anchor="middle" fill="white" font-weight="bold" font-size="16">Redis Cache</text>
-
-                                <!-- Arrow: BFF → Gateway -->
-                                <line x1="370" y1="105" x2="420" y2="105" stroke="#7B8BA8" stroke-width="3" class="api-edge" data-edge="bff-gateway"/>
-                                <polygon points="420,105 438,105 429,97" fill="#7B8BA8" class="api-edge-arrow" data-edge="bff-gateway"/>
-
-                                <!-- Column 3: API Gateway -->
-                                <rect x="440" y="60" width="140" height="90" rx="12" fill="url(#gradGateway)" stroke="#8B5CF6" stroke-width="3" class="api-node" data-node="gateway"/>
-                                <text x="510" y="100" text-anchor="middle" fill="white" font-weight="bold" font-size="18">API Gateway</text>
-                                <text x="510" y="122" text-anchor="middle" fill="#D8B4FE" font-size="14">(JWT, Rate Limit)</text>
-
-                                <!-- Arrow: Gateway → Services -->
-                                <line x1="580" y1="105" x2="630" y2="105" stroke="#7B8BA8" stroke-width="3" class="api-edge" data-edge="gateway-services"/>
-                                <polygon points="630,105 648,105 639,97" fill="#7B8BA8" class="api-edge-arrow" data-edge="gateway-services"/>
-
-                                <!-- Column 4: Microservices (Parallel) -->
-                                <g class="api-services-group">
-                                    <!-- Academic Service -->
-                                    <rect x="650" y="20" width="130" height="75" rx="12" fill="url(#gradService)" stroke="#EC4899" stroke-width="3" class="api-node" data-node="academic"/>
-                                    <text x="715" y="62" text-anchor="middle" fill="white" font-weight="bold" font-size="16">📚 Academic</text>
-
-                                    <!-- Billing Service -->
-                                    <rect x="650" y="115" width="130" height="75" rx="12" fill="url(#gradService)" stroke="#EC4899" stroke-width="3" class="api-node" data-node="billing"/>
-                                    <text x="715" y="157" text-anchor="middle" fill="white" font-weight="bold" font-size="16">💳 Billing</text>
-
-                                    <!-- Communication Service -->
-                                    <rect x="650" y="210" width="130" height="75" rx="12" fill="url(#gradService)" stroke="#EC4899" stroke-width="3" class="api-node" data-node="communication"/>
-                                    <text x="715" y="252" text-anchor="middle" fill="white" font-weight="bold" font-size="16">💬 Comm</text>
-
-                                    <!-- Auth Service (Inactive) -->
-                                    <rect x="650" y="305" width="130" height="75" rx="12" fill="url(#gradService)" stroke="#EC4899" stroke-width="3" class="api-node" data-node="auth" style="opacity:0.35;"/>
-                                    <text x="715" y="347" text-anchor="middle" fill="white" font-weight="bold" font-size="16">🔐 Auth</text>
-                                </g>
-
-                                <!-- Services back to BFF -->
-                                <line x1="650" y1="57" x2="600" y2="57" stroke="#7B8BA8" stroke-width="3" class="api-edge" data-edge="academic-bff"/>
-                                <line x1="650" y1="152" x2="600" y2="152" stroke="#7B8BA8" stroke-width="3" class="api-edge" data-edge="billing-bff"/>
-                                <line x1="650" y1="247" x2="600" y2="247" stroke="#7B8BA8" stroke-width="3" class="api-edge" data-edge="comm-bff"/>
-
-                                <!-- BFF back to Frontend -->
-                                <line x1="270" y1="60" x2="120" y2="145" stroke="#7B8BA8" stroke-width="3" class="api-edge" data-edge="bff-frontend"/>
-                                <polygon points="120,145 102,149 110,158" fill="#7B8BA8" class="api-edge-arrow" data-edge="bff-frontend"/>
-
-                                <!-- Step Labels -->
-                                <g class="api-step-labels" opacity="0.8">
-                                    <text x="100" y="25" text-anchor="middle" fill="#93C5FD" font-size="13" font-weight="bold">Step 1</text>
-                                    <text x="300" y="25" text-anchor="middle" fill="#93C5FD" font-size="13" font-weight="bold">Step 2-3</text>
-                                    <text x="510" y="25" text-anchor="middle" fill="#93C5FD" font-size="13" font-weight="bold">Step 4-5</text>
-                                    <text x="715" y="405" text-anchor="middle" fill="#93C5FD" font-size="16" font-weight="bold">⚡ Parallel Calls</text>
-                                </g>
-
-                                <!-- Legend -->
-                                <text x="30" y="475" fill="#D1D5DB" font-size="14" font-weight="bold">Legend:</text>
-                                <rect x="140" y="463" width="16" height="16" fill="#06B6D4" rx="3"/>
-                                <text x="165" y="475" fill="#D1D5DB" font-size="13">Frontend</text>
-
-                                <rect x="300" y="463" width="16" height="16" fill="#3B82F6" rx="3"/>
-                                <text x="325" y="475" fill="#D1D5DB" font-size="13">BFF</text>
-
-                                <rect x="420" y="463" width="16" height="16" fill="#8B5CF6" rx="3"/>
-                                <text x="445" y="475" fill="#D1D5DB" font-size="13">Gateway</text>
-
-                                <rect x="600" y="463" width="16" height="16" fill="#EC4899" rx="3"/>
-                                <text x="625" y="475" fill="#D1D5DB" font-size="13">Services</text>
-
-                                <rect x="800" y="463" width="16" height="16" fill="#F59E0B" rx="3"/>
-                                <text x="825" y="475" fill="#D1D5DB" font-size="13">Cache</text>
-                            </svg>
-                        </div>
+            <!-- Master Entity Relationship Summary -->
+            <div class="mt-10 bg-gradient-to-r from-blue-50 to-purple-50 border-2 border-blue-200 rounded-lg p-8">
+                <h3 class="text-xl font-bold text-gray-900 mb-4">🔗 Master Relationships</h3>
+                <div class="space-y-3 text-sm text-gray-700">
+                    <div class="flex items-start gap-3">
+                        <span class="font-mono font-bold text-blue-600">schools</span>
+                        <span class="text-gray-600">→ Root master table. All data is scoped by school_id for multi-tenancy.</span>
                     </div>
-                </div>
-
-                <!-- Right: Step Details Panel -->
-                <div class="lg:col-span-2">
-                    <div class="bg-slate-800/80 rounded-2xl border-2 border-slate-600 p-8 backdrop-blur-md shadow-2xl sticky top-20 max-h-fit">
-                        <div class="mb-6">
-                            <div class="flex items-center justify-between mb-4">
-                                <span class="text-sm font-bold text-gray-300 uppercase tracking-wider">📍 Step <span id="apiStepNum">1</span> of 6</span>
-                                <span class="text-sm px-3 py-1.5 rounded-full bg-gradient-to-r from-blue-700 to-blue-500 text-blue-50 font-bold" id="apiStepLayer">Client</span>
-                            </div>
-                            <h4 id="apiStepTitle" class="text-2xl font-bold text-white mb-2">Frontend Request</h4>
-                        </div>
-
-                        <div class="mb-6">
-                            <p id="apiStepDesc" class="text-base text-gray-200 leading-relaxed">Parent app sends GET /dashboard with JWT in Authorization header. BFF endpoint receives.</p>
-                        </div>
-
-                        <div class="mb-6">
-                            <div class="text-sm font-bold text-gray-300 uppercase tracking-wider mb-3">💻 Code Snippet</div>
-                            <pre id="apiStepCode" class="bg-slate-900 text-gray-100 text-sm p-4 rounded-lg border border-slate-600 overflow-x-auto font-mono leading-relaxed"><code>GET /api/v1/dashboard
-Authorization: Bearer eyJhbGc...
-X-School-ID: 101
-X-Client: parent-mobile</code></pre>
-                        </div>
-
-                        <div class="pt-4 border-t border-slate-700">
-                            <div class="text-sm text-gray-300 font-mono">
-                                <span id="apiActiveNodes" class="block text-base font-semibold text-cyan-300">🔗 Active: Frontend → BFF</span>
-                            </div>
-                        </div>
+                    <div class="flex items-start gap-3">
+                        <span class="font-mono font-bold text-blue-600">users</span>
+                        <span class="text-gray-600">→ Connects to schools via school_id. Roles via user_roles table (many-to-many).</span>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <span class="font-mono font-bold text-purple-600">students</span>
+                        <span class="text-gray-600">→ FK to schools & classes. Each student belongs to one school (tenant isolation via school_id).</span>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <span class="font-mono font-bold text-emerald-600">classes</span>
+                        <span class="text-gray-600">→ FK to schools & academic_years. Represents a specific grade/section in a school.</span>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <span class="font-mono font-bold text-amber-600">invoices</span>
+                        <span class="text-gray-600">→ FK to students & fee_structures. Every invoice links back to a student (which links to school).</span>
                     </div>
                 </div>
             </div>
 
-            <!-- Step Controls -->
-            <div class="flex items-center justify-center gap-5 mb-14 mt-10 flex-wrap">
-                <button onclick="apiPrevStep()" class="px-6 py-3 rounded-lg bg-slate-700 hover:bg-slate-600 text-white font-bold transition text-base shadow-lg hover:shadow-xl">◀ Previous</button>
-                <button onclick="toggleApiAutoPlay()" id="apiAutoPlayBtn" class="px-8 py-3 rounded-lg bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white font-bold transition text-base shadow-lg hover:shadow-xl">▶ Auto Play</button>
-                <button onclick="apiNextStep()" class="px-6 py-3 rounded-lg bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white font-bold transition text-base shadow-lg hover:shadow-xl">Next ▶</button>
-                <button onclick="apiResetFlow()" class="px-6 py-3 rounded-lg bg-slate-700 hover:bg-slate-600 text-white font-bold transition text-base shadow-lg hover:shadow-xl">↻ Reset</button>
-            </div>
+            <!-- SQL Statements Section -->
+            <div class="mt-10">
+                <h3 class="text-xl font-bold text-gray-900 mb-4">📋 SQL Table Definitions</h3>
+                <div class="bg-gray-900 text-gray-100 rounded-lg p-6 overflow-x-auto font-mono text-xs">
+                    <div class="space-y-4">
+                        <div>
+                            <div class="text-blue-400 font-bold mb-2">-- Master & System Tables</div>
+                            <pre id="sqlSchools" class="text-gray-300">CREATE TABLE schools (
+  id BIGINT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  code VARCHAR(50) UNIQUE NOT NULL,
+  email VARCHAR(255),
+  phone VARCHAR(20),
+  address TEXT,
+  city VARCHAR(100),
+  state VARCHAR(100),
+  country VARCHAR(100),
+  zip_code VARCHAR(10),
+  established_year INT,
+  principal_name VARCHAR(255),
+  is_active BOOLEAN DEFAULT true,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  tenant_id BIGINT UNIQUE NOT NULL,  -- For multi-tenancy
+  KEY idx_code (code),
+  KEY idx_is_active (is_active),
+  KEY idx_tenant_id (tenant_id)
+);</pre>
+                        </div>
+                        <div>
+                            <div class="text-green-400 font-bold mb-2">-- User & Auth Tables</div>
+                            <pre id="sqlUsers" class="text-gray-300">CREATE TABLE users (
+  id BIGINT PRIMARY KEY,
+  school_id BIGINT NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  password_hash VARCHAR(255),
+  first_name VARCHAR(100),
+  last_name VARCHAR(100),
+  phone VARCHAR(20),
+  is_active BOOLEAN DEFAULT true,
+  email_verified BOOLEAN DEFAULT false,
+  last_login TIMESTAMP,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE KEY unique_school_email (school_id, email),
+  KEY idx_school_id (school_id),
+  KEY idx_is_active (is_active),
+  FOREIGN KEY (school_id) REFERENCES schools(id)
+);
 
-            <!-- Key Concepts Footer -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-12">
-                <div class="bg-slate-800/60 rounded-xl border-2 border-slate-600 p-6 backdrop-blur-md hover:border-cyan-400 transition shadow-lg">
-                    <div class="text-4xl mb-3">⚡</div>
-                    <div class="font-bold text-white text-lg mb-3">Parallel Calls</div>
-                    <p class="text-sm text-gray-300 leading-relaxed">BFF uses Promise.all to call services simultaneously — not one-by-one. Faster responses.</p>
-                </div>
-                <div class="bg-slate-800/60 rounded-xl border-2 border-slate-600 p-6 backdrop-blur-md hover:border-amber-400 transition shadow-lg">
-                    <div class="text-4xl mb-3">🔴</div>
-                    <div class="font-bold text-white text-lg mb-3">Redis Caching</div>
-                    <p class="text-sm text-gray-300 leading-relaxed">Aggregated response cached in Redis with TTL. Second request returns in &lt;5ms.</p>
-                </div>
-                <div class="bg-slate-800/60 rounded-xl border-2 border-slate-600 p-6 backdrop-blur-md hover:border-purple-400 transition shadow-lg">
-                    <div class="text-4xl mb-3">🔗</div>
-                    <div class="font-bold text-white text-lg mb-3">BFF Per Client</div>
-                    <p class="text-sm text-gray-300 leading-relaxed">Parent BFF ≠ Teacher BFF. Each formats response for its specific client type.</p>
-                </div>
-                <div class="bg-slate-800/60 rounded-xl border-2 border-slate-600 p-6 backdrop-blur-md hover:border-pink-400 transition shadow-lg">
-                    <div class="text-4xl mb-3">🛡️</div>
-                    <div class="font-bold text-white text-lg mb-3">JWT at Gateway</div>
-                    <p class="text-sm text-gray-300 leading-relaxed">Token validated once. Services trust gateway-forwarded headers securely.</p>
+CREATE TABLE roles (
+  id BIGINT PRIMARY KEY,
+  name VARCHAR(50) UNIQUE NOT NULL,
+  description TEXT,
+  permissions JSON,  -- Array of permission strings
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE user_roles (
+  id BIGINT PRIMARY KEY,
+  user_id BIGINT NOT NULL,
+  role_id BIGINT NOT NULL,
+  school_id BIGINT NOT NULL,
+  assigned_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE KEY unique_user_role (user_id, role_id, school_id),
+  KEY idx_user_id (user_id),
+  KEY idx_role_id (role_id),
+  KEY idx_school_id (school_id),
+  FOREIGN KEY (user_id) REFERENCES users(id),
+  FOREIGN KEY (role_id) REFERENCES roles(id),
+  FOREIGN KEY (school_id) REFERENCES schools(id)
+);</pre>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Database Strategy Explorer -->
+    <!-- Section 10: Database Explorer -->
     <section id="db-explorer" class="py-12 bg-gray-50 border-t border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-12">
@@ -2577,8 +2100,9 @@ X-Client: parent-mobile</code></pre>
             </div>
         </div>
     </section>
+    </section>
 
-    <!-- Microservices Section -->
+    <!-- Section 11: Microservices Ecosystem -->
     <section id="microservices" class="py-12 bg-white border-t border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="mb-8 flex flex-col md:flex-row md:items-center justify-between">
@@ -2651,7 +2175,414 @@ X-Client: parent-mobile</code></pre>
         </div>
     </section>
 
-    <!-- Admin & Feature Flags -->
+    <!-- Section 12: Scalability & Performance -->
+    <section id="scalability" class="py-12 bg-gray-50 border-t border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between mb-6">
+                <h2 class="text-3xl font-bold text-gray-900">Scalability & Data Isolation</h2>
+                <button class="glossary-btn" onclick="openGlossary('scalability')" title="View glossary for this section">?</button>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Independent Scaling</h3>
+                    <p class="text-gray-600 mb-6 text-sm">
+                        Each service scales independently based on demand. Academic Service can handle exam season spikes without over-provisioning Transport Service.
+                    </p>
+                    <div class="bg-white p-4 rounded-xl border border-gray-200">
+                        <div class="chart-container">
+                            <canvas id="scalabilityChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="mt-4 text-xs text-center text-gray-500">
+                        Auto-scaling pod count distribution (peak load scenario)
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Multi-Tenancy Strategy</h3>
+                    <div class="space-y-4">
+                        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
+                            <h4 class="font-bold text-blue-900">Logical Isolation</h4>
+                            <p class="text-sm text-blue-800 mt-1">Shared infrastructure with discriminator column. Cost-efficient for many small tenants.</p>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                            <h4 class="font-bold text-gray-800">Database RLS Protection</h4>
+                            <div class="mt-2 font-mono text-xs bg-gray-100 p-2 rounded text-gray-700">
+                                CREATE POLICY tenant_isolation ON students<br/>
+                                USING (school_id = current_setting('app.school_id')::int)<br/>
+                                <span class="text-green-600">✓ Double-layered security</span>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                            <h4 class="font-bold text-gray-800">Query Injection Pattern</h4>
+                            <div class="mt-2 font-mono text-xs bg-gray-900 text-green-400 p-2 rounded">
+                                SELECT * FROM attendance WHERE status='present'<br/>
+                                <span class="text-yellow-400">AND school_id = 101;</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 13: Resilience Patterns -->
+    <section id="resilience" class="py-12 bg-gray-50 border-t border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-8">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-3xl font-bold text-gray-900">Circuit Breaker & Resilience Patterns</h2>
+                    <button class="glossary-btn" onclick="openGlossary('resilience')" title="View glossary for this section">?</button>
+                </div>
+                <p class="mt-4 text-gray-600 max-w-3xl">
+                    Prevent cascading failures when a service is down. The circuit breaker pattern protects your system.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                <!-- Without Circuit Breaker -->
+                <div class="bg-red-50 border-2 border-red-200 rounded-xl p-6">
+                    <h4 class="text-xl font-bold text-red-900 mb-4">❌ Without Circuit Breaker</h4>
+                    <div class="bg-white p-4 rounded-lg border border-red-300 mb-4">
+                        <p class="text-sm text-gray-700 mb-3">Academic Service is down. Billing tries to call it:</p>
+                        <div class="font-mono text-xs text-red-700 space-y-1">
+                            <div>Request 1: FAIL (timeout 30s)</div>
+                            <div>Request 2: FAIL (timeout 30s)</div>
+                            <div>Request 3: FAIL (timeout 30s) ← Wasted resources</div>
+                            <div>Request 4-100: All FAIL, all timeout</div>
+                            <div class="text-red-600 font-bold mt-2">Result: Billing Service overloaded, cascading failure</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- With Circuit Breaker -->
+                <div class="bg-green-50 border-2 border-green-200 rounded-xl p-6">
+                    <h4 class="text-xl font-bold text-green-900 mb-4">✅ With Circuit Breaker</h4>
+                    <div class="bg-white p-4 rounded-lg border border-green-300 mb-4">
+                        <p class="text-sm text-gray-700 mb-3">Academic Service is down. Circuit breaker activates:</p>
+                        <div class="font-mono text-xs text-green-700 space-y-1">
+                            <div>Requests 1-3: FAIL, retrying</div>
+                            <div class="text-yellow-600">Circuit opens (fail threshold hit)</div>
+                            <div>Requests 4-100: FAIL fast (1ms, no retry)</div>
+                            <div class="text-blue-600">Return cached data OR default response</div>
+                            <div class="text-green-600 font-bold mt-2">✓ System stays responsive, no cascade</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Circuit Breaker States -->
+            <div class="bg-white rounded-xl border border-gray-200 p-8 mb-8">
+                <h4 class="text-xl font-bold text-gray-900 mb-6">Circuit Breaker State Machine</h4>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- CLOSED -->
+                    <div class="bg-green-50 border-2 border-green-500 rounded-lg p-6 text-center">
+                        <div class="text-3xl font-bold text-green-600 mb-2">✓</div>
+                        <h5 class="font-bold text-green-900 mb-3">CLOSED (Normal)</h5>
+                        <p class="text-sm text-green-800 mb-4">Service is healthy, all requests pass through.</p>
+                        <div class="bg-white p-3 rounded text-xs font-mono text-gray-700">
+                            <div>→ OPEN: After N failures</div>
+                        </div>
+                    </div>
+
+                    <!-- OPEN -->
+                    <div class="bg-red-50 border-2 border-red-500 rounded-lg p-6 text-center">
+                        <div class="text-3xl font-bold text-red-600 mb-2">⊘</div>
+                        <h5 class="font-bold text-red-900 mb-3">OPEN (Failing)</h5>
+                        <p class="text-sm text-red-800 mb-4">Service detected down, fail fast immediately.</p>
+                        <div class="bg-white p-3 rounded text-xs font-mono text-gray-700">
+                            <div>→ HALF_OPEN: After timeout (60s)</div>
+                        </div>
+                    </div>
+
+                    <!-- HALF_OPEN -->
+                    <div class="bg-yellow-50 border-2 border-yellow-500 rounded-lg p-6 text-center">
+                        <div class="text-3xl font-bold text-yellow-600 mb-2">⚠</div>
+                        <h5 class="font-bold text-yellow-900 mb-3">HALF_OPEN (Testing)</h5>
+                        <p class="text-sm text-yellow-800 mb-4">Allow test requests to check if service recovered.</p>
+                        <div class="bg-white p-3 rounded text-xs font-mono text-gray-700">
+                            <div>→ CLOSED if success</div>
+                            <div>→ OPEN if failure</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Resilience Patterns -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
+                    <h5 class="font-bold text-blue-900 mb-3">🔄 Retry Strategy</h5>
+                    <p class="text-sm text-blue-800 mb-3">Exponential backoff: 100ms → 500ms → 2s</p>
+                    <div class="bg-white p-3 rounded text-xs font-mono text-blue-900">
+                        Try, fail, wait, retry, fail, wait longer, retry...
+                    </div>
+                </div>
+
+                <div class="bg-purple-50 border border-purple-200 rounded-lg p-6">
+                    <h5 class="font-bold text-purple-900 mb-3">📦 Fallback / Cache</h5>
+                    <p class="text-sm text-purple-800 mb-3">Return cached/stale data instead of error</p>
+                    <div class="bg-white p-3 rounded text-xs font-mono text-purple-900">
+                        If Academic Service down: return cached student data (5 min old)
+                    </div>
+                </div>
+
+                <div class="bg-green-50 border border-green-200 rounded-lg p-6">
+                    <h5 class="font-bold text-green-900 mb-3">⏱️ Timeout</h5>
+                    <p class="text-sm text-green-800 mb-3">Never wait forever for a response (max 5s)</p>
+                    <div class="bg-white p-3 rounded text-xs font-mono text-green-900">
+                        If no response after 5s → treat as failure, don't retry
+                    </div>
+                </div>
+
+                <div class="bg-orange-50 border border-orange-200 rounded-lg p-6">
+                    <h5 class="font-bold text-orange-900 mb-3">🎯 Bulkhead</h5>
+                    <p class="text-sm text-orange-800 mb-3">Isolate resource pools per dependent service</p>
+                    <div class="bg-white p-3 rounded text-xs font-mono text-orange-900">
+                        10 threads for Academic, 10 for Billing (not shared)
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 14: Observability & Monitoring -->
+    <section id="observability" class="py-12 bg-white border-t border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-8">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-3xl font-bold text-gray-900">Observability & Monitoring</h2>
+                    <button class="glossary-btn" onclick="openGlossary('observability')" title="View glossary for this section">?</button>
+                </div>
+                <p class="mt-4 text-gray-600 max-w-3xl">
+                    Understand system behavior through logging, metrics, and distributed tracing.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <!-- Logging -->
+                <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-6 border-2 border-blue-300">
+                    <div class="text-4xl mb-3">📝</div>
+                    <h4 class="text-xl font-bold text-blue-900 mb-3">Logging (ELK Stack)</h4>
+                    <p class="text-sm text-blue-800 mb-4">Centralized logs from all services with correlation IDs.</p>
+                    <div class="bg-blue-900 text-blue-100 p-3 rounded text-xs font-mono space-y-1">
+                        <div>{timestamp: 2024-02-26T10:15:32Z}</div>
+                        <div>{service: academic-service}</div>
+                        <div>{correlation_id: abc-123}</div>
+                        <div>{level: INFO}</div>
+                        <div>{message: "Student created"}</div>
+                    </div>
+                </div>
+
+                <!-- Metrics -->
+                <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-6 border-2 border-green-300">
+                    <div class="text-4xl mb-3">📊</div>
+                    <h4 class="text-xl font-bold text-green-900 mb-3">Metrics (Prometheus)</h4>
+                    <p class="text-sm text-green-800 mb-4">Real-time system performance and health indicators.</p>
+                    <div class="bg-green-900 text-green-100 p-3 rounded text-xs font-mono space-y-1">
+                        <div>Response time: 45ms (p50)</div>
+                        <div>Error rate: 0.02%</div>
+                        <div>Throughput: 1,200 req/s</div>
+                        <div>DB connections: 42/100</div>
+                    </div>
+                </div>
+
+                <!-- Tracing -->
+                <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl p-6 border-2 border-purple-300">
+                    <div class="text-4xl mb-3">🔍</div>
+                    <h4 class="text-xl font-bold text-purple-900 mb-3">Tracing (Jaeger)</h4>
+                    <p class="text-sm text-purple-800 mb-4">Track requests across all services to find bottlenecks.</p>
+                    <div class="bg-purple-900 text-purple-100 p-3 rounded text-xs font-mono space-y-1">
+                        <div>Request: abc-123</div>
+                        <div>├─ BFF: 5ms</div>
+                        <div>├─ Gateway: 2ms</div>
+                        <div>├─ Academic Svc: 30ms 🔴</div>
+                        <div>└─ Database: 25ms</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Request Journey with Observability -->
+            <div class="bg-gray-50 rounded-xl border border-gray-200 p-8">
+                <h4 class="text-xl font-bold text-gray-900 mb-6">Complete Request Journey with Observability</h4>
+
+                <div class="space-y-4">
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <div class="flex items-start gap-4">
+                            <div class="text-3xl">📱</div>
+                            <div class="flex-1">
+                                <h5 class="font-bold text-gray-800">1. Client Request</h5>
+                                <p class="text-sm text-gray-600 mt-1">Parent submits attendance query</p>
+                                <div class="bg-gray-100 p-2 rounded text-xs font-mono text-gray-700 mt-2">
+                                    X-Correlation-ID: req-9f8a2b ← Unique ID for tracing
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <div class="flex items-start gap-4">
+                            <div class="text-3xl">🚪</div>
+                            <div class="flex-1">
+                                <h5 class="font-bold text-gray-800">2. API Gateway (5ms)</h5>
+                                <p class="text-sm text-gray-600 mt-1">Validates JWT, extracts school_id, routes request</p>
+                                <div class="bg-gray-100 p-2 rounded text-xs font-mono text-gray-700 mt-2">
+                                    <span class="text-green-600">✓</span> JWT valid | <span class="text-blue-600">school_id: 101</span> | Rate limit: 45/100 reqs/min
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <div class="flex items-start gap-4">
+                            <div class="text-3xl">⚙️</div>
+                            <div class="flex-1">
+                                <h5 class="font-bold text-gray-800">3. BFF Layer (10ms)</h5>
+                                <p class="text-sm text-gray-600 mt-1">Aggregates data from Academic Service</p>
+                                <div class="bg-gray-100 p-2 rounded text-xs font-mono text-gray-700 mt-2">
+                                    <span class="text-orange-600">Cache hit:</span> Returns from Redis (1ms)
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white p-4 rounded-lg border border-gray-200">
+                        <div class="flex items-start gap-4">
+                            <div class="text-3xl">📚</div>
+                            <div class="flex-1">
+                                <h5 class="font-bold text-gray-800">4. Academic Service (25ms)</h5>
+                                <p class="text-sm text-gray-600 mt-1">Queries attendance records with tenant scope</p>
+                                <div class="bg-gray-100 p-2 rounded text-xs font-mono text-gray-700 mt-2">
+                                    Query: SELECT * FROM attendance WHERE school_id=101 AND student_id=? | Rows: 45
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-green-50 p-4 rounded-lg border border-green-200 font-bold text-green-900">
+                        ✓ Total: 40ms | All systems healthy | Response cached for 5min
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    </section>
+
+    <!-- Section 15: Event-Driven Workflows -->
+    <section id="events" class="py-12 bg-gray-50 border-t border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-8">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-3xl font-bold text-gray-900">Event-Driven Workflows</h2>
+                    <button class="glossary-btn" onclick="openGlossary('events')" title="View glossary for this section">?</button>
+                </div>
+                <p class="mt-4 text-gray-600 max-w-3xl">
+                    Asynchronous operations that scale independently and decouple services.
+                </p>
+            </div>
+
+            <!-- Student Enrollment Workflow -->
+            <div class="bg-white rounded-xl border border-gray-200 p-8">
+                <h4 class="text-xl font-bold text-gray-900 mb-6">Real-World Example: Complete Student Enrollment Flow</h4>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                    <!-- Event Definition -->
+                    <div class="lg:col-span-1 bg-blue-50 p-6 rounded-lg border border-blue-200">
+                        <h5 class="font-bold text-blue-900 mb-3">Event: StudentEnrolled</h5>
+                        <div class="bg-blue-900 text-blue-100 p-3 rounded text-xs font-mono space-y-1">
+                            <div>{</div>
+                            <div class="pl-2">event_id: "evt-001",</div>
+                            <div class="pl-2">timestamp: "2024-02-26T...",</div>
+                            <div class="pl-2">student_id: "st_123",</div>
+                            <div class="pl-2">school_id: 101,</div>
+                            <div class="pl-2">name: "Alice Johnson",</div>
+                            <div class="pl-2">grade: "5A"</div>
+                            <div>}</div>
+                        </div>
+                    </div>
+
+                    <!-- Event Processing -->
+                    <div class="lg:col-span-2">
+                        <h5 class="font-bold text-gray-800 mb-4">Multiple Services React Independently</h5>
+                        <div class="space-y-3">
+                            <div class="bg-white p-4 rounded-lg border border-gray-200">
+                                <div class="flex items-center gap-3 mb-2">
+                                    <span class="inline-block bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold">Billing Service</span>
+                                    <span class="text-sm text-gray-600">Listens to StudentEnrolled</span>
+                                </div>
+                                <div class="bg-gray-100 p-2 rounded text-xs font-mono text-gray-700">
+                                    Creates invoice for school_id=101, adds payment schedule
+                                </div>
+                            </div>
+
+                            <div class="bg-white p-4 rounded-lg border border-gray-200">
+                                <div class="flex items-center gap-3 mb-2">
+                                    <span class="inline-block bg-purple-100 text-purple-700 px-3 py-1 rounded-full text-xs font-bold">Communication Service</span>
+                                    <span class="text-sm text-gray-600">Listens to StudentEnrolled</span>
+                                </div>
+                                <div class="bg-gray-100 p-2 rounded text-xs font-mono text-gray-700">
+                                    Sends welcome email to parent, SMS notification
+                                </div>
+                            </div>
+
+                            <div class="bg-white p-4 rounded-lg border border-gray-200">
+                                <div class="flex items-center gap-3 mb-2">
+                                    <span class="inline-block bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-xs font-bold">Transport Service</span>
+                                    <span class="text-sm text-gray-600">Listens to StudentEnrolled</span>
+                                </div>
+                                <div class="bg-gray-100 p-2 rounded text-xs font-mono text-gray-700">
+                                    Assigns to bus route, updates scheduling
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timeline -->
+                <div class="mt-8 bg-gradient-to-r from-blue-50 to-purple-50 p-6 rounded-lg border border-gray-200">
+                    <h5 class="font-bold text-gray-800 mb-4">Timeline (Real-World Execution)</h5>
+                    <div class="space-y-3 font-mono text-xs">
+                        <div class="flex items-center gap-4">
+                            <span class="bg-blue-600 text-white px-3 py-1 rounded-full w-20 text-center">T=0ms</span>
+                            <span class="text-gray-700">Parent submits enrollment form</span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <span class="bg-blue-600 text-white px-3 py-1 rounded-full w-20 text-center">T=50ms</span>
+                            <span class="text-gray-700">Academic Service saves student ✓</span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <span class="bg-blue-600 text-white px-3 py-1 rounded-full w-20 text-center">T=55ms</span>
+                            <span class="text-gray-700 bg-yellow-100 px-2 py-1 rounded">PublishEvent: StudentEnrolled</span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <span class="bg-green-600 text-white px-3 py-1 rounded-full w-20 text-center">T=60ms</span>
+                            <span class="text-gray-700">🎉 Parent sees "Success" (confirmation sent)</span>
+                        </div>
+                        <div class="border-t border-gray-300 my-2 pt-2">
+                            <div class="text-gray-600 italic">Async processing continues in background...</div>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <span class="bg-purple-600 text-white px-3 py-1 rounded-full w-20 text-center">T=200ms</span>
+                            <span class="text-gray-700">Billing Service: Invoice created ✓</span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <span class="bg-purple-600 text-white px-3 py-1 rounded-full w-20 text-center">T=300ms</span>
+                            <span class="text-gray-700">Communication: Email/SMS sent ✓</span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <span class="bg-orange-600 text-white px-3 py-1 rounded-full w-20 text-center">T=150ms</span>
+                            <span class="text-gray-700">Transport: Bus route assigned ✓</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 16: Admin Flow Simulation -->
     <section id="admin-flow" class="py-12 bg-white border-t border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="mb-12">
@@ -2732,56 +2663,137 @@ X-Client: parent-mobile</code></pre>
             </div>
         </div>
     </section>
+    </section>
 
-    <!-- Scalability Section -->
-    <section id="scalability" class="py-12 bg-gray-50 border-t border-gray-200">
+    <!-- Section 17: Comparison -->
+    <section id="comparison" class="py-12 bg-white border-t border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between mb-6">
-                <h2 class="text-3xl font-bold text-gray-900">Scalability & Data Isolation</h2>
-                <button class="glossary-btn" onclick="openGlossary('scalability')" title="View glossary for this section">?</button>
+            <div class="mb-8">
+                <div class="flex items-center justify-between">
+                    <h2 class="text-3xl font-bold text-gray-900">Simple vs. Production-Ready Architecture</h2>
+                    <button class="glossary-btn" onclick="openGlossary('comparison')" title="View glossary for this section">?</button>
+                </div>
+                <p class="mt-4 text-gray-600 max-w-3xl">
+                    What you learn in tutorials vs. what production systems actually need.
+                </p>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-                <div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-4">Independent Scaling</h3>
-                    <p class="text-gray-600 mb-6 text-sm">
-                        Each service scales independently based on demand. Academic Service can handle exam season spikes without over-provisioning Transport Service.
-                    </p>
-                    <div class="bg-white p-4 rounded-xl border border-gray-200">
-                        <div class="chart-container">
-                            <canvas id="scalabilityChart"></canvas>
-                        </div>
-                    </div>
-                    <div class="mt-4 text-xs text-center text-gray-500">
-                        Auto-scaling pod count distribution (peak load scenario)
-                    </div>
+            <div class="overflow-x-auto bg-white rounded-xl border border-gray-200">
+                <table class="comparison-table w-full">
+                    <thead>
+                        <tr class="bg-gray-100 border-b-2 border-gray-300">
+                            <th class="font-bold text-gray-900">Aspect</th>
+                            <th class="text-center">
+                                <div class="font-bold text-blue-900">🎓 Simple</div>
+                                <div class="text-xs text-blue-700">(Tutorial)</div>
+                            </th>
+                            <th class="text-center">
+                                <div class="font-bold text-green-900">🏭 Production-Ready</div>
+                                <div class="text-xs text-green-700">(SchoolNest v2.0)</div>
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="border-b border-gray-200 hover:bg-gray-50">
+                            <td class="font-bold text-gray-800">Service Calls</td>
+                            <td class="text-center"><span class="check-icon">✓</span> REST only (sync)</td>
+                            <td class="text-center"><span class="check-icon">✓</span> REST (sync) + Event Bus (async)</td>
+                        </tr>
+                        <tr class="border-b border-gray-200 hover:bg-gray-50">
+                            <td class="font-bold text-gray-800">Failure Handling</td>
+                            <td class="text-center"><span class="cross-icon">✗</span> None (hope it works)</td>
+                            <td class="text-center"><span class="check-icon">✓</span> Circuit breaker, retries, fallbacks</td>
+                        </tr>
+                        <tr class="border-b border-gray-200 hover:bg-gray-50">
+                            <td class="font-bold text-gray-800">Service Discovery</td>
+                            <td class="text-center"><span class="warning-icon">⚠</span> Hardcoded URLs</td>
+                            <td class="text-center"><span class="check-icon">✓</span> Kubernetes/Consul service discovery</td>
+                        </tr>
+                        <tr class="border-b border-gray-200 hover:bg-gray-50">
+                            <td class="font-bold text-gray-800">Logging</td>
+                            <td class="text-center"><span class="warning-icon">⚠</span> Console.log()</td>
+                            <td class="text-center"><span class="check-icon">✓</span> Structured logs to ELK stack with correlation IDs</td>
+                        </tr>
+                        <tr class="border-b border-gray-200 hover:bg-gray-50">
+                            <td class="font-bold text-gray-800">Metrics</td>
+                            <td class="text-center"><span class="cross-icon">✗</span> None</td>
+                            <td class="text-center"><span class="check-icon">✓</span> Prometheus metrics, Grafana dashboards</td>
+                        </tr>
+                        <tr class="border-b border-gray-200 hover:bg-gray-50">
+                            <td class="font-bold text-gray-800">Distributed Tracing</td>
+                            <td class="text-center"><span class="cross-icon">✗</span> None</td>
+                            <td class="text-center"><span class="check-icon">✓</span> Jaeger traces request through all services</td>
+                        </tr>
+                        <tr class="border-b border-gray-200 hover:bg-gray-50">
+                            <td class="font-bold text-gray-800">Rate Limiting</td>
+                            <td class="text-center"><span class="cross-icon">✗</span> None</td>
+                            <td class="text-center"><span class="check-icon">✓</span> Per-user, per-tenant, global quotas</td>
+                        </tr>
+                        <tr class="border-b border-gray-200 hover:bg-gray-50">
+                            <td class="font-bold text-gray-800">Data Isolation</td>
+                            <td class="text-center"><span class="warning-icon">⚠</span> WHERE school_id = ? (app-level)</td>
+                            <td class="text-center"><span class="check-icon">✓</span> RLS + app-level + audit logging</td>
+                        </tr>
+                        <tr class="border-b border-gray-200 hover:bg-gray-50">
+                            <td class="font-bold text-gray-800">Schema Migrations</td>
+                            <td class="text-center"><span class="warning-icon">⚠</span> Manual, downtime required</td>
+                            <td class="text-center"><span class="check-icon">✓</span> Zero-downtime migrations with gradual rollout</td>
+                        </tr>
+                        <tr class="border-b border-gray-200 hover:bg-gray-50">
+                            <td class="font-bold text-gray-800">Deployment</td>
+                            <td class="text-center"><span class="warning-icon">⚠</span> Manual SSH or basic CI/CD</td>
+                            <td class="text-center"><span class="check-icon">✓</span> Blue-green/canary with automatic rollback</td>
+                        </tr>
+                        <tr class="border-b border-gray-200 hover:bg-gray-50">
+                            <td class="font-bold text-gray-800">Caching Strategy</td>
+                            <td class="text-center"><span class="cross-icon">✗</span> None</td>
+                            <td class="text-center"><span class="check-icon">✓</span> Redis + cache invalidation strategy</td>
+                        </tr>
+                        <tr class="hover:bg-gray-50">
+                            <td class="font-bold text-gray-800">Disaster Recovery</td>
+                            <td class="text-center"><span class="cross-icon">✗</span> Backup and hope</td>
+                            <td class="text-center"><span class="check-icon">✓</span> Point-in-time recovery, cross-region replicas</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Implementation Maturity Levels -->
+            <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-blue-50 border-2 border-blue-200 rounded-xl p-6">
+                    <h4 class="text-lg font-bold text-blue-900 mb-3">Level 1: MVP</h4>
+                    <p class="text-sm text-blue-800 mb-3">Proof of concept, < 100 schools</p>
+                    <ul class="text-xs text-blue-800 space-y-1">
+                        <li>✓ Basic multi-tenancy</li>
+                        <li>✓ REST APIs</li>
+                        <li>✓ Database per service</li>
+                        <li>✗ No observability</li>
+                        <li>✗ No async processing</li>
+                    </ul>
                 </div>
 
-                <div>
-                    <h3 class="text-xl font-bold text-gray-800 mb-4">Multi-Tenancy Strategy</h3>
-                    <div class="space-y-4">
-                        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
-                            <h4 class="font-bold text-blue-900">Logical Isolation</h4>
-                            <p class="text-sm text-blue-800 mt-1">Shared infrastructure with discriminator column. Cost-efficient for many small tenants.</p>
-                        </div>
+                <div class="bg-yellow-50 border-2 border-yellow-300 rounded-xl p-6">
+                    <h4 class="text-lg font-bold text-yellow-900 mb-3">Level 2: Growth</h4>
+                    <p class="text-sm text-yellow-800 mb-3">Early production, 100–1000 schools</p>
+                    <ul class="text-xs text-yellow-800 space-y-1">
+                        <li>✓ Circuit breakers</li>
+                        <li>✓ Basic monitoring</li>
+                        <li>✓ Event bus (Kafka)</li>
+                        <li>✓ RLS + audit logs</li>
+                        <li>⚠ Limited tracing</li>
+                    </ul>
+                </div>
 
-                        <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
-                            <h4 class="font-bold text-gray-800">Database RLS Protection</h4>
-                            <div class="mt-2 font-mono text-xs bg-gray-100 p-2 rounded text-gray-700">
-                                CREATE POLICY tenant_isolation ON students<br/>
-                                USING (school_id = current_setting('app.school_id')::int)<br/>
-                                <span class="text-green-600">✓ Double-layered security</span>
-                            </div>
-                        </div>
-
-                        <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
-                            <h4 class="font-bold text-gray-800">Query Injection Pattern</h4>
-                            <div class="mt-2 font-mono text-xs bg-gray-900 text-green-400 p-2 rounded">
-                                SELECT * FROM attendance WHERE status='present'<br/>
-                                <span class="text-yellow-400">AND school_id = 101;</span>
-                            </div>
-                        </div>
-                    </div>
+                <div class="bg-green-50 border-2 border-green-300 rounded-xl p-6">
+                    <h4 class="text-lg font-bold text-green-900 mb-3">Level 3: Scale</h4>
+                    <p class="text-sm text-green-800 mb-3">Mature system, 1000+ schools</p>
+                    <ul class="text-xs text-green-800 space-y-1">
+                        <li>✓ Full observability</li>
+                        <li>✓ Chaos engineering</li>
+                        <li>✓ Multi-region</li>
+                        <li>✓ Canary deployments</li>
+                        <li>✓ AI/ML anomaly detection</li>
+                    </ul>
                 </div>
             </div>
         </div>
