@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SchoolNest Architecture Blueprint</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #F3F4F6; }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            height: 300px;
+            max-height: 400px;
+            margin: 0 auto;
+        }
+        .arch-box {
+            transition: all 0.3s ease;
+        }
+        .arch-box:hover, .arch-box.active {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border-color: #3B82F6;
+        }
+        .connector-line {
+            width: 2px;
+            background-color: #D1D5DB;
+            margin: 0 auto;
+        }
+        .flow-step {
+            transition: all 0.4s ease;
+        }
+        .flow-step.active-step {
+            background-color: #EFF6FF;
+            border-color: #3B82F6;
+        }
+        .code-block {
+            font-family: 'Courier New', Courier, monospace;
+        }
+    </style>
+    <!-- Chosen Palette: Corporate SaaS Blue - Clean, Trustworthy, Technical -->
+    <!-- Application Structure Plan:
+        1. Hero/Intro: High-level context.
+        2. Interactive Architecture Map: A clickable layer-based diagram (HTML/CSS) allowing users to inspect each layer (Client, BFF, Gateway, Services). This replaces static ASCII.
+        3. Request Flow Simulator: A specific interactive module to demonstrate the "Parent Viewing Attendance" use case, visualizing the path from Frontend to DB.
+        4. Microservices Catalog: A filterable grid to explore specific services and their DB responsibilities.
+        5. Scalability & Multi-Tenancy: A chart-based visualization demonstrating independent scaling and a text-based interactive explanation of Data Isolation.
+    -->
+    <!-- Visualization & Content Choices:
+        1. System Map: HTML Flex/Grid layout with connector divs. Goal: Show structure. Interaction: Click to reveal details side-panel.
+        2. Request Flow: Vertical stepper. Goal: Explain data path. Interaction: "Next Step" button updates UI state and "Code Trace" panel.
+        3. Scalability Chart: Chart.js Line Chart. Goal: Visualize "Independent Scaling". Interaction: Toggle lines for different services.
+        4. Service Grid: Cards. Goal: Detail microservice responsibilities. Interaction: JS Filter.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+</head>
+<body class="text-gray-800">
+
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <span class="text-2xl font-bold text-blue-600">SchoolNest</span>
+                    <span class="ml-2 text-sm text-gray-500 border-l pl-2 border-gray-300">Architecture Blueprint</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <button onclick="scrollToSection('architecture-map')" class="text-gray-600 hover:text-blue-600 font-medium">System Map</button>
+                    <button onclick="scrollToSection('request-flow')" class="text-gray-600 hover:text-blue-600 font-medium">Request Simulation</button>
+                    <button onclick="scrollToSection('microservices')" class="text-gray-600 hover:text-blue-600 font-medium">Services</button>
+                    <button onclick="scrollToSection('scalability')" class="text-gray-600 hover:text-blue-600 font-medium">Scalability</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header / Context -->
+    <header class="bg-white border-b border-gray-200">
+        <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl font-extrabold text-gray-900 sm:text-5xl sm:tracking-tight lg:text-6xl">
+                Multi-Tenant Microservices
+            </h1>
+            <p class="mt-5 max-w-xl mx-auto text-xl text-gray-500">
+                A scalable, secure, and tenant-isolated platform architecture designed for the SchoolNest ecosystem.
+            </p>
+        </div>
+    </header>
+
+    <!-- Section 1: Interactive System Map -->
+    <section id="architecture-map" class="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="mb-8">
+            <h2 class="text-3xl font-bold text-gray-900">System Architecture Map</h2>
+            <p class="mt-4 text-gray-600 max-w-3xl">
+                Explore the layered architecture of SchoolNest. Click on any layer in the diagram below to understand its responsibility, from the specific Frontend Clients down to the Isolated Data Stores.
+            </p>
+        </div>
+
+        <div class="flex flex-col lg:flex-row gap-8">
+            <!-- Diagram Column -->
+            <div class="flex-1 bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                <div class="flex flex-col items-center space-y-2">
+                    
+                    <!-- Client Layer -->
+                    <div id="layer-client" class="arch-box w-full bg-blue-50 border-2 border-blue-100 rounded-lg p-4 cursor-pointer text-center" onclick="showLayerDetails('client')">
+                        <h3 class="font-bold text-blue-900">Client Application Layer</h3>
+                        <div class="flex justify-center gap-2 mt-2 text-xs text-blue-700 flex-wrap">
+                            <span class="bg-white px-2 py-1 rounded border border-blue-200">Parent App</span>
+                            <span class="bg-white px-2 py-1 rounded border border-blue-200">Teacher Portal</span>
+                            <span class="bg-white px-2 py-1 rounded border border-blue-200">Admin Console</span>
+                        </div>
+                    </div>
+
+                    <!-- Connector -->
+                    <div class="h-6 w-0.5 bg-gray-300"></div>
+
+                    <!-- BFF Layer -->
+                    <div id="layer-bff" class="arch-box w-full bg-indigo-50 border-2 border-indigo-100 rounded-lg p-4 cursor-pointer text-center" onclick="showLayerDetails('bff')">
+                        <h3 class="font-bold text-indigo-900">Backend-for-Frontend (BFF) Layer</h3>
+                        <div class="text-xs text-indigo-600 mt-1">Aggregates data per specific UI need</div>
+                    </div>
+
+                    <!-- Connector -->
+                    <div class="h-6 w-0.5 bg-gray-300"></div>
+
+                    <!-- API Gateway -->
+                    <div id="layer-gateway" class="arch-box w-3/4 bg-purple-50 border-2 border-purple-100 rounded-lg p-3 cursor-pointer text-center" onclick="showLayerDetails('gateway')">
+                        <h3 class="font-bold text-purple-900">API Gateway</h3>
+                        <div class="text-xs text-purple-600 mt-1">Auth • Routing • Rate Limiting</div>
+                    </div>
+
+                    <!-- Connector -->
+                    <div class="h-6 w-0.5 bg-gray-300"></div>
+
+                    <!-- Microservices -->
+                    <div id="layer-services" class="arch-box w-full bg-green-50 border-2 border-green-100 rounded-lg p-4 cursor-pointer text-center" onclick="showLayerDetails('services')">
+                        <h3 class="font-bold text-green-900">Core Microservices</h3>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-2 text-xs text-green-700">
+                            <span class="bg-white p-1 rounded border border-green-200">Auth</span>
+                            <span class="bg-white p-1 rounded border border-green-200">Academic</span>
+                            <span class="bg-white p-1 rounded border border-green-200">Billing</span>
+                            <span class="bg-white p-1 rounded border border-green-200">Tenant</span>
+                        </div>
+                    </div>
+
+                    <!-- Connector -->
+                    <div class="h-6 w-0.5 bg-gray-300"></div>
+
+                    <!-- Data Layer -->
+                    <div id="layer-data" class="arch-box w-full bg-gray-50 border-2 border-gray-200 rounded-lg p-4 cursor-pointer text-center" onclick="showLayerDetails('data')">
+                        <h3 class="font-bold text-gray-800">Isolated Data Stores</h3>
+                        <div class="text-xs text-gray-600 mt-1">Dedicated DBs per Service • Logical Tenant Isolation</div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Details Panel -->
+            <div class="flex-1 bg-gray-50 rounded-xl p-6 border border-gray-200">
+                <div id="details-content">
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Select a Layer</h3>
+                    <p class="text-gray-600">Click on any component in the diagram to view technical specifications, responsibilities, and connection details.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 2: Request Flow Simulation -->
+    <section id="request-flow" class="py-12 bg-white border-t border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-8">
+                <h2 class="text-3xl font-bold text-gray-900">Request Flow Simulation</h2>
+                <p class="mt-4 text-gray-600 max-w-3xl">
+                    Walk through a real-world scenario: <strong>"Parent Viewing Attendance"</strong>. See how the Tenant ID propagates from the frontend token down to the database query.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Visual Stepper -->
+                <div class="lg:col-span-1 space-y-4">
+                    <div id="step-1" class="flow-step border rounded-lg p-4 bg-white shadow-sm border-gray-200">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 h-8 w-8 flex items-center justify-center rounded-full bg-blue-100 text-blue-600 font-bold">1</div>
+                            <div class="ml-3 font-medium">Parent App Request</div>
+                        </div>
+                    </div>
+                    <div class="h-4 border-l-2 border-gray-200 ml-4"></div>
+                    <div id="step-2" class="flow-step border rounded-lg p-4 bg-white shadow-sm border-gray-200">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 h-8 w-8 flex items-center justify-center rounded-full bg-gray-100 text-gray-500 font-bold">2</div>
+                            <div class="ml-3 font-medium">BFF Aggregation</div>
+                        </div>
+                    </div>
+                    <div class="h-4 border-l-2 border-gray-200 ml-4"></div>
+                    <div id="step-3" class="flow-step border rounded-lg p-4 bg-white shadow-sm border-gray-200">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 h-8 w-8 flex items-center justify-center rounded-full bg-gray-100 text-gray-500 font-bold">3</div>
+                            <div class="ml-3 font-medium">Gateway & Auth</div>
+                        </div>
+                    </div>
+                    <div class="h-4 border-l-2 border-gray-200 ml-4"></div>
+                    <div id="step-4" class="flow-step border rounded-lg p-4 bg-white shadow-sm border-gray-200">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0 h-8 w-8 flex items-center justify-center rounded-full bg-gray-100 text-gray-500 font-bold">4</div>
+                            <div class="ml-3 font-medium">Academic Service & DB</div>
+                        </div>
+                    </div>
+
+                    <div class="mt-6">
+                        <button id="next-step-btn" onclick="nextFlowStep()" class="w-full bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 transition">
+                            Start Simulation
+                        </button>
+                        <button onclick="resetFlow()" class="w-full mt-2 text-sm text-gray-500 hover:text-gray-700">Reset</button>
+                    </div>
+                </div>
+
+                <!-- Context/Code View -->
+                <div class="lg:col-span-2 bg-gray-900 rounded-xl p-6 text-white font-mono text-sm shadow-xl flex flex-col justify-between min-h-[400px]">
+                    <div>
+                        <div class="border-b border-gray-700 pb-2 mb-4 flex justify-between">
+                            <span class="text-green-400">System Trace Logs</span>
+                            <span id="trace-status" class="text-gray-400">Waiting to start...</span>
+                        </div>
+                        <div id="code-display" class="space-y-4">
+                            <!-- Dynamic Content Here -->
+                            <div class="text-gray-500 italic">// Click 'Start Simulation' to trace the request.</div>
+                        </div>
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-gray-700 text-xs text-gray-400">
+                        Multi-Tenancy Check: <span id="mt-check" class="text-gray-500">Pending</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 3: Microservices Breakdown -->
+    <section id="microservices" class="py-12 bg-gray-50 border-t border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-8 flex flex-col md:flex-row md:items-center justify-between">
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-900">Microservices Ecosystem</h2>
+                    <p class="mt-2 text-gray-600">Autonomous services owning logic and data.</p>
+                </div>
+                <div class="mt-4 md:mt-0 space-x-2">
+                    <button onclick="filterServices('all')" class="px-3 py-1 bg-white border border-gray-300 rounded-md text-sm hover:bg-gray-100">All</button>
+                    <button onclick="filterServices('core')" class="px-3 py-1 bg-white border border-gray-300 rounded-md text-sm hover:bg-gray-100">Core Logic</button>
+                    <button onclick="filterServices('ops')" class="px-3 py-1 bg-white border border-gray-300 rounded-md text-sm hover:bg-gray-100">Operations</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="service-grid">
+                <!-- Auth Service -->
+                <div class="service-card core bg-white p-6 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition">
+                    <div class="flex items-center mb-4">
+                        <div class="h-10 w-10 bg-red-100 rounded-full flex items-center justify-center text-red-600 font-bold">A</div>
+                        <h3 class="ml-3 text-lg font-bold text-gray-900">Auth Service</h3>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-3">Manages tokens, session lifecycles, and RBAC.</p>
+                    <div class="text-xs font-mono bg-gray-100 p-2 rounded">DB: auth_db</div>
+                </div>
+
+                <!-- Tenant Service -->
+                <div class="service-card core bg-white p-6 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition">
+                    <div class="flex items-center mb-4">
+                        <div class="h-10 w-10 bg-blue-100 rounded-full flex items-center justify-center text-blue-600 font-bold">T</div>
+                        <h3 class="ml-3 text-lg font-bold text-gray-900">Tenant Service</h3>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-3">School onboarding, plans, and feature flags.</p>
+                    <div class="text-xs font-mono bg-gray-100 p-2 rounded">DB: tenant_db</div>
+                </div>
+
+                <!-- Academic Service -->
+                <div class="service-card core bg-white p-6 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition">
+                    <div class="flex items-center mb-4">
+                        <div class="h-10 w-10 bg-green-100 rounded-full flex items-center justify-center text-green-600 font-bold">Ac</div>
+                        <h3 class="ml-3 text-lg font-bold text-gray-900">Academic Service</h3>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-3">Enrollment, attendance tracking, and exam results.</p>
+                    <div class="text-xs font-mono bg-gray-100 p-2 rounded">DB: academic_db</div>
+                </div>
+
+                <!-- Billing Service -->
+                <div class="service-card ops bg-white p-6 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition">
+                    <div class="flex items-center mb-4">
+                        <div class="h-10 w-10 bg-yellow-100 rounded-full flex items-center justify-center text-yellow-600 font-bold">B</div>
+                        <h3 class="ml-3 text-lg font-bold text-gray-900">Billing Service</h3>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-3">Fee tracking, payment processing, invoicing.</p>
+                    <div class="text-xs font-mono bg-gray-100 p-2 rounded">DB: billing_db</div>
+                </div>
+
+                <!-- Communication Service -->
+                <div class="service-card ops bg-white p-6 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition">
+                    <div class="flex items-center mb-4">
+                        <div class="h-10 w-10 bg-purple-100 rounded-full flex items-center justify-center text-purple-600 font-bold">C</div>
+                        <h3 class="ml-3 text-lg font-bold text-gray-900">Communication</h3>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-3">Internal messaging, push notifications, emails.</p>
+                    <div class="text-xs font-mono bg-gray-100 p-2 rounded">DB: communication_db</div>
+                </div>
+
+                <!-- Transport Service -->
+                <div class="service-card ops bg-white p-6 rounded-lg shadow-sm border border-gray-200 hover:shadow-md transition">
+                    <div class="flex items-center mb-4">
+                        <div class="h-10 w-10 bg-orange-100 rounded-full flex items-center justify-center text-orange-600 font-bold">Tr</div>
+                        <h3 class="ml-3 text-lg font-bold text-gray-900">Transport Service</h3>
+                    </div>
+                    <p class="text-sm text-gray-600 mb-3">Bus routes, driver assignments, GPS tracking.</p>
+                    <div class="text-xs font-mono bg-gray-100 p-2 rounded">DB: transport_db</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: Scalability & Isolation -->
+    <section id="scalability" class="py-12 bg-white border-t border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">Scalability & Data Isolation</h2>
+            
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <!-- Scalability Chart -->
+                <div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Independent Scaling Capability</h3>
+                    <p class="text-gray-600 mb-6 text-sm">
+                        Because each BFF and Service is decoupled, we can scale specific parts of the system based on real-time demand without over-provisioning the entire platform.
+                    </p>
+                    <div class="bg-gray-50 p-4 rounded-xl border border-gray-200">
+                        <div class="chart-container">
+                            <canvas id="scalabilityChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="mt-4 text-xs text-center text-gray-500">
+                        *Simulated traffic load showing Parent App spike during Report Card season.
+                    </div>
+                </div>
+
+                <!-- Data Isolation Explanation -->
+                <div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-4">Multi-Tenancy Strategy</h3>
+                    <div class="space-y-4">
+                        <div class="bg-blue-50 p-4 rounded-lg border-l-4 border-blue-500">
+                            <h4 class="font-bold text-blue-900">Logical Isolation</h4>
+                            <p class="text-sm text-blue-800 mt-1">
+                                Shared infrastructure balances cost and security. We use a "Discriminator Column" strategy.
+                            </p>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                            <h4 class="font-bold text-gray-800">Database Schema Pattern</h4>
+                            <div class="mt-2 font-mono text-xs bg-gray-100 p-2 rounded text-gray-700">
+                                TABLE: attendance<br>
+                                -----------------<br>
+                                id (PK)<br>
+                                student_id<br>
+                                date<br>
+                                status<br>
+                                <span class="font-bold text-red-600">school_id (FK, Index)</span> <-- Discriminator
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm">
+                            <h4 class="font-bold text-gray-800">Query Injection</h4>
+                            <p class="text-sm text-gray-600 mt-1">
+                                Every query is intercepted by middleware which appends the tenant scope automatically.
+                            </p>
+                            <div class="mt-2 font-mono text-xs bg-gray-900 text-green-400 p-2 rounded">
+                                SELECT * FROM exams <br>
+                                WHERE grade = '5' <br>
+                                <span class="text-yellow-400">AND school_id = 101;</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-gray-400 text-sm">© SchoolNest Architecture Team. Internal Design Document.</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript Logic -->
+    <script>
+        // --- State Management ---
+        const appState = {
+            currentLayer: null,
+            flowStep: 0,
+            servicesFilter: 'all'
+        };
+
+        // --- Layer Details Content ---
+        const layerData = {
+            'client': {
+                title: 'Client Application Layer',
+                content: `
+                    <ul class="list-disc pl-5 space-y-2 text-sm text-gray-700">
+                        <li><strong>Super Admin Console:</strong> Platform management & billing.</li>
+                        <li><strong>Teacher Portal:</strong> Gradebooks & lesson planning.</li>
+                        <li><strong>Parent App:</strong> Real-time updates & fee payments.</li>
+                    </ul>
+                    <p class="mt-4 text-sm text-blue-600 bg-blue-50 p-2 rounded">Each app is a separate SPA or Mobile App codebase.</p>
+                `
+            },
+            'bff': {
+                title: 'Backend-for-Frontend (BFF)',
+                content: `
+                    <ul class="list-disc pl-5 space-y-2 text-sm text-gray-700">
+                        <li><strong>Purpose:</strong> Aggregates microservice data for specific UI needs.</li>
+                        <li><strong>Optimization:</strong> Reduces over-fetching and mobile battery usage.</li>
+                        <li><strong>Components:</strong> parent-bff, teacher-bff, admin-bff.</li>
+                    </ul>
+                `
+            },
+            'gateway': {
+                title: 'API Gateway',
+                content: `
+                    <ul class="list-disc pl-5 space-y-2 text-sm text-gray-700">
+                        <li><strong>Security:</strong> Validates JWTs before requests reach core services.</li>
+                        <li><strong>Routing:</strong> Maps /api/v1/attendance -> Academic Service.</li>
+                        <li><strong>Resilience:</strong> Rate limiting and centralized logging.</li>
+                    </ul>
+                `
+            },
+            'services': {
+                title: 'Core Microservices',
+                content: `
+                    <p class="text-sm text-gray-700 mb-2">Autonomous services with distinct boundaries:</p>
+                    <div class="grid grid-cols-2 gap-2 text-xs font-mono">
+                        <div class="bg-gray-100 p-1">Auth Service</div>
+                        <div class="bg-gray-100 p-1">User Service</div>
+                        <div class="bg-gray-100 p-1">Academic Service</div>
+                        <div class="bg-gray-100 p-1">Tenant Service</div>
+                    </div>
+                    <p class="mt-3 text-sm italic text-gray-500">See 'Services' section below for full list.</p>
+                `
+            },
+            'data': {
+                title: 'Isolated Data Stores',
+                content: `
+                    <ul class="list-disc pl-5 space-y-2 text-sm text-gray-700">
+                        <li><strong>Pattern:</strong> Database-per-service.</li>
+                        <li><strong>Isolation:</strong> Logical isolation using 'school_id' columns.</li>
+                        <li><strong>Consistency:</strong> Strict scoping enforced by service middleware.</li>
+                    </ul>
+                `
+            }
+        };
+
+        // --- Interaction: System Map ---
+        function showLayerDetails(layerId) {
+            // UI Update
+            document.querySelectorAll('.arch-box').forEach(el => el.classList.remove('active', 'border-blue-500', 'ring-2', 'ring-blue-200'));
+            const selectedBox = document.getElementById(`layer-${layerId}`);
+            selectedBox.classList.add('active', 'border-blue-500', 'ring-2', 'ring-blue-200');
+
+            // Content Update
+            const detailsDiv = document.getElementById('details-content');
+            const data = layerData[layerId];
+            
+            detailsDiv.innerHTML = `
+                <h3 class="text-xl font-bold text-gray-900 mb-4 border-b pb-2">${data.title}</h3>
+                <div class="animate-fade-in">${data.content}</div>
+            `;
+        }
+
+        // --- Interaction: Request Flow Simulation ---
+        function nextFlowStep() {
+            appState.flowStep++;
+            if (appState.flowStep > 4) appState.flowStep = 1; // Loop or reset? Let's loop 1-4.
+            updateFlowUI();
+        }
+
+        function resetFlow() {
+            appState.flowStep = 0;
+            updateFlowUI();
+        }
+
+        function updateFlowUI() {
+            const steps = [1, 2, 3, 4];
+            const btn = document.getElementById('next-step-btn');
+            const codeDisplay = document.getElementById('code-display');
+            const status = document.getElementById('trace-status');
+            const mtCheck = document.getElementById('mt-check');
+
+            // Reset visual steps
+            steps.forEach(s => {
+                const el = document.getElementById(`step-${s}`);
+                const icon = el.querySelector('div.h-8');
+                if (s === appState.flowStep) {
+                    el.classList.add('active-step', 'border-blue-500');
+                    el.classList.remove('border-gray-200');
+                    icon.classList.remove('bg-gray-100', 'text-gray-500');
+                    icon.classList.add('bg-blue-600', 'text-white');
+                } else {
+                    el.classList.remove('active-step', 'border-blue-500');
+                    el.classList.add('border-gray-200');
+                    icon.classList.add('bg-gray-100', 'text-gray-500');
+                    icon.classList.remove('bg-blue-600', 'text-white');
+                    if (s < appState.flowStep) {
+                        // Completed steps style
+                         icon.classList.remove('bg-gray-100', 'text-gray-500');
+                         icon.classList.add('bg-green-100', 'text-green-600');
+                    }
+                }
+            });
+
+            // Logic for Code/Trace Display
+            if (appState.flowStep === 0) {
+                btn.innerText = "Start Simulation";
+                status.innerText = "Idle";
+                codeDisplay.innerHTML = `<div class="text-gray-500 italic">// Click 'Start Simulation' to trace the request.</div>`;
+                mtCheck.innerText = "Pending";
+                mtCheck.className = "text-gray-500";
+            } else if (appState.flowStep === 1) {
+                btn.innerText = "Next: Aggregation";
+                status.innerText = "Sending Request...";
+                codeDisplay.innerHTML = `
+                    <div class="text-blue-300">HTTP GET /attendance</div>
+                    <div class="text-gray-400">Host: api.schoolnest.com</div>
+                    <div class="text-gray-400">Authorization: Bearer eyJhbGci...</div>
+                `;
+                mtCheck.innerText = "Token Present";
+                mtCheck.className = "text-yellow-500";
+            } else if (appState.flowStep === 2) {
+                btn.innerText = "Next: Gateway Auth";
+                status.innerText = "Processing in BFF...";
+                codeDisplay.innerHTML = `
+                    <div class="text-purple-300">BFF Logic:</div>
+                    <div class="pl-4 text-gray-300">Identify need: Fetch Attendance Records</div>
+                    <div class="pl-4 text-gray-300">Prepare Service Call -> Academic Svc</div>
+                `;
+            } else if (appState.flowStep === 3) {
+                btn.innerText = "Next: DB Query";
+                status.innerText = "Gateway Validating...";
+                codeDisplay.innerHTML = `
+                    <div class="text-green-300">JWT Decoded:</div>
+                    <div class="pl-4 text-white">{</div>
+                    <div class="pl-8 text-yellow-300">"user_id": "u_992",</div>
+                    <div class="pl-8 text-yellow-300">"role": "PARENT",</div>
+                    <div class="pl-8 text-yellow-300">"school_id": 101</div>
+                    <div class="pl-4 text-white">}</div>
+                    <div class="text-green-400 mt-2">✓ Validation Passed</div>
+                `;
+                mtCheck.innerText = "Context Extracted: School 101";
+                mtCheck.className = "text-green-500 font-bold";
+            } else if (appState.flowStep === 4) {
+                btn.innerText = "Restart";
+                status.innerText = "Executing Query...";
+                codeDisplay.innerHTML = `
+                    <div class="text-orange-300">SQL Execution:</div>
+                    <div class="pl-4 text-white">SELECT * FROM attendance</div>
+                    <div class="pl-4 text-white">WHERE student_id = 'st_55'</div>
+                    <div class="pl-4 text-yellow-400 font-bold">AND school_id = 101;</div>
+                    <div class="mt-2 text-gray-400">// Row Level Security Applied</div>
+                `;
+            }
+        }
+
+        // --- Interaction: Service Filtering ---
+        function filterServices(category) {
+            const cards = document.querySelectorAll('.service-card');
+            cards.forEach(card => {
+                if (category === 'all') {
+                    card.style.display = 'block';
+                } else if (card.classList.contains(category)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // --- Navigation Helper ---
+        function scrollToSection(id) {
+            document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // --- Initialization: Charts & Events ---
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize default layer view
+            showLayerDetails('client');
+
+            // Initialize Scalability Chart
+            const ctx = document.getElementById('scalabilityChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar (Mid-Term)', 'Apr', 'May', 'Jun (Finals)', 'Jul'],
+                    datasets: [
+                        {
+                            label: 'Parent App Traffic',
+                            data: [20, 25, 85, 30, 35, 95, 20],
+                            borderColor: '#3B82F6', // Blue
+                            backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                            fill: true,
+                            tension: 0.4
+                        },
+                        {
+                            label: 'Admin Console Traffic',
+                            data: [40, 42, 45, 43, 44, 50, 45],
+                            borderColor: '#10B981', // Green
+                            borderDash: [5, 5],
+                            tension: 0.2
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' },
+                        tooltip: {
+                            mode: 'index',
+                            intersect: false,
+                            callbacks: {
+                                footer: (items) => {
+                                    if(items[0].label.includes('Mar') || items[0].label.includes('Jun')) {
+                                        return "Insight: Parent BFF scales up automatically independently of Admin BFF.";
+                                    }
+                                    return "";
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            title: { display: true, text: 'Requests / Sec' }
+                        }
+                    }
+                }
+            });
+        });
+
+    </script>
+</body>
+</html>
