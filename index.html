@@ -285,10 +285,31 @@
                     <div class="nav-dropdown">
                         <button onclick="toggleDropdown('foundations')" class="nav-link px-3 py-2">Foundations ▼</button>
                         <div id="foundations" class="dropdown-menu">
-                            <button onclick="scrollToSection('communication'); closeDropdowns()">Communication</button>
+                            <button onclick="scrollToSection('communication'); closeDropdowns()">Communication Patterns</button>
                             <button onclick="scrollToSection('data-ownership'); closeDropdowns()">Data Ownership</button>
+                            <button onclick="scrollToSection('data-flow'); closeDropdowns()">Data Flow Diagram</button>
                             <button onclick="scrollToSection('request-flow'); closeDropdowns()">Request Flow</button>
                             <button onclick="scrollToSection('api-flow'); closeDropdowns()">API Flow</button>
+                        </div>
+                    </div>
+
+                    <!-- Design Dropdown -->
+                    <div class="nav-dropdown">
+                        <button onclick="toggleDropdown('design')" class="nav-link px-3 py-2">Design ▼</button>
+                        <div id="design" class="dropdown-menu">
+                            <button onclick="scrollToSection('feature-licensing'); closeDropdowns()">Feature Licensing</button>
+                            <button onclick="scrollToSection('crud-permissions'); closeDropdowns()">CRUD Permissions</button>
+                        </div>
+                    </div>
+
+                    <!-- Infrastructure Dropdown -->
+                    <div class="nav-dropdown">
+                        <button onclick="toggleDropdown('infrastructure')" class="nav-link px-3 py-2">Infrastructure ▼</button>
+                        <div id="infrastructure" class="dropdown-menu">
+                            <button onclick="scrollToSection('db-schema'); closeDropdowns()">Database Schema</button>
+                            <button onclick="scrollToSection('db-explorer'); closeDropdowns()">Database Explorer</button>
+                            <button onclick="scrollToSection('microservices'); closeDropdowns()">Microservices</button>
+                            <button onclick="scrollToSection('scalability'); closeDropdowns()">Scalability</button>
                         </div>
                     </div>
 
@@ -299,6 +320,7 @@
                             <button onclick="scrollToSection('resilience'); closeDropdowns()">Resilience</button>
                             <button onclick="scrollToSection('observability'); closeDropdowns()">Observability</button>
                             <button onclick="scrollToSection('events'); closeDropdowns()">Events</button>
+                            <button onclick="scrollToSection('admin-flow'); closeDropdowns()">Admin Flow</button>
                         </div>
                     </div>
 
@@ -315,15 +337,37 @@
 
             <!-- Mobile Navigation Menu -->
             <div id="mobileMenu" class="mobile-menu lg:hidden">
-                <button onclick="scrollToSection('architecture-map'); toggleMobileMenu()" class="nav-link">System Map</button>
-                <button onclick="scrollToSection('communication'); toggleMobileMenu()" class="nav-link">Communication</button>
-                <button onclick="scrollToSection('data-ownership'); toggleMobileMenu()" class="nav-link">Data Ownership</button>
-                <button onclick="scrollToSection('request-flow'); toggleMobileMenu()" class="nav-link">Request Flow</button>
-                <button onclick="scrollToSection('api-flow'); toggleMobileMenu()" class="nav-link">API Flow</button>
-                <button onclick="scrollToSection('resilience'); toggleMobileMenu()" class="nav-link">Resilience</button>
-                <button onclick="scrollToSection('observability'); toggleMobileMenu()" class="nav-link">Observability</button>
-                <button onclick="scrollToSection('events'); toggleMobileMenu()" class="nav-link">Events</button>
-                <button onclick="scrollToSection('comparison'); toggleMobileMenu()" class="nav-link">Comparison</button>
+                <button onclick="scrollToSection('architecture-map'); toggleMobileMenu()" class="nav-link font-bold text-blue-600 border-b">System Map</button>
+
+                <!-- Foundations -->
+                <div class="px-4 py-2 text-xs font-bold text-gray-500 uppercase tracking-wider mt-2">Foundations</div>
+                <button onclick="scrollToSection('communication'); toggleMobileMenu()" class="nav-link pl-6">Communication Patterns</button>
+                <button onclick="scrollToSection('data-ownership'); toggleMobileMenu()" class="nav-link pl-6">Data Ownership</button>
+                <button onclick="scrollToSection('data-flow'); toggleMobileMenu()" class="nav-link pl-6">Data Flow Diagram</button>
+                <button onclick="scrollToSection('request-flow'); toggleMobileMenu()" class="nav-link pl-6">Request Flow</button>
+                <button onclick="scrollToSection('api-flow'); toggleMobileMenu()" class="nav-link pl-6">API Flow</button>
+
+                <!-- Design -->
+                <div class="px-4 py-2 text-xs font-bold text-gray-500 uppercase tracking-wider mt-2">Design</div>
+                <button onclick="scrollToSection('feature-licensing'); toggleMobileMenu()" class="nav-link pl-6">Feature Licensing</button>
+                <button onclick="scrollToSection('crud-permissions'); toggleMobileMenu()" class="nav-link pl-6">CRUD Permissions</button>
+
+                <!-- Infrastructure -->
+                <div class="px-4 py-2 text-xs font-bold text-gray-500 uppercase tracking-wider mt-2">Infrastructure</div>
+                <button onclick="scrollToSection('db-schema'); toggleMobileMenu()" class="nav-link pl-6">Database Schema</button>
+                <button onclick="scrollToSection('db-explorer'); toggleMobileMenu()" class="nav-link pl-6">Database Explorer</button>
+                <button onclick="scrollToSection('microservices'); toggleMobileMenu()" class="nav-link pl-6">Microservices</button>
+                <button onclick="scrollToSection('scalability'); toggleMobileMenu()" class="nav-link pl-6">Scalability</button>
+
+                <!-- Operations -->
+                <div class="px-4 py-2 text-xs font-bold text-gray-500 uppercase tracking-wider mt-2">Operations</div>
+                <button onclick="scrollToSection('resilience'); toggleMobileMenu()" class="nav-link pl-6">Resilience</button>
+                <button onclick="scrollToSection('observability'); toggleMobileMenu()" class="nav-link pl-6">Observability</button>
+                <button onclick="scrollToSection('events'); toggleMobileMenu()" class="nav-link pl-6">Events</button>
+                <button onclick="scrollToSection('admin-flow'); toggleMobileMenu()" class="nav-link pl-6">Admin Flow</button>
+
+                <!-- Comparison -->
+                <button onclick="scrollToSection('comparison'); toggleMobileMenu()" class="nav-link font-bold text-blue-600 border-t mt-2">Comparison</button>
             </div>
         </div>
     </nav>
