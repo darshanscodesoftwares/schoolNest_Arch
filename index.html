@@ -1933,6 +1933,345 @@ CREATE TABLE user_roles (
         </div>
     </section>
 
+    <!-- CRUD Action Permissions System -->
+    <section id="crud-permissions" class="py-12 bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 border-t border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-10">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-3xl font-bold text-gray-900">CRUD Action Permissions</h2>
+                    <button class="glossary-btn" onclick="openGlossary('feature-licensing')" title="View CRUD glossary">?</button>
+                </div>
+                <p class="text-gray-600">School & Admins control who can <strong>VIEW</strong>, <strong>ADD</strong>, <strong>EDIT</strong>, or <strong>DELETE</strong> data. Select a role and feature to see permissions.</p>
+            </div>
+
+            <!-- Action Types Card -->
+            <div class="grid grid-cols-1 md:grid-cols-5 gap-4 mb-12">
+                <div class="bg-blue-50 border-l-4 border-blue-500 rounded p-4">
+                    <div class="text-2xl mb-2">👁️</div>
+                    <div class="font-bold text-blue-900">VIEW</div>
+                    <p class="text-xs text-blue-700 mt-2">Read-only access. See data but cannot modify, create, or delete.</p>
+                </div>
+                <div class="bg-green-50 border-l-4 border-green-500 rounded p-4">
+                    <div class="text-2xl mb-2">➕</div>
+                    <div class="font-bold text-green-900">ADD</div>
+                    <p class="text-xs text-green-700 mt-2">Create new records. Useful for data entry roles.</p>
+                </div>
+                <div class="bg-amber-50 border-l-4 border-amber-500 rounded p-4">
+                    <div class="text-2xl mb-2">✏️</div>
+                    <div class="font-bold text-amber-900">EDIT</div>
+                    <p class="text-xs text-amber-700 mt-2">Modify existing records. Cannot create or delete.</p>
+                </div>
+                <div class="bg-red-50 border-l-4 border-red-500 rounded p-4">
+                    <div class="text-2xl mb-2">🗑️</div>
+                    <div class="font-bold text-red-900">DELETE</div>
+                    <p class="text-xs text-red-700 mt-2">Remove records. Dangerous - rarely granted to non-admins.</p>
+                </div>
+                <div class="bg-purple-50 border-l-4 border-purple-500 rounded p-4">
+                    <div class="text-2xl mb-2">✨</div>
+                    <div class="font-bold text-purple-900">ALL</div>
+                    <p class="text-xs text-purple-700 mt-2">Complete access: VIEW + ADD + EDIT + DELETE (Admin level).</p>
+                </div>
+            </div>
+
+            <!-- Interactive Permission Configurator -->
+            <div class="mb-12 bg-gradient-to-r from-indigo-50 to-blue-50 rounded-xl border-2 border-indigo-300 p-8">
+                <h3 class="text-2xl font-bold text-gray-900 mb-6">🎮 Interactive: Configure Permissions</h3>
+                <p class="text-gray-600 mb-6">Try it yourself! Choose a feature and configure which actions are allowed, then see how it affects role permissions.</p>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- LEFT: Feature Configuration -->
+                    <div>
+                        <h4 class="text-lg font-bold text-gray-900 mb-4">⚙️ Step 1: Feature-Level Configuration</h4>
+                        <p class="text-sm text-gray-600 mb-4">Choose a feature and toggle which actions are available:</p>
+
+                        <div class="space-y-3">
+                            <div class="bg-white rounded-lg p-4 border-2 border-gray-200">
+                                <label class="block text-sm font-bold text-gray-900 mb-3">Select Feature:</label>
+                                <select id="featureSelect" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" onchange="updatePermissionDemo()">
+                                    <option value="attendance">Mark Attendance</option>
+                                    <option value="grades">Record Grades</option>
+                                    <option value="invoices">View Invoices</option>
+                                    <option value="payments">Collect Payments</option>
+                                    <option value="messages">Send Messages</option>
+                                </select>
+                            </div>
+
+                            <div class="bg-white rounded-lg p-4 border-2 border-gray-200">
+                                <label class="block text-sm font-bold text-gray-900 mb-4">Enable Actions:</label>
+                                <div class="space-y-3">
+                                    <div class="flex items-center gap-3">
+                                        <input type="checkbox" id="action-view" checked onchange="updatePermissionDemo()" class="w-5 h-5 accent-blue-600">
+                                        <label for="action-view" class="text-sm"><span class="font-bold text-blue-700">👁️ VIEW</span> - Read-only</label>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <input type="checkbox" id="action-add" checked onchange="updatePermissionDemo()" class="w-5 h-5 accent-green-600">
+                                        <label for="action-add" class="text-sm"><span class="font-bold text-green-700">➕ ADD</span> - Create records</label>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <input type="checkbox" id="action-edit" checked onchange="updatePermissionDemo()" class="w-5 h-5 accent-amber-600">
+                                        <label for="action-edit" class="text-sm"><span class="font-bold text-amber-700">✏️ EDIT</span> - Modify records</label>
+                                    </div>
+                                    <div class="flex items-center gap-3">
+                                        <input type="checkbox" id="action-delete" onchange="updatePermissionDemo()" class="w-5 h-5 accent-red-600">
+                                        <label for="action-delete" class="text-sm"><span class="font-bold text-red-700">🗑️ DELETE</span> - Remove records</label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-blue-50 border-2 border-blue-200 rounded-lg p-4">
+                                <p class="text-xs text-gray-600"><strong>💡 Tip:</strong> Uncheck DELETE to prevent accidental data loss. School Admin disabled DELETE for compliance.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- RIGHT: Real-time Role Permission Display -->
+                    <div>
+                        <h4 class="text-lg font-bold text-gray-900 mb-4">👥 Step 2: View Role Permissions</h4>
+                        <p class="text-sm text-gray-600 mb-4">Based on feature config above, here's what each role can do:</p>
+
+                        <div class="space-y-3">
+                            <!-- Teacher -->
+                            <div class="bg-green-50 rounded-lg p-4 border-2 border-green-300">
+                                <div class="flex items-center justify-between mb-3">
+                                    <span class="font-bold text-green-900">🍎 TEACHER</span>
+                                    <span id="teacher-actions" class="text-xs bg-green-200 text-green-800 px-2 py-1 rounded">3 actions</span>
+                                </div>
+                                <div id="teacher-perms" class="space-y-2 text-sm">
+                                    <div class="flex items-center gap-2"><span class="text-green-600 font-bold">✓</span><span>VIEW</span></div>
+                                    <div class="flex items-center gap-2"><span class="text-green-600 font-bold">✓</span><span>ADD</span></div>
+                                    <div class="flex items-center gap-2"><span class="text-green-600 font-bold">✓</span><span>EDIT</span></div>
+                                </div>
+                            </div>
+
+                            <!-- Assistant -->
+                            <div class="bg-blue-50 rounded-lg p-4 border-2 border-blue-300">
+                                <div class="flex items-center justify-between mb-3">
+                                    <span class="font-bold text-blue-900">👤 ASSISTANT</span>
+                                    <span id="assistant-actions" class="text-xs bg-blue-200 text-blue-800 px-2 py-1 rounded">2 actions</span>
+                                </div>
+                                <div id="assistant-perms" class="space-y-2 text-sm">
+                                    <div class="flex items-center gap-2"><span class="text-blue-600 font-bold">✓</span><span>VIEW</span></div>
+                                    <div class="flex items-center gap-2"><span class="text-blue-600 font-bold">✓</span><span>ADD</span></div>
+                                </div>
+                            </div>
+
+                            <!-- Parent -->
+                            <div class="bg-amber-50 rounded-lg p-4 border-2 border-amber-300">
+                                <div class="flex items-center justify-between mb-3">
+                                    <span class="font-bold text-amber-900">👨‍👧‍👦 PARENT</span>
+                                    <span id="parent-actions" class="text-xs bg-amber-200 text-amber-800 px-2 py-1 rounded">1 action</span>
+                                </div>
+                                <div id="parent-perms" class="space-y-2 text-sm">
+                                    <div class="flex items-center gap-2"><span class="text-amber-600 font-bold">✓</span><span>VIEW</span></div>
+                                </div>
+                            </div>
+
+                            <div class="bg-gray-100 border-2 border-gray-300 rounded-lg p-3 text-xs text-gray-700">
+                                <strong>Note:</strong> Roles can only have actions enabled at feature level. If you disable EDIT above, no role will have EDIT permission.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive Permission Checker -->
+            <div class="mb-12 bg-gradient-to-r from-cyan-50 to-blue-50 rounded-xl border-2 border-cyan-300 p-8">
+                <h3 class="text-2xl font-bold text-gray-900 mb-6">🔍 Interactive: Check Permissions</h3>
+                <p class="text-gray-600 mb-6">Simulate a permission check: Select a user, action, and feature to see if access is allowed.</p>
+
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+                    <div class="bg-white rounded-lg p-4 border-2 border-gray-200">
+                        <label class="block text-sm font-bold text-gray-900 mb-3">Select Role:</label>
+                        <select id="checkRole" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" onchange="checkPermission()">
+                            <option value="teacher">Teacher</option>
+                            <option value="assistant">Assistant</option>
+                            <option value="parent">Parent</option>
+                        </select>
+                    </div>
+
+                    <div class="bg-white rounded-lg p-4 border-2 border-gray-200">
+                        <label class="block text-sm font-bold text-gray-900 mb-3">Select Action:</label>
+                        <select id="checkAction" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" onchange="checkPermission()">
+                            <option value="view">👁️ VIEW</option>
+                            <option value="add">➕ ADD</option>
+                            <option value="edit">✏️ EDIT</option>
+                            <option value="delete">🗑️ DELETE</option>
+                        </select>
+                    </div>
+
+                    <div class="bg-white rounded-lg p-4 border-2 border-gray-200">
+                        <label class="block text-sm font-bold text-gray-900 mb-3">Feature:</label>
+                        <select id="checkFeature" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-500" onchange="checkPermission()">
+                            <option value="attendance">Mark Attendance</option>
+                            <option value="grades">Record Grades</option>
+                            <option value="invoices">View Invoices</option>
+                            <option value="payments">Collect Payments</option>
+                            <option value="messages">Send Messages</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div id="permissionResult" class="bg-white rounded-lg border-2 border-gray-200 p-6">
+                    <div class="space-y-4">
+                        <div class="flex items-center gap-3">
+                            <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded text-sm font-bold">Step 1</span>
+                            <span id="step1-text" class="text-sm">Check: School allows <strong>VIEW</strong> for <strong>Mark Attendance</strong>?</span>
+                            <span id="step1-result" class="ml-auto text-green-600 font-bold">✓ YES</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="bg-gray-100 text-gray-700 px-3 py-1 rounded text-sm font-bold">Step 2</span>
+                            <span id="step2-text" class="text-sm">Check: <strong>TEACHER</strong> role has <strong>VIEW</strong> action?</span>
+                            <span id="step2-result" class="ml-auto text-green-600 font-bold">✓ YES</span>
+                        </div>
+                        <div class="flex items-center gap-3 pt-3 border-t-2 border-gray-200">
+                            <span class="bg-green-100 text-green-700 px-3 py-1 rounded text-sm font-bold">RESULT</span>
+                            <span id="final-result" class="text-sm"><strong class="text-green-600">ALLOW</strong> - Access granted</span>
+                            <span id="final-icon" class="ml-auto text-3xl">✅</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Interactive Permission Matrix Builder -->
+            <div class="mb-12 bg-white rounded-xl border-2 border-gray-300 p-8">
+                <h3 class="text-2xl font-bold text-gray-900 mb-6">📊 Interactive: Permission Matrix</h3>
+                <p class="text-gray-600 mb-6">Hover over cells to see what they mean. Cells show which actions each role has for each feature.</p>
+
+                <div class="overflow-x-auto bg-gray-900 rounded-lg">
+                    <table class="w-full text-sm text-gray-100">
+                        <thead class="bg-gray-800 border-b border-gray-700">
+                            <tr>
+                                <th class="text-left py-3 px-4">Feature</th>
+                                <th class="text-center py-3 px-4 group">
+                                    <span>🍎 Teacher</span>
+                                    <div class="hidden group-hover:block absolute bg-gray-700 text-white text-xs p-2 rounded mt-2 w-40 z-10">Can mark & edit attendance</div>
+                                </th>
+                                <th class="text-center py-3 px-4 group">
+                                    <span>👤 Assistant</span>
+                                    <div class="hidden group-hover:block absolute bg-gray-700 text-white text-xs p-2 rounded mt-2 w-40 z-10">Can mark but not edit</div>
+                                </th>
+                                <th class="text-center py-3 px-4 group">
+                                    <span>👨‍👧‍👦 Parent</span>
+                                    <div class="hidden group-hover:block absolute bg-gray-700 text-white text-xs p-2 rounded mt-2 w-40 z-10">Read-only access</div>
+                                </th>
+                                <th class="text-center py-3 px-4">👑 Admin</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-700">
+                            <tr class="hover:bg-gray-800 cursor-help">
+                                <td class="py-3 px-4 text-gray-300">📚 Mark Attendance</td>
+                                <td class="text-center py-3 px-4"><span class="bg-green-900 text-green-300 px-2 py-1 rounded text-xs font-bold" title="VIEW, ADD, EDIT">V+A+E</span></td>
+                                <td class="text-center py-3 px-4"><span class="bg-blue-900 text-blue-300 px-2 py-1 rounded text-xs font-bold" title="VIEW, ADD">V+A</span></td>
+                                <td class="text-center py-3 px-4"><span class="bg-gray-700 text-gray-300 px-2 py-1 rounded text-xs font-bold" title="VIEW only">V</span></td>
+                                <td class="text-center py-3 px-4"><span class="bg-purple-900 text-purple-300 px-2 py-1 rounded text-xs font-bold">ALL</span></td>
+                            </tr>
+                            <tr class="hover:bg-gray-800 cursor-help">
+                                <td class="py-3 px-4 text-gray-300">📝 Record Grades</td>
+                                <td class="text-center py-3 px-4"><span class="bg-green-900 text-green-300 px-2 py-1 rounded text-xs font-bold">V+A+E</span></td>
+                                <td class="text-center py-3 px-4"><span class="bg-gray-700 text-gray-300 px-2 py-1 rounded text-xs font-bold">V</span></td>
+                                <td class="text-center py-3 px-4"><span class="bg-gray-700 text-gray-300 px-2 py-1 rounded text-xs font-bold">V</span></td>
+                                <td class="text-center py-3 px-4"><span class="bg-purple-900 text-purple-300 px-2 py-1 rounded text-xs font-bold">ALL</span></td>
+                            </tr>
+                            <tr class="hover:bg-gray-800 cursor-help">
+                                <td class="py-3 px-4 text-gray-300">💳 View Invoices</td>
+                                <td class="text-center py-3 px-4"><span class="bg-gray-700 text-gray-300 px-2 py-1 rounded text-xs font-bold">-</span></td>
+                                <td class="text-center py-3 px-4"><span class="bg-gray-700 text-gray-300 px-2 py-1 rounded text-xs font-bold">V</span></td>
+                                <td class="text-center py-3 px-4"><span class="bg-gray-700 text-gray-300 px-2 py-1 rounded text-xs font-bold">V</span></td>
+                                <td class="text-center py-3 px-4"><span class="bg-purple-900 text-purple-300 px-2 py-1 rounded text-xs font-bold">ALL</span></td>
+                            </tr>
+                            <tr class="hover:bg-gray-800 cursor-help">
+                                <td class="py-3 px-4 text-gray-300">💸 Collect Payments</td>
+                                <td class="text-center py-3 px-4"><span class="bg-gray-700 text-gray-300 px-2 py-1 rounded text-xs font-bold">-</span></td>
+                                <td class="text-center py-3 px-4"><span class="bg-blue-900 text-blue-300 px-2 py-1 rounded text-xs font-bold">V+A</span></td>
+                                <td class="text-center py-3 px-4"><span class="bg-blue-900 text-blue-300 px-2 py-1 rounded text-xs font-bold">V+A</span></td>
+                                <td class="text-center py-3 px-4"><span class="bg-purple-900 text-purple-300 px-2 py-1 rounded text-xs font-bold">ALL</span></td>
+                            </tr>
+                            <tr class="hover:bg-gray-800 cursor-help">
+                                <td class="py-3 px-4 text-gray-300">💬 Send Messages</td>
+                                <td class="text-center py-3 px-4"><span class="bg-green-900 text-green-300 px-2 py-1 rounded text-xs font-bold">V+A</span></td>
+                                <td class="text-center py-3 px-4"><span class="bg-green-900 text-green-300 px-2 py-1 rounded text-xs font-bold">V+A</span></td>
+                                <td class="text-center py-3 px-4"><span class="bg-green-900 text-green-300 px-2 py-1 rounded text-xs font-bold">V+A</span></td>
+                                <td class="text-center py-3 px-4"><span class="bg-purple-900 text-purple-300 px-2 py-1 rounded text-xs font-bold">ALL</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p class="text-xs text-gray-600 mt-4 text-center">Hover over features and cells to see tooltips. V=VIEW, A=ADD, E=EDIT, D=DELETE, -=No access</p>
+            </div>
+
+            <!-- SQL Query Examples -->
+            <div class="bg-gray-900 rounded-xl p-6 overflow-x-auto mb-12">
+                <h3 class="text-xl font-bold text-white mb-4">💻 SQL: Permission Check Queries</h3>
+                <div class="space-y-4 text-gray-300 font-mono text-sm">
+                    <div>
+                        <div class="text-green-400 font-bold mb-2">-- Check if School allows action for feature</div>
+                        <pre class="bg-gray-800 p-3 rounded overflow-x-auto"><code>SELECT is_enabled FROM feature_actions
+WHERE school_id = ? AND feature_id = ? AND action = 'EDIT';</code></pre>
+                    </div>
+                    <div>
+                        <div class="text-green-400 font-bold mb-2">-- Check if Role has action permission</div>
+                        <pre class="bg-gray-800 p-3 rounded overflow-x-auto"><code>SELECT is_active FROM role_feature_actions
+WHERE school_id = ? AND role_id = ?
+  AND feature_id = ? AND action = 'EDIT'
+  AND is_active = true;</code></pre>
+                    </div>
+                    <div>
+                        <div class="text-green-400 font-bold mb-2">-- Complete permission check (both layers)</div>
+                        <pre class="bg-gray-800 p-3 rounded overflow-x-auto"><code>SELECT
+  fa.is_enabled as school_allows,
+  rfa.is_active as role_has_permission
+FROM feature_actions fa
+LEFT JOIN role_feature_actions rfa
+  ON fa.school_id = rfa.school_id
+  AND fa.feature_id = rfa.feature_id
+  AND fa.action = rfa.action
+WHERE fa.school_id = ?
+  AND fa.feature_id = ?
+  AND fa.action = 'EDIT'
+  AND rfa.role_id = ?;
+
+-- Result: ALLOW if both are true</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Security Patterns -->
+            <div class="bg-gradient-to-r from-yellow-50 to-orange-50 border-2 border-yellow-300 rounded-lg p-8">
+                <h3 class="text-xl font-bold text-gray-900 mb-4">🔒 Security Patterns</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+                    <div class="flex gap-4">
+                        <span class="text-2xl">🛡️</span>
+                        <div>
+                            <strong class="text-gray-900">Delete Protection</strong>
+                            <p class="text-gray-600 mt-1">School 01 disabled DELETE action for "Mark Attendance" feature. Prevents accidental data loss even if hacked.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="text-2xl">🎯</span>
+                        <div>
+                            <strong class="text-gray-900">Separation of Duties</strong>
+                            <p class="text-gray-600 mt-1">Assistant can ADD attendance, Teacher can EDIT. Prevents one role from doing everything alone.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="text-2xl">📝</span>
+                        <div>
+                            <strong class="text-gray-900">Action Audit Trail</strong>
+                            <p class="text-gray-600 mt-1">feature_usage_audit logs action type (VIEW/ADD/EDIT/DELETE) + outcome. Know exactly who did what.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <span class="text-2xl">🔐</span>
+                        <div>
+                            <strong class="text-gray-900">Deny-by-Default</strong>
+                            <p class="text-gray-600 mt-1">If action not explicitly granted, access denied. Safe default. Better than whitelisting.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Database Strategy Explorer -->
     <section id="db-explorer" class="py-12 bg-gray-50 border-t border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -2670,7 +3009,9 @@ CREATE TABLE user_roles (
                     { term: 'Role Permission', definition: 'What specific pages/features a role within a school is assigned. Different instances of same role can have different permissions.', example: '👥 School 01: Teacher role can have 30 features. But Mrs. Johnson (Teacher) might get only 20, while Mr. Smith (Teacher) gets all 30 assigned by School Admin.' },
                     { term: 'Granular Access Control', definition: 'Ability to assign permissions at individual feature level, not just page level. Allows fine-grained customization.', example: '🎯 School Admin can give Assistant role: Attendance page but only "View Attendance" feature, NOT "Edit Attendance". Maximum control!' },
                     { term: 'License Expiry', definition: 'A subscription can be time-limited (monthly, yearly) or lifetime. Access is revoked if expires_date is reached.', example: '📅 School 01 subscribed to "Advanced Analytics" on 2024-01-01 for 1 month. On 2024-02-01, access expires unless auto-renewed.' },
-                    { term: 'Feature Dependency', definition: 'Some features require other features to be enabled first (prerequisite). Example: "Advanced Reports" requires "Basic Reports".', example: '⛓️ requires_feature_id: To enable "Custom Reports", "View Reports" must also be enabled. Prevents broken workflows.' }
+                    { term: 'Feature Dependency', definition: 'Some features require other features to be enabled first (prerequisite). Example: "Advanced Reports" requires "Basic Reports".', example: '⛓️ requires_feature_id: To enable "Custom Reports", "View Reports" must also be enabled. Prevents broken workflows.' },
+                    { term: 'CRUD Actions', definition: 'Create, Read, Update, Delete - the four basic operations on data. Roles can have granular permissions on each action.', example: '🔐 Teacher has "Attendance" feature but only with VIEW + EDIT actions (can see & update). Cannot DELETE (prevents accidental data loss).' },
+                    { term: 'Action Permission', definition: 'Specific operation a role can perform within a feature. Five levels: VIEW (read-only), ADD (create), EDIT (modify), DELETE, or ALL.', example: '🎯 School 01: Assistant has "Mark Attendance" with VIEW+ADD actions. Can see attendance & add new records, but NOT edit existing or delete.' }
                 ]
             }
         };
@@ -3088,6 +3429,46 @@ CREATE TABLE user_roles (
                     { column: 'user_id', references: 'users(id)' },
                     { column: 'feature_id', references: 'features(id)' }
                 ]
+            },
+            'feature_actions': {
+                service: 'system',
+                description: 'School-level: Which CRUD actions are available per feature. School can disable DELETE for safety.',
+                columns: [
+                    { name: 'id', type: 'BIGINT', constraints: ['PK'] },
+                    { name: 'school_id', type: 'BIGINT', constraints: ['FK', 'NN'] },
+                    { name: 'feature_id', type: 'BIGINT', constraints: ['FK', 'NN'] },
+                    { name: 'action', type: "ENUM('VIEW','ADD','EDIT','DELETE','ALL')", constraints: ['NN'] },
+                    { name: 'is_enabled', type: 'BOOLEAN', constraints: ['NN'], default: 'true' },
+                    { name: 'description', type: 'VARCHAR(255)', constraints: [] },
+                    { name: 'created_at', type: 'TIMESTAMP', constraints: [], default: 'CURRENT_TIMESTAMP' }
+                ],
+                indexes: ['idx_school_id', 'idx_feature_id', 'idx_action', 'idx_is_enabled'],
+                fks: [
+                    { column: 'school_id', references: 'schools(id)' },
+                    { column: 'feature_id', references: 'features(id)' }
+                ],
+                uniqueKey: 'UNIQUE(school_id, feature_id, action)'
+            },
+            'role_feature_actions': {
+                service: 'system',
+                description: 'Admin-level: Which actions a role can perform on features. Teacher: VIEW+EDIT attendance, Parent: VIEW only.',
+                columns: [
+                    { name: 'id', type: 'BIGINT', constraints: ['PK'] },
+                    { name: 'school_id', type: 'BIGINT', constraints: ['FK', 'NN'] },
+                    { name: 'role_id', type: 'BIGINT', constraints: ['FK', 'NN'] },
+                    { name: 'feature_id', type: 'BIGINT', constraints: ['FK', 'NN'] },
+                    { name: 'action', type: "ENUM('VIEW','ADD','EDIT','DELETE','ALL')", constraints: ['NN'] },
+                    { name: 'granted_by', type: 'BIGINT', constraints: ['FK'] },
+                    { name: 'granted_at', type: 'TIMESTAMP', constraints: [], default: 'CURRENT_TIMESTAMP' },
+                    { name: 'is_active', type: 'BOOLEAN', constraints: ['NN'], default: 'true' }
+                ],
+                indexes: ['idx_school_id', 'idx_role_id', 'idx_feature_id', 'idx_action'],
+                fks: [
+                    { column: 'school_id', references: 'schools(id)' },
+                    { column: 'role_id', references: 'roles(id)' },
+                    { column: 'feature_id', references: 'features(id)' }
+                ],
+                uniqueKey: 'UNIQUE(school_id, role_id, feature_id, action)'
             }
         };
 
@@ -3355,21 +3736,152 @@ CREATE TABLE user_roles (
             });
         }
 
-        // Permission Check Simulator (for future interactive features)
-        function checkPermission(schoolId, roleId, featureId) {
-            // Step 1: Check school subscription
-            // SELECT * FROM school_subscriptions WHERE school_id = ? AND feature_id = ? AND is_active = true;
+        // CRUD Permission Demo Data
+        const crudPermissionData = {
+            attendance: {
+                name: 'Mark Attendance',
+                defaultActions: ['view', 'add', 'edit'],
+                roleActions: {
+                    teacher: ['view', 'add', 'edit'],
+                    assistant: ['view', 'add'],
+                    parent: ['view']
+                }
+            },
+            grades: {
+                name: 'Record Grades',
+                defaultActions: ['view', 'add', 'edit'],
+                roleActions: {
+                    teacher: ['view', 'add', 'edit'],
+                    assistant: ['view'],
+                    parent: ['view']
+                }
+            },
+            invoices: {
+                name: 'View Invoices',
+                defaultActions: ['view', 'add'],
+                roleActions: {
+                    teacher: [],
+                    assistant: ['view'],
+                    parent: ['view']
+                }
+            },
+            payments: {
+                name: 'Collect Payments',
+                defaultActions: ['view', 'add'],
+                roleActions: {
+                    teacher: [],
+                    assistant: ['view', 'add'],
+                    parent: ['view', 'add']
+                }
+            },
+            messages: {
+                name: 'Send Messages',
+                defaultActions: ['view', 'add', 'edit'],
+                roleActions: {
+                    teacher: ['view', 'add'],
+                    assistant: ['view', 'add'],
+                    parent: ['view', 'add']
+                }
+            }
+        };
 
-            // Step 2: Check role permission
-            // SELECT * FROM role_feature_permissions WHERE school_id = ? AND role_id = ? AND feature_id = ? AND is_active = true;
+        // Update permission demo based on selected feature and actions
+        function updatePermissionDemo() {
+            const feature = document.getElementById('featureSelect').value;
+            const viewChecked = document.getElementById('action-view').checked;
+            const addChecked = document.getElementById('action-add').checked;
+            const editChecked = document.getElementById('action-edit').checked;
+            const deleteChecked = document.getElementById('action-delete').checked;
 
-            // Step 3: Return access decision
-            return {
-                hasSubscription: true,
-                hasPermission: true,
-                access: 'ALLOW'
-            };
+            const enabledActions = [];
+            if (viewChecked) enabledActions.push('view');
+            if (addChecked) enabledActions.push('add');
+            if (editChecked) enabledActions.push('edit');
+            if (deleteChecked) enabledActions.push('delete');
+
+            // Update Teacher permissions
+            const teacherActions = crudPermissionData[feature].roleActions.teacher.filter(a => enabledActions.includes(a));
+            updateRoleDisplay('teacher', teacherActions, enabledActions);
+
+            // Update Assistant permissions
+            const assistantActions = crudPermissionData[feature].roleActions.assistant.filter(a => enabledActions.includes(a));
+            updateRoleDisplay('assistant', assistantActions, enabledActions);
+
+            // Update Parent permissions
+            const parentActions = crudPermissionData[feature].roleActions.parent.filter(a => enabledActions.includes(a));
+            updateRoleDisplay('parent', parentActions, enabledActions);
         }
+
+        function updateRoleDisplay(role, allowedActions, enabledActions) {
+            const actionMap = { view: '👁️ VIEW', add: '➕ ADD', edit: '✏️ EDIT', delete: '🗑️ DELETE' };
+            const allRoleActions = ['view', 'add', 'edit', 'delete'];
+
+            let html = '';
+            allRoleActions.forEach(action => {
+                if (enabledActions.includes(action)) {
+                    const hasPermission = allowedActions.includes(action);
+                    html += `
+                        <div class="flex items-center gap-2">
+                            <span class="${hasPermission ? 'text-green-600' : 'text-red-600'} font-bold">${hasPermission ? '✓' : '✗'}</span>
+                            <span>${actionMap[action]}</span>
+                        </div>
+                    `;
+                }
+            });
+
+            document.getElementById(`${role}-perms`).innerHTML = html;
+            document.getElementById(`${role}-actions`).textContent = `${allowedActions.length} action${allowedActions.length !== 1 ? 's' : ''}`;
+        }
+
+        // Interactive Permission Checker
+        function checkPermission() {
+            const role = document.getElementById('checkRole').value;
+            const action = document.getElementById('checkAction').value;
+            const feature = document.getElementById('checkFeature').value;
+
+            const featureData = crudPermissionData[feature];
+            const roleAllowedActions = featureData.roleActions[role];
+            const actionEnabled = featureData.defaultActions.includes(action);
+            const roleHasAction = roleAllowedActions.includes(action);
+
+            const actionNames = { view: 'VIEW', add: 'ADD', edit: 'EDIT', delete: 'DELETE' };
+            const actionName = actionNames[action];
+            const featureName = featureData.name;
+            const roleDisplay = role.charAt(0).toUpperCase() + role.slice(1);
+
+            // Update step 1
+            document.getElementById('step1-text').textContent =
+                `Check: School allows ${actionName} for "${featureName}"?`;
+            document.getElementById('step1-result').textContent = actionEnabled ? '✓ YES' : '✗ NO';
+            document.getElementById('step1-result').className = actionEnabled ? 'ml-auto text-green-600 font-bold' : 'ml-auto text-red-600 font-bold';
+
+            // Update step 2
+            document.getElementById('step2-text').textContent =
+                `Check: ${roleDisplay} role has ${actionName} action?`;
+            document.getElementById('step2-result').textContent = roleHasAction ? '✓ YES' : '✗ NO';
+            document.getElementById('step2-result').className = roleHasAction ? 'ml-auto text-green-600 font-bold' : 'ml-auto text-red-600 font-bold';
+
+            // Update result
+            const allowed = actionEnabled && roleHasAction;
+            const resultDiv = document.getElementById('permissionResult');
+            if (allowed) {
+                document.getElementById('final-result').innerHTML = '<strong class="text-green-600">ALLOW</strong> - Access granted, show button & feature';
+                document.getElementById('final-icon').textContent = '✅';
+                resultDiv.className = 'bg-green-50 rounded-lg border-2 border-green-300 p-6';
+            } else {
+                document.getElementById('final-result').innerHTML = '<strong class="text-red-600">DENY</strong> - Access denied, hide button & feature';
+                document.getElementById('final-icon').textContent = '❌';
+                resultDiv.className = 'bg-red-50 rounded-lg border-2 border-red-300 p-6';
+            }
+        }
+
+        // Initialize demo on page load
+        const originalDOMContentLoaded = document.addEventListener('DOMContentLoaded', function() {
+            if (document.getElementById('featureSelect')) {
+                updatePermissionDemo();
+                checkPermission();
+            }
+        });
 
         document.addEventListener('DOMContentLoaded', () => {
             showLayerDetails('client');
