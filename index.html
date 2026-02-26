@@ -4465,9 +4465,14 @@ return result;`,
 
         // Load a scenario
         function loadApiScenario(scenarioKey) {
+            // Stop auto-play if running
+            if (apiFlowState.isAutoPlaying) {
+                apiFlowState.isAutoPlaying = false;
+                clearInterval(apiFlowState.autoPlayInterval);
+            }
+
             apiFlowState.currentScenario = scenarioKey;
             apiFlowState.currentStep = 1;
-            apiFlowState.isAutoPlaying = false;
 
             // Update tab styling
             document.querySelectorAll('.api-scenario-tab').forEach(btn => {
@@ -4479,8 +4484,11 @@ return result;`,
             event.target.style.background = 'linear-gradient(to right, #3B82F6, #06B6D4)';
             event.target.style.color = 'white';
 
-            // Reset auto play button
-            document.getElementById('apiAutoPlayBtn').textContent = '▶ Auto Play';
+            // Reset auto play button to initial state
+            const autoPlayBtn = document.getElementById('apiAutoPlayBtn');
+            autoPlayBtn.textContent = '▶ Auto Play';
+            autoPlayBtn.style.background = '';
+            autoPlayBtn.style.color = '';
 
             updateApiFlowUI();
         }
@@ -4508,9 +4516,21 @@ return result;`,
 
         // Reset to step 1
         function apiResetFlow() {
+            // Stop auto-play if running
+            if (apiFlowState.isAutoPlaying) {
+                apiFlowState.isAutoPlaying = false;
+                clearInterval(apiFlowState.autoPlayInterval);
+            }
+
             apiFlowState.currentStep = 1;
-            apiFlowState.isAutoPlaying = false;
-            document.getElementById('apiAutoPlayBtn').textContent = '▶ Auto Play';
+
+            // Reset auto play button
+            const autoPlayBtn = document.getElementById('apiAutoPlayBtn');
+            autoPlayBtn.textContent = '▶ Auto Play';
+            autoPlayBtn.classList.remove('playing');
+            autoPlayBtn.style.background = 'linear-gradient(to right, #2563EB, #1D4ED8)';
+            autoPlayBtn.style.boxShadow = '';
+
             updateApiFlowUI();
         }
 
@@ -4521,13 +4541,24 @@ return result;`,
 
             if (apiFlowState.isAutoPlaying) {
                 btn.textContent = '⏸ Pause';
-                btn.style.background = '#EF4444';
+                btn.classList.add('playing');
+                btn.style.background = 'linear-gradient(to right, #DC2626, #991B1B)';
+                btn.style.boxShadow = '0 0 20px rgba(220, 38, 38, 0.5)';
+
                 apiFlowState.autoPlayInterval = setInterval(() => {
-                    apiNextStep();
+                    const scenario = apiScenarios[apiFlowState.currentScenario];
+                    if (apiFlowState.currentStep < scenario.steps.length) {
+                        apiFlowState.currentStep++;
+                    } else {
+                        apiFlowState.currentStep = 1; // Loop back to start
+                    }
+                    updateApiFlowUI();
                 }, 2500); // 2.5 seconds per step
             } else {
                 btn.textContent = '▶ Auto Play';
-                btn.style.background = '';
+                btn.classList.remove('playing');
+                btn.style.background = 'linear-gradient(to right, #2563EB, #1D4ED8)';
+                btn.style.boxShadow = '';
                 clearInterval(apiFlowState.autoPlayInterval);
             }
         }
