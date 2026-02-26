@@ -40,22 +40,10 @@
         .code-block {
             font-family: 'Courier New', Courier, monospace;
         }
+        .db-row { transition: background-color 0.2s; }
+        .db-row.highlight { background-color: #FEF3C7; }
+        .toggle-bg { transition: background-color 0.2s; }
     </style>
-    <!-- Chosen Palette: Corporate SaaS Blue - Clean, Trustworthy, Technical -->
-    <!-- Application Structure Plan:
-        1. Hero/Intro: High-level context.
-        2. Interactive Architecture Map: A clickable layer-based diagram (HTML/CSS) allowing users to inspect each layer (Client, BFF, Gateway, Services). This replaces static ASCII.
-        3. Request Flow Simulator: A specific interactive module to demonstrate the "Parent Viewing Attendance" use case, visualizing the path from Frontend to DB.
-        4. Microservices Catalog: A filterable grid to explore specific services and their DB responsibilities.
-        5. Scalability & Multi-Tenancy: A chart-based visualization demonstrating independent scaling and a text-based interactive explanation of Data Isolation.
-    -->
-    <!-- Visualization & Content Choices:
-        1. System Map: HTML Flex/Grid layout with connector divs. Goal: Show structure. Interaction: Click to reveal details side-panel.
-        2. Request Flow: Vertical stepper. Goal: Explain data path. Interaction: "Next Step" button updates UI state and "Code Trace" panel.
-        3. Scalability Chart: Chart.js Line Chart. Goal: Visualize "Independent Scaling". Interaction: Toggle lines for different services.
-        4. Service Grid: Cards. Goal: Detail microservice responsibilities. Interaction: JS Filter.
-    -->
-    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
 </head>
 <body class="text-gray-800">
 
@@ -70,7 +58,9 @@
                 <div class="hidden md:flex items-center space-x-8">
                     <button onclick="scrollToSection('architecture-map')" class="text-gray-600 hover:text-blue-600 font-medium">System Map</button>
                     <button onclick="scrollToSection('request-flow')" class="text-gray-600 hover:text-blue-600 font-medium">Request Simulation</button>
+                    <button onclick="scrollToSection('db-explorer')" class="text-gray-600 hover:text-blue-600 font-medium">DB Isolation</button>
                     <button onclick="scrollToSection('microservices')" class="text-gray-600 hover:text-blue-600 font-medium">Services</button>
+                    <button onclick="scrollToSection('admin-flow')" class="text-gray-600 hover:text-blue-600 font-medium">Super Admin</button>
                     <button onclick="scrollToSection('scalability')" class="text-gray-600 hover:text-blue-600 font-medium">Scalability</button>
                 </div>
             </div>
@@ -102,7 +92,7 @@
             <!-- Diagram Column -->
             <div class="flex-1 bg-white p-6 rounded-xl shadow-sm border border-gray-200">
                 <div class="flex flex-col items-center space-y-2">
-                    
+
                     <!-- Client Layer -->
                     <div id="layer-client" class="arch-box w-full bg-blue-50 border-2 border-blue-100 rounded-lg p-4 cursor-pointer text-center" onclick="showLayerDetails('client')">
                         <h3 class="font-bold text-blue-900">Client Application Layer</h3>
@@ -236,8 +226,58 @@
         </div>
     </section>
 
-    <!-- Section 3: Microservices Breakdown -->
-    <section id="microservices" class="py-12 bg-gray-50 border-t border-gray-200">
+    <!-- Section 3: Database Strategy Explorer -->
+    <section id="db-explorer" class="py-12 bg-gray-50 border-t border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900">Multi-Tenant Database Explorer</h2>
+                <p class="text-gray-600 mt-2">See how one physical table serves multiple schools securely using a <strong>Discriminator Column</strong>.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Control Panel -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                    <h4 class="font-bold text-gray-800 mb-4">Simulation Controls</h4>
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Select Active School Context:</label>
+                    <select id="school-selector" onchange="updateDbSimulation()" class="w-full p-2 border border-gray-300 rounded-md bg-gray-50 focus:ring-2 focus:ring-blue-500 outline-none">
+                        <option value="all">Global View (Super Admin)</option>
+                        <option value="101">Greenwood Academy (ID: 101)</option>
+                        <option value="202">Oceanic High (ID: 202)</option>
+                    </select>
+
+                    <div class="mt-8 p-4 bg-blue-50 rounded-lg border border-blue-100">
+                        <h5 class="text-xs font-bold text-blue-700 uppercase tracking-wider mb-2">Generated Middleware SQL</h5>
+                        <code id="sql-preview" class="text-xs font-mono text-blue-900 block break-words">
+                            SELECT * FROM students;
+                        </code>
+                    </div>
+                </div>
+
+                <!-- Database Table Visualization -->
+                <div class="lg:col-span-2 overflow-hidden bg-white rounded-xl shadow-sm border border-gray-200">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="px-4 py-3 text-left text-xs font-bold text-gray-500 uppercase">ID</th>
+                                <th class="px-4 py-3 text-left text-xs font-bold text-gray-500 uppercase">Student Name</th>
+                                <th class="px-4 py-3 text-left text-xs font-bold text-gray-500 uppercase">Grade</th>
+                                <th class="px-4 py-3 text-left text-xs font-bold text-blue-600 uppercase">School_ID (Tenant)</th>
+                            </tr>
+                        </thead>
+                        <tbody id="db-table-body" class="bg-white divide-y divide-gray-100 font-mono text-sm">
+                            <!-- Rows injected by JS -->
+                        </tbody>
+                    </table>
+                    <div class="p-4 bg-gray-50 border-t border-gray-100 text-xs text-gray-500">
+                        Note: In production, the DB driver appends the <code class="bg-gray-200 px-1">WHERE school_id = ?</code> clause to every query automatically.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 4: Microservices Breakdown -->
+    <section id="microservices" class="py-12 bg-white border-t border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="mb-8 flex flex-col md:flex-row md:items-center justify-between">
                 <div>
@@ -315,11 +355,97 @@
         </div>
     </section>
 
-    <!-- Section 4: Scalability & Isolation -->
+    <!-- Section 5: Super Admin & Feature Flags -->
+    <section id="admin-flow" class="py-12 bg-gray-50 border-t border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="mb-12">
+                <h2 class="text-3xl font-bold text-gray-900">Super Admin & Feature Propagation</h2>
+                <p class="text-gray-600 mt-2">How the <strong>Central Admin DB</strong> controls modular functionality for hundreds of schools simultaneously.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+                <!-- Super Admin Console Simulation -->
+                <div class="lg:col-span-4 bg-gray-900 text-white p-6 rounded-2xl shadow-xl">
+                    <h4 class="text-lg font-bold mb-4 border-b border-gray-700 pb-2 flex items-center">
+                        <span class="w-3 h-3 bg-red-500 rounded-full mr-2"></span>
+                        Super Admin Console
+                    </h4>
+
+                    <div class="space-y-6">
+                        <div>
+                            <p class="text-xs text-gray-400 mb-3">GLOBAL FEATURE FLAGS</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-sm">Maintenance Mode</span>
+                                <button onclick="toggleGlobalFlag('maintenance')" id="flag-maintenance" class="w-10 h-5 bg-gray-700 rounded-full relative toggle-bg">
+                                    <div class="w-4 h-4 bg-white rounded-full absolute left-0.5 top-0.5 transition-all"></div>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="pt-4 border-t border-gray-700">
+                            <p class="text-xs text-gray-400 mb-3">SCHOOL-SPECIFIC CONFIG (Greenwood)</p>
+                            <div class="space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm">Billing Module</span>
+                                    <button onclick="toggleSchoolFlag('billing')" id="flag-billing" class="w-10 h-5 bg-blue-600 rounded-full relative toggle-bg">
+                                        <div class="w-4 h-4 bg-white rounded-full absolute right-0.5 top-0.5 transition-all"></div>
+                                    </button>
+                                </div>
+                                <div class="flex items-center justify-between">
+                                    <span class="text-sm">LMS Integration</span>
+                                    <button onclick="toggleSchoolFlag('lms')" id="flag-lms" class="w-10 h-5 bg-gray-700 rounded-full relative toggle-bg">
+                                        <div class="w-4 h-4 bg-white rounded-full absolute left-0.5 top-0.5 transition-all"></div>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Propagation Diagram -->
+                <div class="lg:col-span-1 hidden lg:flex justify-center">
+                    <div class="flex flex-col items-center">
+                        <div class="w-1 h-20 bg-gradient-to-b from-gray-400 to-blue-500"></div>
+                        <div class="w-8 h-8 rounded-full bg-blue-500 flex items-center justify-center">
+                            <span class="text-white text-xs">→</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Resulting Tenant Instance -->
+                <div class="lg:col-span-7 grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-white border-2 border-gray-200 p-6 rounded-xl shadow-sm relative overflow-hidden">
+                        <div class="absolute top-0 right-0 bg-blue-100 text-blue-600 px-3 py-1 text-xs font-bold rounded-bl-lg">Active Instance</div>
+                        <h5 class="font-bold text-gray-800">Greenwood Academy</h5>
+                        <p class="text-xs text-gray-500 mb-4">Instance v2.4.1</p>
+
+                        <div class="space-y-2" id="tenant-ui-preview">
+                            <!-- Injected UI states -->
+                            <div class="h-8 w-full bg-gray-100 rounded animate-pulse"></div>
+                            <div class="h-24 w-full bg-gray-50 rounded border border-dashed border-gray-200 flex items-center justify-center text-xs text-gray-400">
+                                Feature content loads here
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-blue-50 p-6 rounded-xl">
+                        <h5 class="font-bold text-blue-900 mb-2">How it works:</h5>
+                        <ul class="text-xs text-blue-800 space-y-3 list-disc pl-4">
+                            <li><strong>Redis Caching:</strong> Flags are cached at the edge for sub-millisecond lookups.</li>
+                            <li><strong>Tenant Context:</strong> When School 101 requests data, the system merges Global Config + School Config.</li>
+                            <li><strong>Hot Reload:</strong> Toggling a flag updates all active sessions in real-time via WebSockets.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section 6: Scalability & Isolation -->
     <section id="scalability" class="py-12 bg-white border-t border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 class="text-3xl font-bold text-gray-900 mb-6">Scalability & Data Isolation</h2>
-            
+
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
                 <!-- Scalability Chart -->
                 <div>
@@ -333,7 +459,7 @@
                         </div>
                     </div>
                     <div class="mt-4 text-xs text-center text-gray-500">
-                        *Simulated traffic load showing Parent App spike during Report Card season.
+                        *Showing auto-scaling pod count distribution across services.
                     </div>
                 </div>
 
@@ -394,6 +520,15 @@
             servicesFilter: 'all'
         };
 
+        // --- Dummy Data for Database Simulation ---
+        const dummyStudents = [
+            { id: 1, name: "Alice Johnson", grade: "A", tenant: 101 },
+            { id: 2, name: "Bob Smith", grade: "B+", tenant: 101 },
+            { id: 3, name: "Charlie Davis", grade: "A-", tenant: 202 },
+            { id: 4, name: "Diana Prince", grade: "A+", tenant: 101 },
+            { id: 5, name: "Evan Wright", grade: "C", tenant: 202 }
+        ];
+
         // --- Layer Details Content ---
         const layerData = {
             'client': {
@@ -452,17 +587,21 @@
             }
         };
 
+        // --- Feature Flags State ---
+        const flags = {
+            global: { maintenance: false },
+            school: { billing: true, lms: false }
+        };
+
         // --- Interaction: System Map ---
         function showLayerDetails(layerId) {
-            // UI Update
             document.querySelectorAll('.arch-box').forEach(el => el.classList.remove('active', 'border-blue-500', 'ring-2', 'ring-blue-200'));
             const selectedBox = document.getElementById(`layer-${layerId}`);
             selectedBox.classList.add('active', 'border-blue-500', 'ring-2', 'ring-blue-200');
 
-            // Content Update
             const detailsDiv = document.getElementById('details-content');
             const data = layerData[layerId];
-            
+
             detailsDiv.innerHTML = `
                 <h3 class="text-xl font-bold text-gray-900 mb-4 border-b pb-2">${data.title}</h3>
                 <div class="animate-fade-in">${data.content}</div>
@@ -472,7 +611,7 @@
         // --- Interaction: Request Flow Simulation ---
         function nextFlowStep() {
             appState.flowStep++;
-            if (appState.flowStep > 4) appState.flowStep = 1; // Loop or reset? Let's loop 1-4.
+            if (appState.flowStep > 4) appState.flowStep = 1;
             updateFlowUI();
         }
 
@@ -488,7 +627,6 @@
             const status = document.getElementById('trace-status');
             const mtCheck = document.getElementById('mt-check');
 
-            // Reset visual steps
             steps.forEach(s => {
                 const el = document.getElementById(`step-${s}`);
                 const icon = el.querySelector('div.h-8');
@@ -503,14 +641,12 @@
                     icon.classList.add('bg-gray-100', 'text-gray-500');
                     icon.classList.remove('bg-blue-600', 'text-white');
                     if (s < appState.flowStep) {
-                        // Completed steps style
-                         icon.classList.remove('bg-gray-100', 'text-gray-500');
-                         icon.classList.add('bg-green-100', 'text-green-600');
+                        icon.classList.remove('bg-gray-100', 'text-gray-500');
+                        icon.classList.add('bg-green-100', 'text-green-600');
                     }
                 }
             });
 
-            // Logic for Code/Trace Display
             if (appState.flowStep === 0) {
                 btn.innerText = "Start Simulation";
                 status.innerText = "Idle";
@@ -562,6 +698,36 @@
             }
         }
 
+        // --- Database Simulation ---
+        function updateDbSimulation() {
+            const schoolId = document.getElementById('school-selector').value;
+            const tableBody = document.getElementById('db-table-body');
+            const sqlPreview = document.getElementById('sql-preview');
+
+            tableBody.innerHTML = '';
+
+            let query = "SELECT * FROM students";
+            if (schoolId !== 'all') {
+                query += ` WHERE school_id = ${schoolId};`;
+            } else {
+                query += ";";
+            }
+            sqlPreview.innerText = query;
+
+            dummyStudents.forEach(s => {
+                const isMatch = schoolId === 'all' || s.tenant.toString() === schoolId;
+                const row = document.createElement('tr');
+                row.className = `db-row ${isMatch ? '' : 'opacity-20'}`;
+                row.innerHTML = `
+                    <td class="px-4 py-3">${s.id}</td>
+                    <td class="px-4 py-3">${s.name}</td>
+                    <td class="px-4 py-3">${s.grade}</td>
+                    <td class="px-4 py-3 font-bold ${isMatch ? 'text-blue-600' : 'text-gray-400'}">${s.tenant}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
         // --- Interaction: Service Filtering ---
         function filterServices(category) {
             const cards = document.querySelectorAll('.service-card');
@@ -576,6 +742,82 @@
             });
         }
 
+        // --- Feature Flags ---
+        function toggleGlobalFlag(key) {
+            flags.global[key] = !flags.global[key];
+            updateFlagUI('global', key);
+            updateTenantPreview();
+        }
+
+        function toggleSchoolFlag(key) {
+            flags.school[key] = !flags.school[key];
+            updateFlagUI('school', key);
+            updateTenantPreview();
+        }
+
+        function updateFlagUI(type, key) {
+            const btn = document.getElementById(`flag-${key}`);
+            const dot = btn.querySelector('div');
+            const isActive = flags[type][key];
+
+            if (isActive) {
+                btn.classList.remove('bg-gray-700');
+                btn.classList.add('bg-blue-600');
+                dot.classList.remove('left-0.5');
+                dot.classList.add('right-0.5');
+            } else {
+                btn.classList.add('bg-gray-700');
+                btn.classList.remove('bg-blue-600');
+                dot.classList.add('left-0.5');
+                dot.classList.remove('right-0.5');
+            }
+        }
+
+        function updateTenantPreview() {
+            const container = document.getElementById('tenant-ui-preview');
+
+            if (flags.global.maintenance) {
+                container.innerHTML = `
+                    <div class="p-8 text-center bg-red-50 border border-red-200 rounded-lg">
+                        <span class="text-2xl">⚠️</span>
+                        <p class="text-sm font-bold text-red-800 mt-2">Maintenance Mode Active</p>
+                        <p class="text-xs text-red-600">The Super Admin has disabled access globally.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            let html = `
+                <div class="p-3 bg-gray-100 rounded text-xs font-bold text-gray-700 mb-2 flex justify-between">
+                    <span>Navigation Menu</span>
+                    <span class="text-blue-500 underline">Settings</span>
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    <div class="p-3 bg-blue-50 rounded border border-blue-100 text-[10px] text-blue-700">
+                        <strong>Student List</strong><br>Basic Module
+                    </div>
+            `;
+
+            if (flags.school.billing) {
+                html += `
+                    <div class="p-3 bg-emerald-50 rounded border border-emerald-100 text-[10px] text-emerald-700">
+                        <strong>Fee Payments</strong><br>Billing Enabled
+                    </div>
+                `;
+            }
+
+            if (flags.school.lms) {
+                html += `
+                    <div class="p-3 bg-purple-50 rounded border border-purple-100 text-[10px] text-purple-700">
+                        <strong>Virtual Classes</strong><br>LMS Integrated
+                    </div>
+                `;
+            }
+
+            html += `</div>`;
+            container.innerHTML = html;
+        }
+
         // --- Navigation Helper ---
         function scrollToSection(id) {
             document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
@@ -586,54 +828,29 @@
             // Initialize default layer view
             showLayerDetails('client');
 
+            // Initialize database simulation
+            updateDbSimulation();
+
+            // Initialize tenant preview
+            updateTenantPreview();
+
             // Initialize Scalability Chart
             const ctx = document.getElementById('scalabilityChart').getContext('2d');
             new Chart(ctx, {
-                type: 'line',
+                type: 'bar',
                 data: {
-                    labels: ['Jan', 'Feb', 'Mar (Mid-Term)', 'Apr', 'May', 'Jun (Finals)', 'Jul'],
-                    datasets: [
-                        {
-                            label: 'Parent App Traffic',
-                            data: [20, 25, 85, 30, 35, 95, 20],
-                            borderColor: '#3B82F6', // Blue
-                            backgroundColor: 'rgba(59, 130, 246, 0.1)',
-                            fill: true,
-                            tension: 0.4
-                        },
-                        {
-                            label: 'Admin Console Traffic',
-                            data: [40, 42, 45, 43, 44, 50, 45],
-                            borderColor: '#10B981', // Green
-                            borderDash: [5, 5],
-                            tension: 0.2
-                        }
-                    ]
+                    labels: ['Service: Academic', 'Service: Billing', 'Service: Auth', 'BFF: Parent', 'BFF: Admin'],
+                    datasets: [{
+                        label: 'Auto-Scaling Pod Count (Peak)',
+                        data: [12, 5, 3, 20, 4],
+                        backgroundColor: ['#3B82F6', '#10B981', '#F59E0B', '#8B5CF6', '#EF4444'],
+                        borderRadius: 8
+                    }]
                 },
                 options: {
                     responsive: true,
                     maintainAspectRatio: false,
-                    plugins: {
-                        legend: { position: 'bottom' },
-                        tooltip: {
-                            mode: 'index',
-                            intersect: false,
-                            callbacks: {
-                                footer: (items) => {
-                                    if(items[0].label.includes('Mar') || items[0].label.includes('Jun')) {
-                                        return "Insight: Parent BFF scales up automatically independently of Admin BFF.";
-                                    }
-                                    return "";
-                                }
-                            }
-                        }
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            title: { display: true, text: 'Requests / Sec' }
-                        }
-                    }
+                    scales: { y: { beginAtZero: true } }
                 }
             });
         });
