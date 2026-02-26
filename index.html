@@ -288,6 +288,7 @@
                             <button onclick="scrollToSection('communication'); closeDropdowns()">Communication</button>
                             <button onclick="scrollToSection('data-ownership'); closeDropdowns()">Data Ownership</button>
                             <button onclick="scrollToSection('request-flow'); closeDropdowns()">Request Flow</button>
+                            <button onclick="scrollToSection('api-flow'); closeDropdowns()">API Flow</button>
                         </div>
                     </div>
 
@@ -318,6 +319,7 @@
                 <button onclick="scrollToSection('communication'); toggleMobileMenu()" class="nav-link">Communication</button>
                 <button onclick="scrollToSection('data-ownership'); toggleMobileMenu()" class="nav-link">Data Ownership</button>
                 <button onclick="scrollToSection('request-flow'); toggleMobileMenu()" class="nav-link">Request Flow</button>
+                <button onclick="scrollToSection('api-flow'); toggleMobileMenu()" class="nav-link">API Flow</button>
                 <button onclick="scrollToSection('resilience'); toggleMobileMenu()" class="nav-link">Resilience</button>
                 <button onclick="scrollToSection('observability'); toggleMobileMenu()" class="nav-link">Observability</button>
                 <button onclick="scrollToSection('events'); toggleMobileMenu()" class="nav-link">Events</button>
@@ -2272,6 +2274,211 @@ WHERE fa.school_id = ?
         </div>
     </section>
 
+    <!-- API Interaction Flow Section -->
+    <section id="api-flow" class="py-12 bg-gradient-to-br from-slate-900 via-blue-950 to-indigo-950 border-t border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Header -->
+            <div class="mb-10">
+                <div class="flex items-center justify-between mb-4">
+                    <h2 class="text-3xl font-bold text-white">API Interaction Flow</h2>
+                    <button class="glossary-btn" onclick="openGlossary('api-flow')" title="View API Flow glossary">?</button>
+                </div>
+                <p class="text-gray-300">Watch how requests travel from Frontend → BFF → API Gateway → Microservices → back. Real scenarios with parallel data aggregation.</p>
+            </div>
+
+            <!-- Scenario Selector Tabs -->
+            <div class="flex flex-wrap gap-3 mb-8">
+                <button onclick="loadApiScenario('dashboard')" class="api-scenario-tab active px-5 py-2 rounded-full text-sm font-bold transition-all bg-gradient-to-r from-blue-500 to-cyan-500 text-white hover:from-blue-600 hover:to-cyan-600">📊 Student Dashboard</button>
+                <button onclick="loadApiScenario('attendance')" class="api-scenario-tab px-5 py-2 rounded-full text-sm font-bold transition-all text-gray-300 hover:text-white bg-slate-700 hover:bg-slate-600">✓ Mark Attendance</button>
+                <button onclick="loadApiScenario('payment')" class="api-scenario-tab px-5 py-2 rounded-full text-sm font-bold transition-all text-gray-300 hover:text-white bg-slate-700 hover:bg-slate-600">💳 Process Payment</button>
+            </div>
+
+            <!-- Main Flow Visualization -->
+            <div class="mb-8 grid grid-cols-1 lg:grid-cols-3 gap-6">
+                <!-- Left: SVG Flow Diagram -->
+                <div class="lg:col-span-2">
+                    <div class="bg-slate-800/50 rounded-xl border border-slate-700 p-6 backdrop-blur-sm">
+                        <h3 class="text-lg font-bold text-white mb-4">Request Journey</h3>
+                        <div class="overflow-x-auto">
+                            <svg id="apiFlowSvg" viewBox="0 0 900 400" class="w-full min-h-96 bg-slate-900/50 rounded-lg border border-slate-700">
+                                <defs>
+                                    <!-- Gradients for nodes -->
+                                    <linearGradient id="gradFrontend" x1="0%" y1="0%" x2="0%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#06B6D4;stop-opacity:0.4" />
+                                        <stop offset="100%" style="stop-color:#0891B2;stop-opacity:0.2" />
+                                    </linearGradient>
+                                    <linearGradient id="gradBff" x1="0%" y1="0%" x2="0%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#3B82F6;stop-opacity:0.4" />
+                                        <stop offset="100%" style="stop-color:#2563EB;stop-opacity:0.2" />
+                                    </linearGradient>
+                                    <linearGradient id="gradGateway" x1="0%" y1="0%" x2="0%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#8B5CF6;stop-opacity:0.4" />
+                                        <stop offset="100%" style="stop-color:#7C3AED;stop-opacity:0.2" />
+                                    </linearGradient>
+                                    <linearGradient id="gradService" x1="0%" y1="0%" x2="0%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#EC4899;stop-opacity:0.4" />
+                                        <stop offset="100%" style="stop-color:#DB2777;stop-opacity:0.2" />
+                                    </linearGradient>
+                                    <linearGradient id="gradCache" x1="0%" y1="0%" x2="0%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#F59E0B;stop-opacity:0.4" />
+                                        <stop offset="100%" style="stop-color:#D97706;stop-opacity:0.2" />
+                                    </linearGradient>
+                                    <!-- Arrow markers -->
+                                    <marker id="arrowActive" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                                        <path d="M0,0 L0,6 L9,3 z" fill="#06B6D4" />
+                                    </marker>
+                                </defs>
+
+                                <!-- Column 1: Frontend -->
+                                <rect x="20" y="80" width="100" height="60" rx="8" fill="url(#gradFrontend)" stroke="#06B6D4" stroke-width="2" class="api-node" data-node="frontend"/>
+                                <text x="70" y="115" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Frontend</text>
+                                <text x="70" y="130" text-anchor="middle" fill="#B0E0E6" font-size="10">(React/RN)</text>
+
+                                <!-- Arrow 1: Frontend → BFF -->
+                                <line x1="120" y1="110" x2="160" y2="110" stroke="#4B5563" stroke-width="2" class="api-edge" data-edge="frontend-bff"/>
+                                <polygon points="160,110 170,110 165,105" fill="#4B5563" class="api-edge-arrow" data-edge="frontend-bff"/>
+
+                                <!-- Column 2: BFF + Redis -->
+                                <rect x="170" y="50" width="100" height="60" rx="8" fill="url(#gradBff)" stroke="#3B82F6" stroke-width="2" class="api-node" data-node="bff"/>
+                                <text x="220" y="85" text-anchor="middle" fill="white" font-weight="bold" font-size="12">BFF</text>
+                                <text x="220" y="100" text-anchor="middle" fill="#93C5FD" font-size="10">(Aggregation)</text>
+
+                                <rect x="170" y="140" width="100" height="50" rx="8" fill="url(#gradCache)" stroke="#F59E0B" stroke-width="2" class="api-node" data-node="redis"/>
+                                <text x="220" y="170" text-anchor="middle" fill="white" font-weight="bold" font-size="12">Redis Cache</text>
+
+                                <!-- Arrow: BFF → Gateway -->
+                                <line x1="270" y1="80" x2="310" y2="80" stroke="#4B5563" stroke-width="2" class="api-edge" data-edge="bff-gateway"/>
+                                <polygon points="310,80 320,80 315,75" fill="#4B5563" class="api-edge-arrow" data-edge="bff-gateway"/>
+
+                                <!-- Column 3: API Gateway -->
+                                <rect x="320" y="50" width="100" height="60" rx="8" fill="url(#gradGateway)" stroke="#8B5CF6" stroke-width="2" class="api-node" data-node="gateway"/>
+                                <text x="370" y="85" text-anchor="middle" fill="white" font-weight="bold" font-size="12">API Gateway</text>
+                                <text x="370" y="100" text-anchor="middle" fill="#D8B4FE" font-size="10">(JWT, Rate Limit)</text>
+
+                                <!-- Arrow: Gateway → Services -->
+                                <line x1="420" y1="80" x2="460" y2="80" stroke="#4B5563" stroke-width="2" class="api-edge" data-edge="gateway-services"/>
+                                <polygon points="460,80 470,80 465,75" fill="#4B5563" class="api-edge-arrow" data-edge="gateway-services"/>
+
+                                <!-- Column 4: Microservices (Parallel) -->
+                                <g class="api-services-group">
+                                    <!-- Academic Service -->
+                                    <rect x="470" y="20" width="90" height="50" rx="8" fill="url(#gradService)" stroke="#EC4899" stroke-width="2" class="api-node" data-node="academic"/>
+                                    <text x="515" y="50" text-anchor="middle" fill="white" font-weight="bold" font-size="11">Academic</text>
+
+                                    <!-- Billing Service -->
+                                    <rect x="470" y="85" width="90" height="50" rx="8" fill="url(#gradService)" stroke="#EC4899" stroke-width="2" class="api-node" data-node="billing"/>
+                                    <text x="515" y="115" text-anchor="middle" fill="white" font-weight="bold" font-size="11">Billing</text>
+
+                                    <!-- Communication Service -->
+                                    <rect x="470" y="150" width="90" height="50" rx="8" fill="url(#gradService)" stroke="#EC4899" stroke-width="2" class="api-node" data-node="communication"/>
+                                    <text x="515" y="180" text-anchor="middle" fill="white" font-weight="bold" font-size="11">Communication</text>
+
+                                    <!-- Auth Service -->
+                                    <rect x="470" y="215" width="90" height="50" rx="8" fill="url(#gradService)" stroke="#EC4899" stroke-width="2" class="api-node" data-node="auth" style="opacity:0.5;"/>
+                                    <text x="515" y="245" text-anchor="middle" fill="white" font-weight="bold" font-size="11">Auth</text>
+                                </g>
+
+                                <!-- Services back to BFF -->
+                                <line x1="470" y1="45" x2="430" y2="45" x-offset="20" stroke="#4B5563" stroke-width="2" class="api-edge" data-edge="academic-bff"/>
+                                <line x1="470" y1="110" x2="430" y2="110" stroke="#4B5563" stroke-width="2" class="api-edge" data-edge="billing-bff"/>
+                                <line x1="470" y1="175" x2="430" y2="175" stroke="#4B5563" stroke-width="2" class="api-edge" data-edge="comm-bff"/>
+
+                                <!-- BFF back to Frontend -->
+                                <line x1="170" y1="60" x2="120" y2="110" stroke="#4B5563" stroke-width="2" class="api-edge" data-edge="bff-frontend"/>
+                                <polygon points="120,110 110,115 115,105" fill="#4B5563" class="api-edge-arrow" data-edge="bff-frontend"/>
+
+                                <!-- Step Labels -->
+                                <g class="api-step-labels" opacity="0.6">
+                                    <text x="70" y="30" text-anchor="middle" fill="#93C5FD" font-size="10" font-weight="bold">Step 1</text>
+                                    <text x="220" y="30" text-anchor="middle" fill="#93C5FD" font-size="10" font-weight="bold">Step 2-3</text>
+                                    <text x="370" y="30" text-anchor="middle" fill="#93C5FD" font-size="10" font-weight="bold">Step 4-5</text>
+                                    <text x="515" y="290" text-anchor="middle" fill="#93C5FD" font-size="10" font-weight="bold">Parallel Calls</text>
+                                </g>
+
+                                <!-- Legend -->
+                                <text x="20" y="350" fill="#9CA3AF" font-size="11">Legend:</text>
+                                <rect x="100" y="340" width="8" height="8" fill="#06B6D4"/>
+                                <text x="115" y="347" fill="#9CA3AF" font-size="10">Frontend</text>
+
+                                <rect x="200" y="340" width="8" height="8" fill="#3B82F6"/>
+                                <text x="215" y="347" fill="#9CA3AF" font-size="10">BFF</text>
+
+                                <rect x="270" y="340" width="8" height="8" fill="#8B5CF6"/>
+                                <text x="285" y="347" fill="#9CA3AF" font-size="10">Gateway</text>
+
+                                <rect x="380" y="340" width="8" height="8" fill="#EC4899"/>
+                                <text x="395" y="347" fill="#9CA3AF" font-size="10">Services</text>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Step Details Panel -->
+                <div class="lg:col-span-1">
+                    <div class="bg-slate-800/80 rounded-xl border border-slate-700 p-6 backdrop-blur-sm sticky top-20 max-h-96 overflow-y-auto">
+                        <div class="mb-4">
+                            <div class="flex items-center justify-between mb-3">
+                                <span class="text-xs font-bold text-gray-400 uppercase tracking-wider">Step <span id="apiStepNum">1</span> of 6</span>
+                                <span class="text-xs px-2 py-1 rounded-full bg-blue-900 text-blue-200" id="apiStepLayer">Client</span>
+                            </div>
+                            <h4 id="apiStepTitle" class="text-lg font-bold text-white mb-2">Frontend Request</h4>
+                        </div>
+
+                        <div class="mb-4">
+                            <p id="apiStepDesc" class="text-sm text-gray-300 leading-relaxed mb-4">Parent app sends GET /dashboard with JWT in Authorization header. BFF endpoint receives.</p>
+                        </div>
+
+                        <div class="mb-4">
+                            <div class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">Code</div>
+                            <pre id="apiStepCode" class="bg-slate-900 text-slate-100 text-xs p-3 rounded border border-slate-700 overflow-x-auto max-h-40 font-mono"><code>GET /api/v1/dashboard
+Authorization: Bearer eyJhbGc...
+X-School-ID: 101
+X-Client: parent-mobile</code></pre>
+                        </div>
+
+                        <div class="pt-3 border-t border-slate-700">
+                            <div class="text-xs text-gray-400 font-mono">
+                                <span id="apiActiveNodes" class="block">Active: Frontend → BFF</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step Controls -->
+            <div class="flex items-center justify-center gap-4 mb-12">
+                <button onclick="apiPrevStep()" class="px-4 py-2 rounded-lg bg-slate-700 text-white hover:bg-slate-600 transition font-bold">◀ Previous</button>
+                <button onclick="toggleApiAutoPlay()" id="apiAutoPlayBtn" class="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-500 transition font-bold">▶ Auto Play</button>
+                <button onclick="apiNextStep()" class="px-4 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-500 transition font-bold">Next ▶</button>
+                <button onclick="apiResetFlow()" class="px-4 py-2 rounded-lg bg-slate-700 text-white hover:bg-slate-600 transition font-bold">↻ Reset</button>
+            </div>
+
+            <!-- Key Concepts Footer -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="bg-slate-800/50 rounded-lg border border-slate-700 p-4 backdrop-blur-sm">
+                    <div class="text-2xl mb-2">⚡</div>
+                    <div class="font-bold text-white text-sm mb-2">Parallel Calls</div>
+                    <p class="text-xs text-gray-400">BFF uses Promise.all to call services simultaneously — not one-by-one. Faster responses.</p>
+                </div>
+                <div class="bg-slate-800/50 rounded-lg border border-slate-700 p-4 backdrop-blur-sm">
+                    <div class="text-2xl mb-2">🔴</div>
+                    <div class="font-bold text-white text-sm mb-2">Redis Caching</div>
+                    <p class="text-xs text-gray-400">Aggregated response cached in Redis with TTL. Second request returns in &lt;5ms.</p>
+                </div>
+                <div class="bg-slate-800/50 rounded-lg border border-slate-700 p-4 backdrop-blur-sm">
+                    <div class="text-2xl mb-2">🔗</div>
+                    <div class="font-bold text-white text-sm mb-2">BFF Per Client</div>
+                    <p class="text-xs text-gray-400">Parent BFF ≠ Teacher BFF. Each formats response for its specific client type.</p>
+                </div>
+                <div class="bg-slate-800/50 rounded-lg border border-slate-700 p-4 backdrop-blur-sm">
+                    <div class="text-2xl mb-2">🛡️</div>
+                    <div class="font-bold text-white text-sm mb-2">JWT at Gateway</div>
+                    <p class="text-xs text-gray-400">Token validated once. Services trust gateway-forwarded headers securely.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Database Strategy Explorer -->
     <section id="db-explorer" class="py-12 bg-gray-50 border-t border-gray-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -3978,6 +4185,434 @@ WHERE fa.school_id = ?
                 box.style.filter = 'brightness(1)';
             });
         }
+
+        // ==================== API FLOW SECTION ====================
+
+        // State for API flow simulation
+        const apiFlowState = {
+            currentScenario: 'dashboard',
+            currentStep: 1,
+            autoPlayInterval: null,
+            isAutoPlaying: false
+        };
+
+        // API Scenarios Data
+        const apiScenarios = {
+            dashboard: {
+                title: '📊 Load Student Dashboard',
+                actor: 'Parent App',
+                description: 'Parent views child\'s dashboard: grades, invoices, messages. BFF aggregates data from 3 services in parallel.',
+                steps: [
+                    {
+                        id: 1,
+                        layer: 'client',
+                        title: 'Frontend Request',
+                        description: 'Parent app sends GET /dashboard with JWT in Authorization header. BFF endpoint receives request.',
+                        code: `GET /api/v1/dashboard
+Authorization: Bearer eyJhbGc...
+X-School-ID: 101
+X-Client: parent-mobile`,
+                        activeNodes: ['frontend', 'bff'],
+                        activeEdges: ['frontend-bff']
+                    },
+                    {
+                        id: 2,
+                        layer: 'bff',
+                        title: 'BFF — Cache Check',
+                        description: 'Parent BFF decodes JWT, extracts student_id. Checks Redis for cached dashboard. MISS → proceeds to services.',
+                        code: `const cached = await redis.get(\`dashboard:student:\${studentId}\`);
+if (cached) return JSON.parse(cached); // CACHE HIT
+// MISS: forward to gateway`,
+                        activeNodes: ['bff', 'redis'],
+                        activeEdges: ['bff-redis']
+                    },
+                    {
+                        id: 3,
+                        layer: 'gateway',
+                        title: 'API Gateway — Validate & Route',
+                        description: 'JWT signature verified. School context (school_id=101) extracted. Routed to 3 services.',
+                        code: `const payload = jwt.verify(token, SECRET);
+const { school_id, student_id } = payload;
+// Forward to: academic, billing, communication`,
+                        activeNodes: ['bff', 'gateway'],
+                        activeEdges: ['bff-gateway']
+                    },
+                    {
+                        id: 4,
+                        layer: 'services',
+                        title: 'Parallel Service Calls (⚡ 3 simultaneously)',
+                        description: 'BFF fires 3 calls at same time using Promise.all(). No waiting one-by-one — response time = slowest service.',
+                        code: `const [grades, invoices, messages] = await Promise.all([
+  academicSvc.getGrades(studentId),
+  billingSvc.getInvoices(studentId),
+  commSvc.getMessages(studentId)
+]);`,
+                        activeNodes: ['gateway', 'academic', 'billing', 'communication'],
+                        activeEdges: ['gateway-services', 'academic-bff', 'billing-bff', 'comm-bff']
+                    },
+                    {
+                        id: 5,
+                        layer: 'bff',
+                        title: 'BFF Aggregates Response',
+                        description: 'BFF merges 3 service responses into one typed shape. Stores in Redis with TTL=60s for cache hits.',
+                        code: `const dashboard = {
+  student: { name: 'Alice', class: '10A' },
+  grades, invoices, messages
+};
+await redis.set(\`dashboard:\${studentId}\`,
+  JSON.stringify(dashboard), 'EX', 60);`,
+                        activeNodes: ['bff', 'redis'],
+                        activeEdges: ['academic-bff', 'billing-bff', 'comm-bff', 'bff-redis']
+                    },
+                    {
+                        id: 6,
+                        layer: 'client',
+                        title: 'Response to Frontend',
+                        description: 'One clean JSON response arrives. Frontend renders grades, invoices, messages all at once. No waterfalling delays.',
+                        code: `{
+  "student": { "name": "Alice", "class": "10A" },
+  "grades": [{ "subject": "Math", "score": 95 }],
+  "invoices": [{ "amount": 5000, "due": "2024-03-15" }],
+  "messages": [{ "from": "Teacher", "text": "..." }]
+}`,
+                        activeNodes: ['frontend', 'bff'],
+                        activeEdges: ['bff-frontend']
+                    }
+                ]
+            },
+            attendance: {
+                title: '✓ Mark Attendance',
+                actor: 'Teacher App',
+                description: 'Teacher marks attendance for class. Single service call with cache invalidation.',
+                steps: [
+                    {
+                        id: 1,
+                        layer: 'client',
+                        title: 'Frontend Request',
+                        description: 'Teacher app sends POST /attendance with body containing date, student list. Optimistic UI update.',
+                        code: `POST /api/v1/attendance
+Content-Type: application/json
+Authorization: Bearer eyJhbGc...
+{
+  "date": "2024-02-26",
+  "records": [{"student_id": 1, "status": "present"}]
+}`,
+                        activeNodes: ['frontend', 'bff'],
+                        activeEdges: ['frontend-bff']
+                    },
+                    {
+                        id: 2,
+                        layer: 'bff',
+                        title: 'BFF — Validate Request',
+                        description: 'BFF validates school_id from JWT matches request. Invalidates related cache keys (dashboards, reports).',
+                        code: `const { school_id } = jwt.decode(token);
+await redis.del(\`attendance:school:\${school_id}\`);
+await redis.del(\`reports:school:\${school_id}\`);
+// Forward to Academic Service`,
+                        activeNodes: ['bff', 'redis'],
+                        activeEdges: ['bff-redis']
+                    },
+                    {
+                        id: 3,
+                        layer: 'gateway',
+                        title: 'API Gateway — Route to Single Service',
+                        description: 'Request routed to Academic Service only. Rate limiter checks quota. Single service = simpler flow.',
+                        code: `// Single service path
+const response = await httpClient.post(
+  'academic-service/attendance',
+  body,
+  { headers: gatewayHeaders }
+);`,
+                        activeNodes: ['bff', 'gateway'],
+                        activeEdges: ['bff-gateway']
+                    },
+                    {
+                        id: 4,
+                        layer: 'services',
+                        title: 'Academic Service Persists',
+                        description: 'Academic service stores attendance in database. Returns confirmation + generated report ID.',
+                        code: `const records = await db.attendance.insert(body.records);
+const reportId = generateReportId();
+await db.reports.create({ reportId, school_id });
+return { success: true, reportId };`,
+                        activeNodes: ['gateway', 'academic'],
+                        activeEdges: ['gateway-services', 'academic-bff']
+                    },
+                    {
+                        id: 5,
+                        layer: 'bff',
+                        title: 'BFF Returns Success',
+                        description: 'BFF receives response from service. Returns typed response to Frontend. No aggregation needed here.',
+                        code: `return {
+  status: 'created',
+  message: 'Attendance marked successfully',
+  reportId: reportId,
+  timestamp: new Date().toISOString()
+};`,
+                        activeNodes: ['bff'],
+                        activeEdges: ['academic-bff']
+                    },
+                    {
+                        id: 6,
+                        layer: 'client',
+                        title: 'Frontend Receives Confirmation',
+                        description: 'Optimistic UI confirmed. Teacher sees success toast. Background: cache invalidation ensures next dashboard fetch is fresh.',
+                        code: `toast.success('Attendance marked');
+// Frontend already showed optimistic update
+// Next /dashboard call will refetch from services`,
+                        activeNodes: ['frontend', 'bff'],
+                        activeEdges: ['bff-frontend']
+                    }
+                ]
+            },
+            payment: {
+                title: '💳 Process Fee Payment',
+                actor: 'Admin Dashboard',
+                description: 'Process payment: call Billing + Communication (receipt email). Sequential for consistency.',
+                steps: [
+                    {
+                        id: 1,
+                        layer: 'client',
+                        title: 'Frontend Request',
+                        description: 'Admin dashboard submits payment: student, amount, method. Requires strong consistency.',
+                        code: `POST /api/v1/payments/process
+Authorization: Bearer eyJhbGc...
+{
+  "student_id": 42,
+  "amount": 5000,
+  "method": "bank_transfer",
+  "invoiceId": "INV-2024-001"
+}`,
+                        activeNodes: ['frontend', 'bff'],
+                        activeEdges: ['frontend-bff']
+                    },
+                    {
+                        id: 2,
+                        layer: 'bff',
+                        title: 'BFF — Pre-Payment Checks',
+                        description: 'BFF decodes JWT, validates school authorization. Checks idempotency key to prevent double charges.',
+                        code: `const { school_id } = jwt.decode(token);
+const idempotencyKey = request.headers['idempotency-key'];
+const existing = await redis.get(idempotencyKey);
+if (existing) return existing; // idempotent replay`,
+                        activeNodes: ['bff', 'redis'],
+                        activeEdges: ['bff-redis']
+                    },
+                    {
+                        id: 3,
+                        layer: 'gateway',
+                        title: 'API Gateway — Validate & Route',
+                        description: 'JWT verified. Payment requires strong security. Routed to Billing Service first.',
+                        code: `// Validate JWT signature for payment
+const payload = jwt.verify(token, SECRET);
+if (!payload.permissions.includes('payment_process'))
+  throw new UnauthorizedError();`,
+                        activeNodes: ['bff', 'gateway'],
+                        activeEdges: ['bff-gateway']
+                    },
+                    {
+                        id: 4,
+                        layer: 'services',
+                        title: '1️⃣ Billing Service Processes Payment',
+                        description: 'Sequential (not parallel): Billing service processes payment, updates invoice, records transaction. Ensures consistency.',
+                        code: `const transaction = await db.transactions.create({
+  student_id, amount, method, timestamp
+});
+await db.invoices.update(invoiceId, {
+  status: 'paid', paid_at: now()
+});
+return { transactionId: transaction.id, status: 'success' };`,
+                        activeNodes: ['gateway', 'billing'],
+                        activeEdges: ['gateway-services', 'billing-bff']
+                    },
+                    {
+                        id: 5,
+                        layer: 'services',
+                        title: '2️⃣ Communication Service Sends Receipt',
+                        description: 'After Billing succeeds, Communication sends receipt email. Sequential ensures email only on successful payment.',
+                        code: `// Only called after Billing succeeds
+await commService.sendEmail({
+  to: student.email,
+  template: 'payment_receipt',
+  data: { amount, transactionId, date: now() }
+});
+return { email_sent: true };`,
+                        activeNodes: ['communication'],
+                        activeEdges: ['comm-bff']
+                    },
+                    {
+                        id: 6,
+                        layer: 'client',
+                        title: 'BFF Returns Confirmation',
+                        description: 'Both services succeeded. Cache payment result. Return to frontend: transaction ID, receipt email sent confirmation.',
+                        code: `const result = {
+  transactionId, status: 'completed',
+  receiptEmailSent: true,
+  amount, timestamp: now()
+};
+// Cache for 24 hours
+await redis.set(idempotencyKey, result, 'EX', 86400);
+return result;`,
+                        activeNodes: ['frontend', 'bff'],
+                        activeEdges: ['bff-frontend']
+                    }
+                ]
+            }
+        };
+
+        // Load a scenario
+        function loadApiScenario(scenarioKey) {
+            apiFlowState.currentScenario = scenarioKey;
+            apiFlowState.currentStep = 1;
+            apiFlowState.isAutoPlaying = false;
+
+            // Update tab styling
+            document.querySelectorAll('.api-scenario-tab').forEach(btn => {
+                btn.classList.remove('active');
+                btn.style.background = '';
+                btn.style.color = '';
+            });
+            event.target.classList.add('active');
+            event.target.style.background = 'linear-gradient(to right, #3B82F6, #06B6D4)';
+            event.target.style.color = 'white';
+
+            // Reset auto play button
+            document.getElementById('apiAutoPlayBtn').textContent = '▶ Auto Play';
+
+            updateApiFlowUI();
+        }
+
+        // Navigate to next step
+        function apiNextStep() {
+            const scenario = apiScenarios[apiFlowState.currentScenario];
+            if (apiFlowState.currentStep < scenario.steps.length) {
+                apiFlowState.currentStep++;
+            } else {
+                apiFlowState.currentStep = 1; // Wrap around
+            }
+            updateApiFlowUI();
+        }
+
+        // Navigate to previous step
+        function apiPrevStep() {
+            if (apiFlowState.currentStep > 1) {
+                apiFlowState.currentStep--;
+            } else {
+                apiFlowState.currentStep = 6; // Wrap around
+            }
+            updateApiFlowUI();
+        }
+
+        // Reset to step 1
+        function apiResetFlow() {
+            apiFlowState.currentStep = 1;
+            apiFlowState.isAutoPlaying = false;
+            document.getElementById('apiAutoPlayBtn').textContent = '▶ Auto Play';
+            updateApiFlowUI();
+        }
+
+        // Toggle auto-play
+        function toggleApiAutoPlay() {
+            apiFlowState.isAutoPlaying = !apiFlowState.isAutoPlaying;
+            const btn = document.getElementById('apiAutoPlayBtn');
+
+            if (apiFlowState.isAutoPlaying) {
+                btn.textContent = '⏸ Pause';
+                btn.style.background = '#EF4444';
+                apiFlowState.autoPlayInterval = setInterval(() => {
+                    apiNextStep();
+                }, 2500); // 2.5 seconds per step
+            } else {
+                btn.textContent = '▶ Auto Play';
+                btn.style.background = '';
+                clearInterval(apiFlowState.autoPlayInterval);
+            }
+        }
+
+        // Update the UI with current step details
+        function updateApiFlowUI() {
+            const scenario = apiScenarios[apiFlowState.currentScenario];
+            const step = scenario.steps[apiFlowState.currentStep - 1];
+
+            // Update step details panel
+            document.getElementById('apiStepNum').textContent = apiFlowState.currentStep;
+            document.getElementById('apiStepLayer').textContent = step.layer.charAt(0).toUpperCase() + step.layer.slice(1);
+            document.getElementById('apiStepTitle').textContent = step.title;
+            document.getElementById('apiStepDesc').textContent = step.description;
+            document.getElementById('apiStepCode').textContent = step.code;
+
+            // Update active nodes display
+            const activeStr = step.activeNodes.join(' → ');
+            document.getElementById('apiActiveNodes').textContent = 'Active: ' + activeStr;
+
+            // Highlight active nodes in SVG
+            highlightApiNodes(step.activeNodes, step.activeEdges);
+        }
+
+        // Highlight nodes and edges in SVG
+        function highlightApiNodes(nodeIds, edgeIds) {
+            // Reset all nodes
+            document.querySelectorAll('.api-node').forEach(node => {
+                node.style.opacity = '0.3';
+                node.style.filter = 'brightness(0.6)';
+            });
+
+            // Reset all edges
+            document.querySelectorAll('.api-edge').forEach(edge => {
+                edge.style.opacity = '0.2';
+                edge.style.stroke = '#4B5563';
+            });
+            document.querySelectorAll('.api-edge-arrow').forEach(arrow => {
+                arrow.style.opacity = '0.2';
+                arrow.style.fill = '#4B5563';
+            });
+
+            // Highlight active nodes
+            nodeIds.forEach(nodeId => {
+                const nodes = document.querySelectorAll(`[data-node="${nodeId}"]`);
+                nodes.forEach(node => {
+                    node.style.opacity = '1';
+                    node.style.filter = 'brightness(1.3) drop-shadow(0 0 8px currentColor)';
+                });
+            });
+
+            // Highlight active edges
+            edgeIds.forEach(edgeId => {
+                const edges = document.querySelectorAll(`[data-edge="${edgeId}"]`);
+                edges.forEach(edge => {
+                    edge.style.opacity = '1';
+                    edge.style.stroke = '#06B6D4';
+                });
+                const arrows = document.querySelectorAll(`[data-edge="${edgeId}"].api-edge-arrow`);
+                arrows.forEach(arrow => {
+                    arrow.style.opacity = '1';
+                    arrow.style.fill = '#06B6D4';
+                });
+            });
+        }
+
+        // Initialize API flow on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            if (document.getElementById('api-flow')) {
+                // Add glossary terms for API Flow
+                if (!glossaryTerms['api-flow']) {
+                    glossaryTerms['api-flow'] = {
+                        title: 'API Interaction Flow',
+                        terms: [
+                            { term: 'Backend-for-Frontend (BFF)', definition: 'Service layer between frontend and microservices that aggregates data, caches, and formats responses per client type (Mobile vs Web).', example: '👱 Parent mobile app calls Parent BFF. 🍎 Teacher web app calls Teacher BFF. Each BFF shapes response for its UI needs.' },
+                            { term: 'API Gateway', definition: 'Entry point for all service requests. Handles JWT validation, rate limiting, routing to correct service, SSL termination.', example: '🚪 All requests pass through gateway first. Admin Dashboard request → validated → routed to Admin service. Teacher request → validated → routed to Academic service.' },
+                            { term: 'Parallel Microservice Calls', definition: 'BFF uses Promise.all to call multiple services simultaneously, not one-by-one. Response time = slowest service, not sum of all.', example: '⚡ Dashboard needs grades (100ms) + invoices (150ms) + messages (80ms). Parallel = 150ms total. Sequential = 330ms.' },
+                            { term: 'Response Aggregation', definition: 'BFF combines responses from multiple services into single typed shape for frontend. Handles mismatched field names, missing data, reshaping.', example: 'Grades service returns "marks". Invoices service returns "amount". BFF merges both + renames for frontend: { student, grades, invoices }' },
+                            { term: 'Redis Caching Layer', definition: 'BFF caches aggregated responses in Redis with TTL. Second request for same data returns in milliseconds without hitting services.', example: '📊 First dashboard request: 150ms (3 service calls). Cached in Redis. Second request within 60s: <5ms (cache hit).' },
+                            { term: 'Idempotency Keys', definition: 'For payment/critical operations: unique key prevents duplicate processing on network retries. BFF checks key before calling service.', example: '💳 Payment retry with same idempotency-key returns cached result instead of double-charging.' }
+                        ]
+                    };
+                }
+
+                // Load initial scenario
+                loadApiScenario('dashboard');
+            }
+        });
     </script>
 </body>
 </html>
